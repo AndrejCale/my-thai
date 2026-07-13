@@ -2385,7 +2385,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
   top: 0; left: 0;
   width: 100vw; height: 100vh;
   z-index: 2147483647;
-  background: #1A0308;
+  background: radial-gradient(ellipse 90% 80% at 50% 50%, #C4325E 0%, #8B1A3A 55%, #2D060E 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2395,23 +2395,24 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
 }
 #splash.slide-out { transform: translateY(-100%); }
 
+/* Subtle ambient shine */
 #splash::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(196,50,94,0.18) 0%, transparent 70%);
+  background: radial-gradient(ellipse 50% 40% at 50% 45%, rgba(255,255,255,0.08) 0%, transparent 65%);
   pointer-events: none;
 }
 
 #splash-img {
   position: relative;
   z-index: 1;
-  width: min(320px, 68vw);
+  width: min(480px, 78vw);
   height: auto;
   display: block;
   opacity: 0;
-  transform: scale(0.92);
-  animation: splashImgIn 0.9s 0.25s cubic-bezier(0.16,1,0.3,1) forwards;
+  transform: scale(0.9);
+  animation: splashImgIn 1s 0.2s cubic-bezier(0.16,1,0.3,1) forwards;
 }
 @keyframes splashImgIn {
   to { opacity: 1; transform: scale(1); }
@@ -3828,6 +3829,8 @@ startHeroCrossfade();
     if (!link) return;
     const href = link.getAttribute('href');
     if (!href || href.length < 2 || href === '#') return;
+    // Locations handled by page routing — skip curtain
+    if (href === '#locations') { e.preventDefault(); if(window.showLocations) window.showLocations(); return; }
     const target = document.querySelector(href);
     if (!target) return;
     e.preventDefault();
@@ -3915,14 +3918,7 @@ setTimeout(() => { document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-
   window.showLocations = showLocations;
   window.showMain = showMain;
 
-  // Wire nav locations links
-  document.querySelectorAll('a[href="#locations"], a[data-section="locations"]').forEach(a => {
-    a.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      showLocations();
-    });
-  });
+  // Nav locations links already handled by the curtain interceptor above
 
   // Hash routing on load
   if (window.location.hash === '#locations') showLocations();
