@@ -2427,7 +2427,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
   width: 100vw;
   height: 100vh;
   z-index: 2147483647;
-  background: #0A0108;
+  background: #7A1230; /* clearly visible — user sees this instantly */
   pointer-events: all;
   transition: transform 1.2s cubic-bezier(0.76, 0, 0.24, 1);
   overflow: hidden;
@@ -2441,15 +2441,14 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: brightness(0.05);
-  animation: splashBuild 1.8s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
+  opacity: 0;
+  animation: splashImgIn 1.2s 0.15s ease forwards;
 }
-@keyframes splashBuild {
-  0%   { filter: brightness(0.05); }
-  100% { filter: brightness(1); }
+@keyframes splashImgIn {
+  to { opacity: 1; }
 }
 
-/* Shine sweep */
+/* Shine sweep after image is visible */
 #splash::after {
   content: '';
   position: absolute;
@@ -2464,7 +2463,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
     transparent 64%
   );
   transform: translateX(-100%);
-  animation: splashShine 1.4s 2.6s cubic-bezier(0.4,0,0.2,1) forwards;
+  animation: splashShine 1.4s 2.0s cubic-bezier(0.4,0,0.2,1) forwards;
   pointer-events: none;
   z-index: 1;
 }
@@ -3714,7 +3713,7 @@ startHeroCrossfade();
   const curtain = document.getElementById('nav-curtain');
   document.body.classList.add('splashing');
 
-  const MIN_SHOW = 4400; // matches the ~5s Canva animation
+  const MIN_SHOW = 3000; // matches the ~5s Canva animation
   const start = Date.now();
 
   function dismiss() {
