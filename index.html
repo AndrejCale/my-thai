@@ -3659,6 +3659,16 @@ buildLocations();
     if (mob) mob.classList.remove('open');
     document.body.style.overflow = '';
 
+    // If we're on the locations page, jump back to the main page first —
+    // the target section is hidden (inside #main-wrapper) until we do
+    if (document.body.classList.contains('on-locations-page')) {
+      if (window.showMain) window.showMain();
+      requestAnimationFrame(() => {
+        target.scrollIntoView({ behavior: 'instant', block: 'start' });
+      });
+      return;
+    }
+
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 })();
