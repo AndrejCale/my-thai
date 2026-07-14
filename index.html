@@ -259,33 +259,55 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
 
 .mobile-menu {
   position: fixed;
-  top: 70px;
+  top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background: #fff;
+  height: 100dvh;
+  background: linear-gradient(165deg, var(--emerald-deep) 0%, #2D060E 30%, var(--thai-pink-deep) 75%, var(--thai-pink) 100%);
   z-index: 999;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  gap: 2.5rem;
+  padding: 92px 2rem 3rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s;
+  overflow-y: auto;
 }
 
 .mobile-menu.open { opacity: 1; pointer-events: all; }
 
 .mobile-menu a {
   font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  color: var(--thai-pink);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--cream);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s, opacity 0.2s;
+  text-align: center;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid rgba(255,245,248,0.14);
 }
 
-.mobile-menu a:hover { color: var(--thai-pink-deep); }
+.mobile-menu a:first-of-type { border-top: 1px solid rgba(255,245,248,0.14); }
+
+.mobile-menu a:active { color: var(--gold-light); opacity: 0.8; }
+
+.mobile-menu a.mobile-link-cta {
+  margin-top: 1.75rem;
+  border: 1px solid var(--gold-border);
+  border-bottom: 1px solid var(--gold-border);
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  color: var(--emerald-deep);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 1rem 0;
+}
 
 .mobile-menu .nav-reserve {
   font-size: 0.9rem;
@@ -2686,8 +2708,7 @@ html { -webkit-overflow-scrolling: touch; }
   <a href="#locations" class="mobile-link">Locations</a>
   <a href="#events" class="mobile-link">Events</a>
   <a href="#jobs" class="mobile-link">Jobs</a>
-  <a href="#contact" class="mobile-link">Kontakt</a>
-  <a href="#contact" class="nav-reserve">Kontakt</a>
+  <a href="#contact" class="mobile-link mobile-link-cta">Kontakt</a>
 </div>
 
 <div id="main-wrapper"><!-- HERO -->
