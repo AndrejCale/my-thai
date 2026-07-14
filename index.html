@@ -676,6 +676,13 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
   display: flex;
   width: max-content;
   height: 300px;
+  animation: galleryScroll 32s linear infinite;
+}
+.gallery-strip:hover { animation-play-state: paused; }
+
+@keyframes galleryScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 .gallery-item {
