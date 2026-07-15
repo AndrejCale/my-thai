@@ -11,8 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const burger = document.querySelector('.nav-burger');
   const links = document.querySelector('.nav-links');
   if (burger && links) {
-    burger.addEventListener('click', () => links.classList.toggle('open'));
-    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+    burger.addEventListener('click', () => {
+      const isOpen = links.classList.toggle('open');
+      burger.classList.toggle('open', isOpen);
+      burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      links.classList.remove('open');
+      burger.classList.remove('open');
+    }));
   }
   const y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
@@ -27,7 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
   }
 
-  /* ---- splash intro / curtain reveal on arrival ---- */
+  /* ---- splash intro / curtain reveal on arrival ----
+     The splash plays on every real page load (including refreshes) —
+     it only gets skipped when we arrived via an in-site curtain nav,
+     since the curtain itself already carries that transition. */
   const splash = document.getElementById('splash');
   const curtain = document.getElementById('curtain');
   const curtainFill = curtain ? curtain.querySelector('#curtain-fill') : null;
@@ -36,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (splash) splash.style.display = 'none';
     if (curtain) curtain.style.display = 'none';
     sessionStorage.removeItem('mt_nav_dir');
-    sessionStorage.setItem('mt_visited', '1');
   } else if (curtain && curtain.dataset.pendingReveal) {
     // arrived here via an in-site link — reveal by sliding the curtain panel away
     if (splash) splash.style.display = 'none';
@@ -51,16 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
       anim.onfinish = () => { curtain.style.display = 'none'; };
     });
   } else if (splash) {
-    const visited = sessionStorage.getItem('mt_visited');
-    if (visited) {
-      splash.style.display = 'none';
-    } else {
-      sessionStorage.setItem('mt_visited', '1');
-      setTimeout(() => {
-        splash.classList.add('hide');
-        setTimeout(() => { splash.style.display = 'none'; }, 850);
-      }, 1450);
-    }
+    setTimeout(() => {
+      splash.classList.add('hide');
+      setTimeout(() => { splash.style.display = 'none'; }, 850);
+    }, 1450);
   }
 
   /* ---- intercept in-site links to play a directional curtain wipe ---- */
