@@ -70,6 +70,27 @@
 </head>
 <body>
 
+<div id="curtain"><div id="curtain-fill"><img src="assets/logo.svg" alt=""></div></div>
+<script>
+(function(){
+  var dir = sessionStorage.getItem('mt_nav_dir');
+  if (dir) {
+    var c = document.getElementById('curtain');
+    var f = c.querySelector('#curtain-fill');
+    c.style.display = 'block';
+    f.style.transform = 'translateX(0%)';
+    c.dataset.pendingReveal = dir;
+  }
+})();
+</script>
+
+<div id="splash">
+  <div id="splash-orb"></div>
+  <div id="splash-ring"></div>
+  <img id="splash-logo" src="assets/logo.svg" alt="MY THAI">
+</div>
+
+
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo"><img src="assets/logo.svg" alt="MY THAI"></a>

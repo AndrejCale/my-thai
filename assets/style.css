@@ -128,14 +128,15 @@ button{ font-family:inherit; cursor:pointer; }
 @media (max-width:900px){
   .nav-links{
     position:fixed; inset:0; background:var(--p-400);
-    flex-direction:column; justify-content:center; gap:28px;
+    flex-direction:column; justify-content:center; gap:22px;
     transform:translateX(100%); transition:transform .4s var(--ease);
   }
   .nav-links.open{ transform:translateX(0); }
-  .nav-links a{ font-size:20px; }
+  .nav-links li{ width:100%; text-align:center; }
+  .nav-links a{ font-size:22px; padding:12px 0; display:block; }
   .nav-cta{ display:none; }
   .nav-links .nav-cta.mobile{ display:inline-flex; }
-  .nav-burger{ display:block; z-index:101; }
+  .nav-burger{ display:flex; align-items:center; justify-content:center; width:44px; height:44px; z-index:101; }
 }
 
 /* ---------- Ribbon marquee — signature element ---------- */
@@ -163,6 +164,10 @@ button{ font-family:inherit; cursor:pointer; }
   flex-shrink:0;
 }
 .ribbon-track span::after{ content:'·'; margin-left:28px; opacity:.7; }
+@media (max-width:480px){
+  .ribbon-track span{ font-size:16px; padding:0 18px; }
+  .ribbon-track span::after{ margin-left:18px; }
+}
 
 /* Photo carousel — same technique, images instead of text */
 .carousel-band{ background:var(--p-400); overflow:hidden; padding:22px 0; position:relative; }
@@ -173,15 +178,24 @@ button{ font-family:inherit; cursor:pointer; }
   border:2px solid rgba(255,255,255,.3);
 }
 .carousel-item img{ width:100%; height:100%; object-fit:cover; display:block; }
+@media (max-width:480px){
+  .carousel-item{ width:168px; height:118px; border-radius:12px; }
+  .carousel-group{ gap:12px; padding-right:12px; }
+}
 
 @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 @media (prefers-reduced-motion: reduce){ .ribbon-track, .carousel-track{ animation:none; } }
 
 /* ---------- Footer ---------- */
-.footer{ background:var(--p-950); color:var(--p-100); padding:80px 0 30px; }
+.footer{ background:var(--p-950); color:var(--p-100); padding:70px 0 30px; }
 .footer-grid{
   display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:40px;
   padding-bottom:50px; border-bottom:1px solid rgba(255,255,255,.1);
+}
+@media (max-width:480px){
+  .footer{ padding:56px 0 24px; }
+  .footer-grid{ grid-template-columns:1fr; gap:34px; padding-bottom:36px; }
+  .footer-logo img{ height:72px; }
 }
 .footer h4{ color:var(--p-25); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; font-family:var(--body); font-weight:700; margin-bottom:18px; }
 .footer-links li{ margin-bottom:11px; }
@@ -209,9 +223,12 @@ button{ font-family:inherit; cursor:pointer; }
 /* ---------- Page hero (interior pages) ---------- */
 .page-hero{
   background:var(--p-950);
-  padding:180px 0 90px;
+  padding:130px 0 70px;
   position:relative;
   overflow:hidden;
+}
+@media (max-width:640px){
+  .page-hero{ padding:108px 0 50px; }
 }
 .page-hero::after{
   content:'';
@@ -231,3 +248,88 @@ button{ font-family:inherit; cursor:pointer; }
 /* reveal-on-scroll */
 .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
 .reveal.in{ opacity:1; transform:none; }
+
+/* ===========================================================
+   Splash intro — plays once when the site is first opened.
+   Logo centered on the brand pink, with soft secondary glows.
+=========================================================== */
+#splash{
+  position:fixed; inset:0; z-index:10000;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  background:
+    radial-gradient(55% 55% at 22% 18%, rgba(255,255,255,.14), transparent 60%),
+    radial-gradient(65% 65% at 82% 88%, var(--p-600) 0%, transparent 62%),
+    radial-gradient(80% 80% at 50% 50%, var(--p-500) 0%, transparent 70%),
+    linear-gradient(135deg, var(--p-950) 0%, var(--p-700) 45%, var(--p-400) 100%);
+  transition: transform .8s cubic-bezier(.76,0,.24,1), opacity .6s ease .1s;
+}
+#splash.hide{ transform:translateY(-100%); opacity:.001; pointer-events:none; }
+#splash-orb{
+  position:absolute; width:60vmax; height:60vmax; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.16), transparent 70%);
+  animation: splashDrift 5s ease-in-out infinite alternate;
+  pointer-events:none;
+}
+@keyframes splashDrift{
+  0%{ transform:translate(-8%,-6%) scale(1); }
+  100%{ transform:translate(6%,8%) scale(1.12); }
+}
+#splash-ring{
+  position:absolute; width:220px; height:220px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.35);
+  opacity:0;
+  animation: splashRing 1.8s cubic-bezier(.2,.7,.3,1) .3s infinite;
+}
+@keyframes splashRing{
+  0%{ opacity:.55; transform:scale(.6); }
+  100%{ opacity:0; transform:scale(1.9); }
+}
+#splash-logo{
+  position:relative; z-index:1;
+  height:100px; width:auto;
+  opacity:0; transform:scale(.72);
+  animation: splashLogoIn 1s cubic-bezier(.2,.85,.25,1) .15s forwards;
+  filter: drop-shadow(0 14px 34px rgba(0,0,0,.35));
+}
+@keyframes splashLogoIn{
+  0%{ opacity:0; transform:scale(.62); }
+  60%{ opacity:1; transform:scale(1.06); }
+  100%{ opacity:1; transform:scale(1); }
+}
+@media (prefers-reduced-motion: reduce){
+  #splash{ transition:none; }
+  #splash-orb, #splash-ring, #splash-logo{ animation:none; opacity:1; transform:none; }
+}
+@media (max-width:640px){
+  #splash-logo{ height:72px; filter: drop-shadow(0 8px 20px rgba(0,0,0,.35)); }
+  #splash-ring{ width:150px; height:150px; }
+  #splash-orb{ width:90vmax; height:90vmax; }
+}
+
+/* ===========================================================
+   Page curtain — directional wipe used for in-site navigation.
+   Same palette as the splash, quicker, sweeps left<->right.
+=========================================================== */
+#curtain{
+  position:fixed; inset:0; z-index:9999;
+  display:none; overflow:hidden;
+}
+#curtain-fill{
+  position:absolute; top:0; bottom:0; left:-16vw; width:132vw;
+  display:flex; align-items:center; justify-content:center;
+  background:
+    radial-gradient(70% 70% at 50% 50%, var(--p-500) 0%, transparent 70%),
+    linear-gradient(120deg, var(--p-950) 0%, var(--p-700) 50%, var(--p-400) 100%);
+  clip-path: polygon(9% 0, 100% 0, 91% 100%, 0% 100%);
+  filter: drop-shadow(0 0 55px rgba(189,0,91,.5));
+}
+#curtain img{ height:112px; width:auto; opacity:.92; filter:drop-shadow(0 10px 24px rgba(0,0,0,.3)); }
+@media (max-width:640px){
+  #curtain-fill{
+    left:-24vw; width:148vw; clip-path: polygon(16% 0, 100% 0, 84% 100%, 0% 100%);
+    filter: drop-shadow(0 0 26px rgba(189,0,91,.45));
+  }
+  #curtain img{ height:68px; }
+}
+@media (prefers-reduced-motion: reduce){ #curtain{ display:none !important; } }

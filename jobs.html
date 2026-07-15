@@ -18,7 +18,7 @@
   .role span{ display:block; color:var(--p-500); font-size:13px; margin-top:3px; }
   .role a{ flex:0 0 auto; color:var(--p-400); font-weight:700; font-size:13.5px; }
   .apply-card{
-    background:var(--p-950); border-radius:22px; padding:40px 34px; position:sticky; top:130px;
+    background:var(--p-950); border-radius:22px; padding:40px 34px; position:sticky; top:100px;
   }
   .apply-card p.eyebrow{ color:var(--p-300); } .apply-card p.eyebrow::before{ background:var(--p-300); }
   .apply-card h3{ color:var(--p-25); font-size:26px; margin-top:14px; }
@@ -28,6 +28,27 @@
 </style>
 </head>
 <body>
+
+<div id="curtain"><div id="curtain-fill"><img src="assets/logo.svg" alt=""></div></div>
+<script>
+(function(){
+  var dir = sessionStorage.getItem('mt_nav_dir');
+  if (dir) {
+    var c = document.getElementById('curtain');
+    var f = c.querySelector('#curtain-fill');
+    c.style.display = 'block';
+    f.style.transform = 'translateX(0%)';
+    c.dataset.pendingReveal = dir;
+  }
+})();
+</script>
+
+<div id="splash">
+  <div id="splash-orb"></div>
+  <div id="splash-ring"></div>
+  <img id="splash-logo" src="assets/logo.svg" alt="MY THAI">
+</div>
+
 
 <nav class="nav">
   <div class="nav-inner">

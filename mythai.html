@@ -136,14 +136,15 @@ button{ font-family:inherit; cursor:pointer; }
 @media (max-width:900px){
   .nav-links{
     position:fixed; inset:0; background:var(--p-400);
-    flex-direction:column; justify-content:center; gap:28px;
+    flex-direction:column; justify-content:center; gap:22px;
     transform:translateX(100%); transition:transform .4s var(--ease);
   }
   .nav-links.open{ transform:translateX(0); }
-  .nav-links a{ font-size:20px; }
+  .nav-links li{ width:100%; text-align:center; }
+  .nav-links a{ font-size:22px; padding:12px 0; display:block; }
   .nav-cta{ display:none; }
   .nav-links .nav-cta.mobile{ display:inline-flex; }
-  .nav-burger{ display:block; z-index:101; }
+  .nav-burger{ display:flex; align-items:center; justify-content:center; width:44px; height:44px; z-index:101; }
 }
 
 /* ---------- Ribbon marquee — signature element ---------- */
@@ -171,6 +172,10 @@ button{ font-family:inherit; cursor:pointer; }
   flex-shrink:0;
 }
 .ribbon-track span::after{ content:'·'; margin-left:28px; opacity:.7; }
+@media (max-width:480px){
+  .ribbon-track span{ font-size:16px; padding:0 18px; }
+  .ribbon-track span::after{ margin-left:18px; }
+}
 
 /* Photo carousel — same technique, images instead of text */
 .carousel-band{ background:var(--p-400); overflow:hidden; padding:22px 0; position:relative; }
@@ -181,15 +186,24 @@ button{ font-family:inherit; cursor:pointer; }
   border:2px solid rgba(255,255,255,.3);
 }
 .carousel-item img{ width:100%; height:100%; object-fit:cover; display:block; }
+@media (max-width:480px){
+  .carousel-item{ width:168px; height:118px; border-radius:12px; }
+  .carousel-group{ gap:12px; padding-right:12px; }
+}
 
 @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 @media (prefers-reduced-motion: reduce){ .ribbon-track, .carousel-track{ animation:none; } }
 
 /* ---------- Footer ---------- */
-.footer{ background:var(--p-950); color:var(--p-100); padding:80px 0 30px; }
+.footer{ background:var(--p-950); color:var(--p-100); padding:70px 0 30px; }
 .footer-grid{
   display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:40px;
   padding-bottom:50px; border-bottom:1px solid rgba(255,255,255,.1);
+}
+@media (max-width:480px){
+  .footer{ padding:56px 0 24px; }
+  .footer-grid{ grid-template-columns:1fr; gap:34px; padding-bottom:36px; }
+  .footer-logo img{ height:72px; }
 }
 .footer h4{ color:var(--p-25); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; font-family:var(--body); font-weight:700; margin-bottom:18px; }
 .footer-links li{ margin-bottom:11px; }
@@ -217,9 +231,12 @@ button{ font-family:inherit; cursor:pointer; }
 /* ---------- Page hero (interior pages) ---------- */
 .page-hero{
   background:var(--p-950);
-  padding:180px 0 90px;
+  padding:130px 0 70px;
   position:relative;
   overflow:hidden;
+}
+@media (max-width:640px){
+  .page-hero{ padding:108px 0 50px; }
 }
 .page-hero::after{
   content:'';
@@ -239,6 +256,91 @@ button{ font-family:inherit; cursor:pointer; }
 /* reveal-on-scroll */
 .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
 .reveal.in{ opacity:1; transform:none; }
+
+/* ===========================================================
+   Splash intro — plays once when the site is first opened.
+   Logo centered on the brand pink, with soft secondary glows.
+=========================================================== */
+#splash{
+  position:fixed; inset:0; z-index:10000;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  background:
+    radial-gradient(55% 55% at 22% 18%, rgba(255,255,255,.14), transparent 60%),
+    radial-gradient(65% 65% at 82% 88%, var(--p-600) 0%, transparent 62%),
+    radial-gradient(80% 80% at 50% 50%, var(--p-500) 0%, transparent 70%),
+    linear-gradient(135deg, var(--p-950) 0%, var(--p-700) 45%, var(--p-400) 100%);
+  transition: transform .8s cubic-bezier(.76,0,.24,1), opacity .6s ease .1s;
+}
+#splash.hide{ transform:translateY(-100%); opacity:.001; pointer-events:none; }
+#splash-orb{
+  position:absolute; width:60vmax; height:60vmax; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.16), transparent 70%);
+  animation: splashDrift 5s ease-in-out infinite alternate;
+  pointer-events:none;
+}
+@keyframes splashDrift{
+  0%{ transform:translate(-8%,-6%) scale(1); }
+  100%{ transform:translate(6%,8%) scale(1.12); }
+}
+#splash-ring{
+  position:absolute; width:220px; height:220px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.35);
+  opacity:0;
+  animation: splashRing 1.8s cubic-bezier(.2,.7,.3,1) .3s infinite;
+}
+@keyframes splashRing{
+  0%{ opacity:.55; transform:scale(.6); }
+  100%{ opacity:0; transform:scale(1.9); }
+}
+#splash-logo{
+  position:relative; z-index:1;
+  height:100px; width:auto;
+  opacity:0; transform:scale(.72);
+  animation: splashLogoIn 1s cubic-bezier(.2,.85,.25,1) .15s forwards;
+  filter: drop-shadow(0 14px 34px rgba(0,0,0,.35));
+}
+@keyframes splashLogoIn{
+  0%{ opacity:0; transform:scale(.62); }
+  60%{ opacity:1; transform:scale(1.06); }
+  100%{ opacity:1; transform:scale(1); }
+}
+@media (prefers-reduced-motion: reduce){
+  #splash{ transition:none; }
+  #splash-orb, #splash-ring, #splash-logo{ animation:none; opacity:1; transform:none; }
+}
+@media (max-width:640px){
+  #splash-logo{ height:72px; filter: drop-shadow(0 8px 20px rgba(0,0,0,.35)); }
+  #splash-ring{ width:150px; height:150px; }
+  #splash-orb{ width:90vmax; height:90vmax; }
+}
+
+/* ===========================================================
+   Page curtain — directional wipe used for in-site navigation.
+   Same palette as the splash, quicker, sweeps left<->right.
+=========================================================== */
+#curtain{
+  position:fixed; inset:0; z-index:9999;
+  display:none; overflow:hidden;
+}
+#curtain-fill{
+  position:absolute; top:0; bottom:0; left:-16vw; width:132vw;
+  display:flex; align-items:center; justify-content:center;
+  background:
+    radial-gradient(70% 70% at 50% 50%, var(--p-500) 0%, transparent 70%),
+    linear-gradient(120deg, var(--p-950) 0%, var(--p-700) 50%, var(--p-400) 100%);
+  clip-path: polygon(9% 0, 100% 0, 91% 100%, 0% 100%);
+  filter: drop-shadow(0 0 55px rgba(189,0,91,.5));
+}
+#curtain img{ height:112px; width:auto; opacity:.92; filter:drop-shadow(0 10px 24px rgba(0,0,0,.3)); }
+@media (max-width:640px){
+  #curtain-fill{
+    left:-24vw; width:148vw; clip-path: polygon(16% 0, 100% 0, 84% 100%, 0% 100%);
+    filter: drop-shadow(0 0 26px rgba(189,0,91,.45));
+  }
+  #curtain img{ height:68px; }
+}
+@media (prefers-reduced-motion: reduce){ #curtain{ display:none !important; } }
 
 
 /* ===== per-page styles ===== */
@@ -310,7 +412,8 @@ button{ font-family:inherit; cursor:pointer; }
   .menu-page{ background:var(--p-950); }
   .menu-hero-sub{ font-family:var(--display); font-style:italic; color:var(--p-300); font-size:19px; margin-top:16px; max-width:520px; }
 
-  .search-wrap{ position:sticky; top:0; z-index:40; background:var(--p-950); padding:26px 0 18px; border-bottom:1px solid var(--p-800); }
+  .search-wrap{ position:sticky; top:104px; z-index:40; background:var(--p-950); padding:26px 0 18px; border-bottom:1px solid var(--p-800); }
+  @media (max-width:640px){ .search-wrap{ top:80px; } }
   .search-bar{
     display:flex; align-items:center; gap:12px;
     background:rgba(255,255,255,.05); border:1.5px solid var(--p-700); border-radius:999px;
@@ -326,7 +429,11 @@ button{ font-family:inherit; cursor:pointer; }
   .search-bar input::placeholder{ color:var(--p-600); }
   .search-clear{ background:none; border:none; color:var(--p-300); font-size:20px; line-height:1; display:none; padding:0 2px; }
 
-  .pills{ display:flex; gap:10px; overflow-x:auto; padding:18px 0 4px; scrollbar-width:none; }
+  .pills{
+    display:flex; gap:10px; overflow-x:auto; padding:18px 0 4px; scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg, #000 90%, transparent 100%);
+    mask-image:linear-gradient(90deg, #000 90%, transparent 100%);
+  }
   .pills::-webkit-scrollbar{ display:none; }
   .pill{
     flex:0 0 auto; padding:9px 18px; border-radius:999px; font-size:13px; font-weight:700;
@@ -442,7 +549,8 @@ button{ font-family:inherit; cursor:pointer; }
   @media (max-width:900px){ .kontakt-grid{ grid-template-columns:1fr; } .cf-row-2{ grid-template-columns:1fr; } .contact-form{ padding:28px 22px; } }
 
 
-  .exp-hero{ background:var(--p-950); position:relative; overflow:hidden; padding:170px 0 0; }
+  .exp-hero{ background:var(--p-950); position:relative; overflow:hidden; padding:126px 0 0; }
+  @media (max-width:640px){ .exp-hero{ padding:104px 0 0; } }
   .exp-hero::after{ content:''; position:absolute; inset:0; background:radial-gradient(60% 60% at 15% 20%, rgba(196,50,94,.3), transparent 70%); pointer-events:none; }
   .exp-grid{ display:grid; grid-template-columns:1fr 1fr; align-items:end; gap:40px; position:relative; z-index:1; }
   .exp-copy .eyebrow{ color:var(--p-300); } .exp-copy .eyebrow::before{ background:var(--p-300); }
@@ -478,7 +586,7 @@ button{ font-family:inherit; cursor:pointer; }
   .role span{ display:block; color:var(--p-500); font-size:13px; margin-top:3px; }
   .role a{ flex:0 0 auto; color:var(--p-400); font-weight:700; font-size:13.5px; }
   .apply-card{
-    background:var(--p-950); border-radius:22px; padding:40px 34px; position:sticky; top:130px;
+    background:var(--p-950); border-radius:22px; padding:40px 34px; position:sticky; top:100px;
   }
   .apply-card p.eyebrow{ color:var(--p-300); } .apply-card p.eyebrow::before{ background:var(--p-300); }
   .apply-card h3{ color:var(--p-25); font-size:26px; margin-top:14px; }
@@ -487,7 +595,8 @@ button{ font-family:inherit; cursor:pointer; }
   @media (max-width:860px){ .jobs-grid{ grid-template-columns:1fr; } .apply-card{ position:static; } }
 
 
-  .legal{ background:var(--p-25); padding:170px 0 100px; }
+  .legal{ background:var(--p-50); padding:126px 0 80px; }
+  @media (max-width:640px){ .legal{ padding:104px 0 60px; } }
   .legal .wrap{ max-width:720px; }
   .legal h2{ font-size:22px; margin-top:34px; margin-bottom:10px; }
   .legal p{ color:var(--p-700); font-size:15px; line-height:1.7; }
@@ -499,6 +608,14 @@ button{ font-family:inherit; cursor:pointer; }
 </style>
 </head>
 <body>
+
+<div id="curtain"><div id="curtain-fill"><img id="curtain-logo" alt=""></div></div>
+
+<div id="splash">
+  <div id="splash-orb"></div>
+  <div id="splash-ring"></div>
+  <img id="splash-logo" alt="MY THAI">
+</div>
 
 <nav class="nav">
   <div class="nav-inner">
@@ -1031,6 +1148,12 @@ const LOCATIONS = [
 
 
 document.addEventListener('DOMContentLoaded', () => {
+  const navLogoSrc = document.querySelector('.nav-logo img').src;
+  const splashLogoEl = document.getElementById('splash-logo');
+  const curtainLogoEl = document.getElementById('curtain-logo');
+  if (splashLogoEl) splashLogoEl.src = navLogoSrc;
+  if (curtainLogoEl) curtainLogoEl.src = navLogoSrc;
+
   const burger = document.querySelector('.nav-burger');
   const links = document.querySelector('.nav-links');
   if (burger && links) {
@@ -1207,10 +1330,30 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 })();
 
-  /* ---- router ---- */
+  /* ---- splash intro (plays once per tab session) ---- */
+  const splash = document.getElementById('splash');
+  const curtain = document.getElementById('curtain');
+  const curtainFill = curtain ? curtain.querySelector('#curtain-fill') : null;
+  if (reduce) {
+    if (splash) splash.style.display = 'none';
+  } else if (splash) {
+    if (sessionStorage.getItem('mt_visited')) {
+      splash.style.display = 'none';
+    } else {
+      sessionStorage.setItem('mt_visited', '1');
+      setTimeout(() => {
+        splash.classList.add('hide');
+        setTimeout(() => { splash.style.display = 'none'; }, 850);
+      }, 1450);
+    }
+  }
+
+  /* ---- router, with a directional curtain wipe between pages ---- */
   const pages = ['home','menu','standorte','express','jobs','impressum','datenschutz'];
-  function showPage(name){
-    if (!pages.includes(name)) name = 'home';
+  let currentPage = null;
+  let transitioning = false;
+
+  function swapPage(name){
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + name).classList.add('active');
     document.querySelectorAll('.nav-links a[data-page]').forEach(a => {
@@ -1218,21 +1361,66 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     observeReveals(document.getElementById('page-' + name));
   }
+
+  function goToPage(name, anchor){
+    if (!pages.includes(name)) name = 'home';
+    const finish = () => {
+      if (anchor) {
+        setTimeout(() => {
+          const el = document.getElementById(anchor);
+          if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+        }, 60);
+      } else {
+        window.scrollTo(0,0);
+      }
+    };
+
+    if (reduce || !curtain || !curtainFill || currentPage === null) {
+      swapPage(name);
+      currentPage = name;
+      finish();
+      return;
+    }
+    if (name === currentPage) {
+      swapPage(name);
+      finish();
+      return;
+    }
+
+    transitioning = true;
+    const curIdx = pages.indexOf(currentPage);
+    const tgtIdx = pages.indexOf(name);
+    const dir = tgtIdx >= curIdx ? 'forward' : 'back';
+    const fromX = dir === 'forward' ? '-100%' : '100%';
+    const toX = dir === 'forward' ? '100%' : '-100%';
+
+    curtain.style.display = 'block';
+    const cover = curtainFill.animate(
+      [{ transform:`translateX(${fromX})` }, { transform:'translateX(0%)' }],
+      { duration: 420, easing: 'cubic-bezier(.76,0,.24,1)', fill:'forwards' }
+    );
+    cover.onfinish = () => {
+      swapPage(name);
+      currentPage = name;
+      const reveal = curtainFill.animate(
+        [{ transform:'translateX(0%)' }, { transform:`translateX(${toX})` }],
+        { duration: 420, easing: 'cubic-bezier(.76,0,.24,1)', fill:'forwards' }
+      );
+      reveal.onfinish = () => {
+        curtain.style.display = 'none';
+        transitioning = false;
+        finish();
+      };
+    };
+  }
+
   function route(){
     const raw = location.hash.replace(/^#\/?/, '');
     const segs = raw.split('/').filter(Boolean);
     const target = segs[0] || 'home';
     const anchor = segs[1] || null;
-    showPage(target);
     links.classList.remove('open');
-    if (anchor) {
-      setTimeout(() => {
-        const el = document.getElementById(anchor);
-        if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
-      }, 80);
-    } else {
-      window.scrollTo(0,0);
-    }
+    goToPage(target, anchor);
   }
   window.addEventListener('hashchange', route);
   route();

@@ -10,7 +10,8 @@
   .menu-page{ background:var(--p-950); }
   .menu-hero-sub{ font-family:var(--display); font-style:italic; color:var(--p-300); font-size:19px; margin-top:16px; max-width:520px; }
 
-  .search-wrap{ position:sticky; top:0; z-index:40; background:var(--p-950); padding:26px 0 18px; border-bottom:1px solid var(--p-800); }
+  .search-wrap{ position:sticky; top:104px; z-index:40; background:var(--p-950); padding:26px 0 18px; border-bottom:1px solid var(--p-800); }
+  @media (max-width:640px){ .search-wrap{ top:80px; } }
   .search-bar{
     display:flex; align-items:center; gap:12px;
     background:rgba(255,255,255,.05); border:1.5px solid var(--p-700); border-radius:999px;
@@ -26,7 +27,11 @@
   .search-bar input::placeholder{ color:var(--p-600); }
   .search-clear{ background:none; border:none; color:var(--p-300); font-size:20px; line-height:1; display:none; padding:0 2px; }
 
-  .pills{ display:flex; gap:10px; overflow-x:auto; padding:18px 0 4px; scrollbar-width:none; }
+  .pills{
+    display:flex; gap:10px; overflow-x:auto; padding:18px 0 4px; scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg, #000 90%, transparent 100%);
+    mask-image:linear-gradient(90deg, #000 90%, transparent 100%);
+  }
   .pills::-webkit-scrollbar{ display:none; }
   .pill{
     flex:0 0 auto; padding:9px 18px; border-radius:999px; font-size:13px; font-weight:700;
@@ -82,6 +87,27 @@
 </style>
 </head>
 <body>
+
+<div id="curtain"><div id="curtain-fill"><img src="assets/logo.svg" alt=""></div></div>
+<script>
+(function(){
+  var dir = sessionStorage.getItem('mt_nav_dir');
+  if (dir) {
+    var c = document.getElementById('curtain');
+    var f = c.querySelector('#curtain-fill');
+    c.style.display = 'block';
+    f.style.transform = 'translateX(0%)';
+    c.dataset.pendingReveal = dir;
+  }
+})();
+</script>
+
+<div id="splash">
+  <div id="splash-orb"></div>
+  <div id="splash-ring"></div>
+  <img id="splash-logo" src="assets/logo.svg" alt="MY THAI">
+</div>
+
 
 <nav class="nav">
   <div class="nav-inner">
