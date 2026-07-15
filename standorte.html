@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Standorte — MY THAI</title>
+<meta name="description" content="6 MY THAI Standorte im Rhein-Main-Gebiet — Öffnungszeiten, Adresse, Telefon.">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .loc-section{ background:var(--p-100); padding:90px 0; }
+  .loc-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .loc-card{
+    background:var(--paper); border:1px solid var(--p-100); border-top:3px solid var(--p-400); border-radius:var(--radius);
+    overflow:hidden; scroll-margin-top:110px;
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .loc-card:hover{ transform:translateY(-5px); box-shadow:0 20px 40px -20px rgba(60,10,30,.25); }
+  .loc-photo{ aspect-ratio:4/3; overflow:hidden; }
+  .loc-photo img{ width:100%; height:100%; object-fit:cover; }
+  .loc-body{ padding:22px; }
+  .loc-name{ font-size:20px; margin-bottom:10px; }
+  .loc-row{ display:flex; gap:10px; font-size:13.5px; color:var(--p-600); margin-top:7px; line-height:1.5; }
+  .loc-row svg{ flex:0 0 auto; color:var(--p-400); margin-top:2px; }
+  .loc-actions{ display:flex; gap:10px; margin-top:18px; }
+  .loc-actions a{
+    flex:1; text-align:center; padding:10px 12px; border-radius:999px; font-size:12.5px; font-weight:700;
+    border:1.5px solid var(--p-200); color:var(--p-500);
+  }
+  .loc-actions a.primary{ background:var(--p-400); border-color:var(--p-400); color:var(--p-25); }
+  .loc-actions a:hover{ background:var(--p-50); }
+  .loc-actions a.primary:hover{ background:var(--p-500); }
+  @media (max-width:960px){ .loc-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:620px){ .loc-grid{ grid-template-columns:1fr; } }
+
+  .kontakt-section{ background:var(--p-950); padding:100px 0; position:relative; overflow:hidden; scroll-margin-top:100px; }
+  .kontakt-section::after{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(55% 65% at 90% 15%, rgba(189,0,91,.35), transparent 70%);
+    pointer-events:none;
+  }
+  .kontakt-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:60px; position:relative; z-index:1; }
+  .kontakt-copy .eyebrow{ color:var(--p-300); } .kontakt-copy .eyebrow::before{ background:var(--p-300); }
+  .kontakt-copy h2{ color:var(--p-25); font-size:clamp(30px,4.5vw,44px); margin-top:14px; line-height:1.05; }
+  .kontakt-copy p{ color:var(--p-200); margin-top:16px; font-size:15.5px; line-height:1.65; max-width:400px; }
+  .kontakt-direct{ margin-top:32px; display:flex; flex-direction:column; gap:14px; }
+  .kontakt-direct a{ display:flex; align-items:center; gap:12px; color:var(--p-100); font-size:14.5px; font-weight:600; }
+  .kontakt-direct a svg{ color:var(--p-400); flex:0 0 auto; }
+  .kontakt-direct a:hover{ color:var(--p-25); }
+
+  .contact-form{
+    background:var(--paper); border-radius:22px; padding:38px; box-shadow:0 30px 60px -25px rgba(0,0,0,.5);
+  }
+  .cf-row{ margin-bottom:16px; }
+  .cf-row-2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .contact-form label{ display:block; font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--p-500); margin-bottom:7px; }
+  .contact-form input, .contact-form select, .contact-form textarea{
+    width:100%; border:1.5px solid var(--p-100); border-radius:12px; padding:13px 15px;
+    font-family:var(--body); font-size:14.5px; color:var(--ink); background:var(--p-25);
+    outline:none; transition:border-color .25s, background .25s;
+  }
+  .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus{
+    border-color:var(--p-400); background:var(--paper);
+  }
+  .contact-form textarea{ resize:vertical; min-height:110px; }
+  .contact-form button{ width:100%; justify-content:center; margin-top:6px; border:none; font-size:15px; padding:16px 30px; }
+  .cf-note{ font-size:12px; color:var(--p-400); margin-top:14px; text-align:center; display:none; }
+  .cf-note.show{ display:block; }
+  @media (max-width:900px){ .kontakt-grid{ grid-template-columns:1fr; } .cf-row-2{ grid-template-columns:1fr; } .contact-form{ padding:28px 22px; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/logo.svg" alt="MY THAI"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="menu.html">speisekarte</a></li>
+      <li><a href="standorte.html" class="active">standorte</a></li>
+      <li><a href="express.html">express</a></li>
+      <li><a href="jobs.html">jobs</a></li>
+      <li><a href="standorte.html#kontakt">kontakt</a></li>
+    </ul>
+    <button class="nav-burger" aria-label="Menü"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <p class="eyebrow">standorte</p>
+    <h1>6 Städte.<br>Eine Küche.</h1>
+    <p class="lead">Von Königstein bis Frankfurt — find den MY THAI in deiner Nähe.</p>
+  </div>
+</header>
+
+<section class="loc-section">
+  <div class="wrap">
+    <div class="loc-grid" id="locGrid"></div>
+  </div>
+</section>
+
+<section class="kontakt-section" id="kontakt">
+  <div class="wrap kontakt-grid">
+    <div class="kontakt-copy">
+      <p class="eyebrow">kontakt</p>
+      <h2>Schreib uns.</h2>
+      <p>Frage, Feedback oder Anliegen zu einem Standort — wir melden uns so schnell wie möglich zurück.</p>
+      <div class="kontakt-direct">
+        <a href="mailto:info@my-thai.de">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 6 9 7 9-7"/></svg>
+          info@my-thai.de
+        </a>
+        <a href="https://www.instagram.com/mythai_de/" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+          @mythai_de
+        </a>
+      </div>
+    </div>
+
+    <form class="contact-form" id="contactForm">
+      <div class="cf-row cf-row-2">
+        <div>
+          <label for="cfName">Name</label>
+          <input id="cfName" name="name" type="text" placeholder="Dein Name" required>
+        </div>
+        <div>
+          <label for="cfEmail">E-Mail</label>
+          <input id="cfEmail" name="email" type="email" placeholder="deine@email.de" required>
+        </div>
+      </div>
+      <div class="cf-row">
+        <label for="cfLocation">Standort (optional)</label>
+        <select id="cfLocation" name="location">
+          <option value="">Kein bestimmter Standort</option>
+        </select>
+      </div>
+      <div class="cf-row">
+        <label for="cfMessage">Nachricht</label>
+        <textarea id="cfMessage" name="message" placeholder="Wie können wir helfen?" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-solid">nachricht senden</button>
+      <p class="cf-note" id="cfNote">Danke! Dein E-Mail-Programm öffnet sich gleich mit deiner Nachricht.</p>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="footer-logo"><img src="assets/logo.svg" alt="MY THAI"></a>
+        <p class="footer-tag">Original Thai Food auf offener Flamme — seit über 26 Jahren in eurer Nachbarschaft.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/mythai_de/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4>Speisekarte</h4>
+        <ul class="footer-links">
+          <li><a href="menu.html">Alle Gerichte</a></li>
+          <li><a href="menu.html#vegetarisch">Vegetarisch</a></li>
+          <li><a href="express.html">MY THAI Express</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Standorte</h4>
+        <ul class="footer-links">
+          <li><a href="standorte.html#koenigstein">Königstein</a></li>
+          <li><a href="standorte.html#kelkheim">Kelkheim</a></li>
+          <li><a href="standorte.html">Alle 6 Standorte</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Mehr</h4>
+        <ul class="footer-links">
+          <li><a href="jobs.html">Jobs</a></li>
+          <li><a href="standorte.html#kontakt">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> MY THAI</span>
+      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/locations-data.js"></script>
+<script src="assets/main.js"></script>
+<script>
+(function(){
+  const slug = s => s.toLowerCase().replace(/ü/g,'ue').replace(/ö/g,'oe').replace(/ä/g,'ae').replace(/ß/g,'ss').replace(/[^a-z0-9]+/g,'');
+  const pin = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>`;
+  const clock = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>`;
+  const phoneIco = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8.1 9.6a16 16 0 0 0 6 6l1.1-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg>`;
+
+  document.getElementById('locGrid').innerHTML = LOCATIONS.map(l => `
+    <div class="loc-card" id="${slug(l.name)}">
+      <div class="loc-photo"><img loading="lazy" src="${l.img}" alt="${l.full}"></div>
+      <div class="loc-body">
+        <h3 class="loc-name">${l.full}</h3>
+        <div class="loc-row">${pin}<span>${l.address}<br>${l.city}</span></div>
+        <div class="loc-row">${clock}<span>${l.hours}</span></div>
+        <div class="loc-row">${phoneIco}<span>${l.phone}</span></div>
+        <div class="loc-actions">
+          <a class="primary" href="tel:${l.phoneTel.replace(/\s+/g,'')}">anrufen</a>
+          <a href="${l.maps}" target="_blank" rel="noopener">route</a>
+        </div>
+      </div>
+    </div>`).join('');
+
+  const locSelect = document.getElementById('cfLocation');
+  LOCATIONS.forEach(l => {
+    const opt = document.createElement('option');
+    opt.value = l.name;
+    opt.textContent = 'MY THAI ' + l.name;
+    locSelect.appendChild(opt);
+  });
+
+  const form = document.getElementById('contactForm');
+  const note = document.getElementById('cfNote');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = (data.get('name') || '').toString();
+    const email = (data.get('email') || '').toString();
+    const location = (data.get('location') || '').toString();
+    const message = (data.get('message') || '').toString();
+    const subject = 'Kontaktanfrage von ' + name + (location ? ' — ' + location : '');
+    const body = `Name: ${name}\nE-Mail: ${email}\nStandort: ${location || '—'}\n\nNachricht:\n${message}`;
+    window.location.href = `mailto:info@my-thai.de?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    note.classList.add('show');
+  });
+})();
+</script>
+</body>
+</html>

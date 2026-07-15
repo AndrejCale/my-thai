@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MY THAI Express Oberursel</title>
+<meta name="description" content="MY THAI Express in Oberursel — schnell, frisch, am Bahnhof.">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .exp-hero{ background:var(--p-950); position:relative; overflow:hidden; padding:170px 0 0; }
+  .exp-hero::after{ content:''; position:absolute; inset:0; background:radial-gradient(60% 60% at 15% 20%, rgba(196,50,94,.3), transparent 70%); pointer-events:none; }
+  .exp-grid{ display:grid; grid-template-columns:1fr 1fr; align-items:end; gap:40px; position:relative; z-index:1; }
+  .exp-copy .eyebrow{ color:var(--p-300); } .exp-copy .eyebrow::before{ background:var(--p-300); }
+  .exp-copy h1{ color:var(--p-25); font-size:clamp(42px,6vw,66px); line-height:1.03; margin-top:16px; }
+  .exp-copy p{ color:var(--p-200); font-size:16px; max-width:420px; margin-top:16px; line-height:1.6; }
+  .exp-cta{ margin-top:30px; display:flex; gap:14px; flex-wrap:wrap; }
+  .exp-photo{ border-radius:20px 20px 0 0; overflow:hidden; aspect-ratio:4/3.4; }
+  .exp-photo img{ width:100%; height:100%; object-fit:cover; }
+  @media (max-width:820px){ .exp-grid{ grid-template-columns:1fr; } .exp-photo{ aspect-ratio:16/10; } }
+
+  .feat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .feat{ background:var(--p-25); border:1px solid var(--p-100); border-radius:16px; padding:26px; }
+  .feat svg{ color:var(--p-400); }
+  .feat h3{ font-size:17px; margin-top:14px; }
+  .feat p{ font-size:14px; color:var(--p-600); margin-top:8px; line-height:1.55; }
+  @media (max-width:760px){ .feat-grid{ grid-template-columns:1fr; } }
+
+  .info-band{ background:var(--p-400); }
+  .info-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:30px; text-align:center; padding:60px 0; }
+  .info-grid h4{ color:var(--p-25); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase; font-family:var(--body); font-weight:700; }
+  .info-grid p{ color:var(--p-25); font-family:var(--display); font-size:22px; margin-top:10px; }
+  @media (max-width:700px){ .info-grid{ grid-template-columns:1fr; gap:26px; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/logo.svg" alt="MY THAI"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="menu.html">speisekarte</a></li>
+      <li><a href="standorte.html">standorte</a></li>
+      <li><a href="express.html" class="active">express</a></li>
+      <li><a href="jobs.html">jobs</a></li>
+      <li><a href="standorte.html#kontakt">kontakt</a></li>
+    </ul>
+    <button class="nav-burger" aria-label="Menü"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<header class="exp-hero">
+  <div class="wrap exp-grid">
+    <div class="exp-copy">
+      <p class="eyebrow">neu · am bahnhof oberursel</p>
+      <h1>my thai<br>express.</h1>
+      <p>Original Thai Food, in Minuten fertig. Zum Mitnehmen oder schnell zwischendurch — direkt am Bahnhof Oberursel.</p>
+      <div class="exp-cta">
+        <a href="tel:+4961719718 66" class="btn btn-solid">06171 97 18 66</a>
+        <a href="menu.html" class="btn btn-outline">speisekarte</a>
+      </div>
+    </div>
+    <div class="exp-photo">
+      <img src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/d82926f3-86ff-4549-9978-5a06b2a1f73c/5.png" alt="MY THAI Express Oberursel">
+    </div>
+  </div>
+  <div style="height:70px"></div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <p class="eyebrow" style="text-align:center;display:flex;justify-content:center">der express-gedanke</p>
+    <div class="feat-grid" style="margin-top:36px">
+      <div class="feat">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z"/></svg>
+        <h3>Schnell</h3>
+        <p>Frisch gebraten, in wenigen Minuten fertig — perfekt für die Mittagspause am Bahnhof.</p>
+      </div>
+      <div class="feat">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2c-4 3-6 6-6 10a6 6 0 0 0 12 0c0-4-2-7-6-10Z"/></svg>
+        <h3>Original Thai</h3>
+        <p>Gleiche Küche, gleiche Rezepte wie in allen MY THAI Restaurants — nur schneller serviert.</p>
+      </div>
+      <div class="feat">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>
+        <h3>Am Bahnhof</h3>
+        <p>Feldbergstr. 1, direkt am Bahnhof Oberursel — auf dem Weg zur Arbeit oder nach Hause.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="info-band">
+  <div class="wrap info-grid">
+    <div><h4>Adresse</h4><p>Feldbergstr. 1, Oberursel</p></div>
+    <div><h4>Öffnungszeiten</h4><p>Mo–So 11:00–22:00</p></div>
+    <div><h4>Telefon</h4><p>06171 97 18 66</p></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="footer-logo"><img src="assets/logo.svg" alt="MY THAI"></a>
+        <p class="footer-tag">Original Thai Food auf offener Flamme — seit über 26 Jahren in eurer Nachbarschaft.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/mythai_de/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4>Speisekarte</h4>
+        <ul class="footer-links">
+          <li><a href="menu.html">Alle Gerichte</a></li>
+          <li><a href="menu.html#vegetarisch">Vegetarisch</a></li>
+          <li><a href="express.html">MY THAI Express</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Standorte</h4>
+        <ul class="footer-links">
+          <li><a href="standorte.html#koenigstein">Königstein</a></li>
+          <li><a href="standorte.html#kelkheim">Kelkheim</a></li>
+          <li><a href="standorte.html">Alle 6 Standorte</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Mehr</h4>
+        <ul class="footer-links">
+          <li><a href="jobs.html">Jobs</a></li>
+          <li><a href="standorte.html#kontakt">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> MY THAI</span>
+      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
