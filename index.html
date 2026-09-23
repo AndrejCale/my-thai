@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MY THAI — my thai. my food. my way.</title>
 <meta name="description" content="Original Thai Food auf offener Flamme, frisch zubereitet. 6 Standorte im Rhein-Main-Gebiet.">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/style.css?v=7">
 <style>
   .hero{
     position:relative; min-height:100vh; min-height:100dvh; display:flex; align-items:flex-end;
@@ -55,16 +55,32 @@
   .vibe-name{ position:absolute; left:18px; bottom:16px; z-index:2; color:var(--p-25); font-family:var(--display); font-size:19px; }
   .vibe-name span{ display:block; color:var(--p-200); font-family:var(--body); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; margin-top:2px; }
   @media (max-width:800px){ .vibe-grid{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:480px){ .vibe-grid{ grid-template-columns:1fr; } }
 
-  .mood-section{ background:var(--p-950); overflow:hidden; }
-  .mood-head{ text-align:center; margin-bottom:44px; }
-  .mood-head h2{ color:var(--p-25); font-size:clamp(32px,4.5vw,48px); margin-top:14px; }
-  .mood-strip{ display:flex; gap:18px; padding:0 32px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:8px; }
-  .mood-strip::-webkit-scrollbar{ height:6px; }
-  .mood-strip::-webkit-scrollbar-thumb{ background:var(--p-700); border-radius:6px; }
-  .mood-item{ flex:0 0 auto; width:280px; aspect-ratio:3/4; border-radius:var(--radius); overflow:hidden; scroll-snap-align:start; }
-  .mood-item img{ width:100%; height:100%; object-fit:cover; }
+  /* on phones the 6 square location cards stack full-width and run very
+     long — collapse them behind a toggle so the page doesn't stall here */
+  .vibe-toggle{ display:none; }
+  @media (max-width:480px){
+    .vibe-grid{ grid-template-columns:1fr; }
+    .vibe-collapse{
+      position:relative; max-height:420px; overflow:hidden;
+      transition:max-height .45s var(--ease);
+    }
+    .vibe-collapse::after{
+      content:''; position:absolute; inset:auto 0 0 0; height:90px;
+      background:linear-gradient(0deg, var(--p-100), transparent);
+      opacity:1; transition:opacity .3s ease; pointer-events:none;
+    }
+    .vibe-collapse.expanded{ max-height:3000px; }
+    .vibe-collapse.expanded::after{ opacity:0; }
+    .vibe-toggle{
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      width:100%; margin-top:18px; padding:13px; border-radius:999px;
+      background:none; border:1.5px solid var(--p-400); color:var(--p-400);
+      font-size:13px; font-weight:700; letter-spacing:.02em;
+    }
+    .vibe-toggle svg{ transition:transform .35s var(--ease); }
+    .vibe-toggle.open svg{ transform:rotate(180deg); }
+  }
 
   .cta-band{ background:var(--p-400); padding:80px 0; text-align:center; }
   .cta-band h2{ color:var(--p-25); font-size:clamp(32px,5vw,52px); }
@@ -100,11 +116,11 @@
   <div class="nav-inner">
     <a href="index.html" class="nav-logo"><img src="assets/logo.svg" alt="MY THAI"></a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="menu.html">speisekarte</a></li>
-      <li><a href="standorte.html">standorte</a></li>
-      <li><a href="express.html">express</a></li>
-      <li><a href="jobs.html">jobs</a></li>
-      <li><a href="standorte.html#kontakt">kontakt</a></li>
+      <li><a href="menu.html"><span class="pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v7M4 2v3a2 2 0 0 0 4 0V2M6 11v11"/><path d="M17 2c1.5 3 1.5 6-.5 8L15 11v11"/></svg></span><span class="pill-label">speisekarte</span></a></li>
+      <li><a href="standorte.html"><span class="pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s7-7.58 7-12A7 7 0 0 0 5 10c0 4.42 7 12 7 12Z"/><circle cx="12" cy="10" r="2.4"/></svg></span><span class="pill-label">standorte</span></a></li>
+      <li><a href="express.html"><span class="pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span><span class="pill-label">express</span></a></li>
+      <li><a href="jobs.html"><span class="pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg></span><span class="pill-label">jobs</span></a></li>
+      <li><a href="standorte.html#kontakt"><span class="pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span><span class="pill-label">kontakt</span></a></li>
     </ul>
     <button class="nav-burger" aria-label="Menü"><span></span><span></span><span></span></button>
   </div>
@@ -154,24 +170,48 @@
   </div>
 </section>
 
-<div class="carousel-band">
-  <div class="carousel-track">
-    <div class="carousel-group">
-      <div class="carousel-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/cbd9bafe-4ca8-4188-b939-7aeeeab35701/1+%2834%29.jpg" alt="MY THAI Gericht"></div>
-      <div class="carousel-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/cc129c66-d98a-4760-aeec-86a2fa501114/1+%2864%29.jpg" alt="MY THAI Gericht"></div>
-      <div class="carousel-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/48269a39-10fa-47a3-bdc7-a31122b13c6a/1+%2854%29.jpg" alt="MY THAI Gericht"></div>
-      <div class="carousel-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/f8b6168f-6781-494b-b685-133662e14625/_DSC4971.jpg" alt="MY THAI Gericht"></div>
-      <div class="carousel-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/7de2b7d8-306b-496b-912c-d1b3e1f6a5c5/_DSC4867.JPEG" alt="MY THAI Gericht"></div>
-    </div>
-    <div class="carousel-group">
-      <div class="carousel-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/cbd9bafe-4ca8-4188-b939-7aeeeab35701/1+%2834%29.jpg" alt="MY THAI Gericht"></div>
-      <div class="carousel-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/cc129c66-d98a-4760-aeec-86a2fa501114/1+%2864%29.jpg" alt="MY THAI Gericht"></div>
-      <div class="carousel-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/48269a39-10fa-47a3-bdc7-a31122b13c6a/1+%2854%29.jpg" alt="MY THAI Gericht"></div>
-      <div class="carousel-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/f8b6168f-6781-494b-b685-133662e14625/_DSC4971.jpg" alt="MY THAI Gericht"></div>
-      <div class="carousel-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/7de2b7d8-306b-496b-912c-d1b3e1f6a5c5/_DSC4867.JPEG" alt="MY THAI Gericht"></div>
+<div class="scroll-line" id="scrollLine" aria-hidden="true"></div>
+<section class="gallery-section section reveal">
+  <div class="wrap">
+    <div class="accordion-gallery" id="foodGallery" role="list" aria-label="MY THAI Impressionen">
+      <a class="ag-panel" href="menu.html" role="listitem" aria-label="frisch gewokt">
+        <span class="ag-panel__frame">
+          <span class="ag-panel__media"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/cbd9bafe-4ca8-4188-b939-7aeeeab35701/1+%2834%29.jpg" alt="MY THAI Gericht" draggable="false"></span>
+          <span class="ag-panel__overlay" aria-hidden="true"></span>
+        </span>
+        <span class="ag-panel__label" aria-hidden="true"><span class="ag-panel__bar"></span><span class="ag-panel__text">frisch gewokt</span></span>
+      </a>
+      <a class="ag-panel" href="menu.html" role="listitem" aria-label="auf offener Flamme">
+        <span class="ag-panel__frame">
+          <span class="ag-panel__media"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/cc129c66-d98a-4760-aeec-86a2fa501114/1+%2864%29.jpg" alt="MY THAI Gericht" draggable="false"></span>
+          <span class="ag-panel__overlay" aria-hidden="true"></span>
+        </span>
+        <span class="ag-panel__label" aria-hidden="true"><span class="ag-panel__bar"></span><span class="ag-panel__text">auf offener Flamme</span></span>
+      </a>
+      <a class="ag-panel is-active" href="menu.html" role="listitem" aria-current="true" aria-label="hausgemacht">
+        <span class="ag-panel__frame">
+          <span class="ag-panel__media"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/48269a39-10fa-47a3-bdc7-a31122b13c6a/1+%2854%29.jpg" alt="MY THAI Gericht" draggable="false"></span>
+          <span class="ag-panel__overlay" aria-hidden="true"></span>
+        </span>
+        <span class="ag-panel__label" aria-hidden="true"><span class="ag-panel__bar"></span><span class="ag-panel__text">hausgemacht</span></span>
+      </a>
+      <a class="ag-panel" href="menu.html" role="listitem" aria-label="scharf nach Wunsch">
+        <span class="ag-panel__frame">
+          <span class="ag-panel__media"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/f8b6168f-6781-494b-b685-133662e14625/_DSC4971.jpg" alt="MY THAI Gericht" draggable="false"></span>
+          <span class="ag-panel__overlay" aria-hidden="true"></span>
+        </span>
+        <span class="ag-panel__label" aria-hidden="true"><span class="ag-panel__bar"></span><span class="ag-panel__text">scharf nach Wunsch</span></span>
+      </a>
+      <a class="ag-panel" href="menu.html" role="listitem" aria-label="immer frisch">
+        <span class="ag-panel__frame">
+          <span class="ag-panel__media"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/7de2b7d8-306b-496b-912c-d1b3e1f6a5c5/_DSC4867.JPEG" alt="MY THAI Gericht" draggable="false"></span>
+          <span class="ag-panel__overlay" aria-hidden="true"></span>
+        </span>
+        <span class="ag-panel__label" aria-hidden="true"><span class="ag-panel__bar"></span><span class="ag-panel__text">immer frisch</span></span>
+      </a>
     </div>
   </div>
-</div>
+</section>
 
 <section class="vibe-section section reveal">
   <div class="wrap">
@@ -182,28 +222,20 @@
       </div>
       <a href="standorte.html" class="btn btn-outline on-light">alle standorte</a>
     </div>
-    <div class="vibe-grid">
-      <a class="vibe-card" href="standorte.html#koenigstein"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/313a4eca-ecfd-46e8-940c-2d02104888d4/1.png" alt="MY THAI Königstein"><span class="vibe-name">Königstein<span>Falkensteinerstr. 2</span></span></a>
-      <a class="vibe-card" href="standorte.html#kelkheim"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/5d98b5b0-791a-4c91-8b71-8951ba31e58b/2.png" alt="MY THAI Kelkheim"><span class="vibe-name">Kelkheim<span>Bahnstraße 37</span></span></a>
-      <a class="vibe-card" href="standorte.html#hofheim"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/69fca743-5523-4039-b8f3-048d4b497f0d/k%C3%B6nigstein.png" alt="MY THAI Hofheim"><span class="vibe-name">Hofheim<span>Hauptstraße 42</span></span></a>
-      <a class="vibe-card" href="standorte.html#nordwestzentrum"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/ccbf8033-3558-442d-8c7a-79f7daeff5de/4.png" alt="MY THAI Nordwestzentrum"><span class="vibe-name">Nordwestzentrum<span>Frankfurt am Main</span></span></a>
-      <a class="vibe-card" href="express.html"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/d82926f3-86ff-4549-9978-5a06b2a1f73c/5.png" alt="MY THAI Express Oberursel"><span class="vibe-name">Oberursel<span>MY THAI Express</span></span></a>
-      <a class="vibe-card" href="standorte.html#badsoden"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/62930cd1-32e9-4ba5-8cdc-f06cc019d251/6.png" alt="MY THAI Bad Soden"><span class="vibe-name">Bad Soden<span>Königsteinerstr. 91</span></span></a>
+    <div class="vibe-collapse" id="vibeCollapse">
+      <div class="vibe-grid">
+        <a class="vibe-card" href="standorte.html#koenigstein"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/313a4eca-ecfd-46e8-940c-2d02104888d4/1.png" alt="MY THAI Königstein"><span class="vibe-name">Königstein<span>Falkensteinerstr. 2</span></span></a>
+        <a class="vibe-card" href="standorte.html#kelkheim"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/5d98b5b0-791a-4c91-8b71-8951ba31e58b/2.png" alt="MY THAI Kelkheim"><span class="vibe-name">Kelkheim<span>Bahnstraße 37</span></span></a>
+        <a class="vibe-card" href="standorte.html#hofheim"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/69fca743-5523-4039-b8f3-048d4b497f0d/k%C3%B6nigstein.png" alt="MY THAI Hofheim"><span class="vibe-name">Hofheim<span>Hauptstraße 42</span></span></a>
+        <a class="vibe-card" href="standorte.html#nordwestzentrum"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/ccbf8033-3558-442d-8c7a-79f7daeff5de/4.png" alt="MY THAI Nordwestzentrum"><span class="vibe-name">Nordwestzentrum<span>Frankfurt am Main</span></span></a>
+        <a class="vibe-card" href="express.html"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/d82926f3-86ff-4549-9978-5a06b2a1f73c/5.png" alt="MY THAI Express Oberursel"><span class="vibe-name">Oberursel<span>MY THAI Express</span></span></a>
+        <a class="vibe-card" href="standorte.html#badsoden"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/62930cd1-32e9-4ba5-8cdc-f06cc019d251/6.png" alt="MY THAI Bad Soden"><span class="vibe-name">Bad Soden<span>Königsteinerstr. 91</span></span></a>
+      </div>
     </div>
-  </div>
-</section>
-
-<section class="mood-section section reveal">
-  <div class="mood-head">
-    <p class="eyebrow" style="color:var(--p-300)">my food. my mood.</p>
-    <h2>Frisch. Bunt. Auf offener Flamme.</h2>
-  </div>
-  <div class="mood-strip">
-    <div class="mood-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/cbd9bafe-4ca8-4188-b939-7aeeeab35701/1+%2834%29.jpg" alt="MY THAI Gericht"></div>
-    <div class="mood-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/cc129c66-d98a-4760-aeec-86a2fa501114/1+%2864%29.jpg" alt="MY THAI Gericht"></div>
-    <div class="mood-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/48269a39-10fa-47a3-bdc7-a31122b13c6a/1+%2854%29.jpg" alt="MY THAI Gericht"></div>
-    <div class="mood-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/f8b6168f-6781-494b-b685-133662e14625/_DSC4971.jpg" alt="MY THAI Gericht"></div>
-    <div class="mood-item"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/7de2b7d8-306b-496b-912c-d1b3e1f6a5c5/_DSC4867.JPEG" alt="MY THAI Gericht"></div>
+    <button class="vibe-toggle" id="vibeToggle" aria-expanded="false" aria-controls="vibeCollapse">
+      <span>alle standorte anzeigen</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
   </div>
 </section>
 
@@ -261,6 +293,6 @@
   </div>
 </footer>
 
-<script src="assets/main.js"></script>
+<script src="assets/main.js?v=6"></script>
 </body>
 </html>
