@@ -583,6 +583,14 @@
 
   render();
   updatePillsScrollUI();
+
+  // deep links like menu.html#vegetarisch open that category's tab
+  const hashCat = decodeURIComponent(location.hash.slice(1));
+  const hashPill = hashCat && pillsEl.querySelector(`.pill[data-cat="${CSS.escape(hashCat)}"]`);
+  if (hashPill) {
+    hashPill.click();
+    hashPill.scrollIntoView({ block:'nearest', inline:'center' });
+  }
 })();
 </script>
 </body>

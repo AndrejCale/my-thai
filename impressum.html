@@ -11,6 +11,16 @@
   .legal .wrap{ max-width:720px; }
   .legal h2{ font-size:22px; margin-top:34px; margin-bottom:10px; }
   .legal p{ color:var(--p-700); font-size:15px; line-height:1.7; }
+  .legal p + p{ margin-top:12px; }
+  .legal a{ color:var(--p-400); text-decoration:underline; text-underline-offset:2px; }
+  .legal-card{
+    background:var(--p-25); border:1px solid var(--p-100); border-radius:var(--radius);
+    padding:22px 24px; margin-top:22px;
+  }
+  .legal-card strong{ color:var(--ink); }
+  .legal-meta{ display:grid; grid-template-columns:auto 1fr; gap:4px 18px; margin-top:12px; }
+  .legal-meta dt{ color:var(--p-600); font-size:14px; }
+  .legal-meta dd{ margin:0; color:var(--ink); font-size:14.5px; }
 </style>
 </head>
 <body>
@@ -52,12 +62,20 @@
   <div class="wrap">
     <p class="eyebrow">rechtliches</p>
     <h1 style="margin-top:14px">Impressum</h1>
-    <h2>Angaben gemäß § 5 TMG</h2>
-    <p>MY THAI<br>[Straße, Hausnummer]<br>[PLZ, Ort]</p>
-    <h2>Kontakt</h2>
-    <p>E-Mail: <a href="mailto:info@my-thai.de" style="color:var(--p-400)">info@my-thai.de</a></p>
-    <h2>Hinweis</h2>
-    <p>Diese Seite ist ein Platzhalter im Rahmen des Website-Relaunchs und wird mit den vollständigen, rechtsverbindlichen Angaben ergänzt.</p>
+
+    <div class="legal-card">
+      <p>Verantwortlich für den Inhalt dieser Webseite ist:</p>
+      <p><strong>MY THAI</strong><br>Bahnstraße 37<br>65779 Kelkheim</p>
+      <dl class="legal-meta">
+        <dt>Telefon</dt><dd><a href="tel:+496195725815">(06195) 72 58 15</a></dd>
+        <dt>E-Mail</dt><dd><a href="mailto:info@my-thai.de">info@my-thai.de</a></dd>
+        <dt>St.-Nr.</dt><dd>046 801 30520</dd>
+        <dt>USt-IdNr.</dt><dd>DE 112200710</dd>
+      </dl>
+    </div>
+
+    <h2>Gewährleistungsausschluss</h2>
+    <p>Die Inhalte auf dieser Website werden unter Ausschluss jeglicher Gewährleistung zur Verfügung gestellt, insbesondere für deren Richtigkeit, Vollständigkeit oder deren Geeignetheit für bestimmte Verwendungszwecke sowie bezüglich der Inhalte für deren Freiheit von Rechten Dritter und die Nichtverletzung geistigen Eigentums. Wir können jederzeit ohne vorherige Ankündigung Änderungen am Inhalt dieser Website vornehmen. Wir bemühen uns um ständige Aktualität, sind jedoch nicht zur Aktualisierung des Inhalts dieser Website verpflichtet. Wir übernehmen keine Gewähr für Erreichbarkeit, technische Verwertbarkeit und Virenfreiheit der Internetseiten bzw. übermittelter Dateien.</p>
   </div>
 </main>
 <footer class="footer" style="padding-top:40px">
