@@ -21,9 +21,9 @@ const LOCATIONS = [
   { name:'Oberursel', full:'MY THAI Express Oberursel', address:'Feldbergstr. 1 (am Bahnhof)', city:'61440 Oberursel (Taunus)',
     phone:'06171 971866', phoneTel:'+4961719718 66', hours:'Mo–So 11:00–22:00',
     maps:'https://maps.google.com/?q=Feldbergstr.+1,+61440+Oberursel',
-    img:'https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/d82926f3-86ff-4549-9978-5a06b2a1f73c/5.png' },
+    img:'' }, // the old site's 5.png is a black placeholder, not a photo — swap in a real one when available
   { name:'Bad Soden', full:'MY THAI Bad Soden', address:'Königsteinerstr. 91', city:'65812 Bad Soden am Taunus',
     phone:'06196 9997379', phoneTel:'+4961969997379', hours:'Mo–So 11:00–22:00',
     maps:'https://maps.google.com/?q=Königsteinerstr.+91,+65812+Bad+Soden',
-    img:'https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/62930cd1-32e9-4ba5-8cdc-f06cc019d251/6.png' },
+    img:'' }, // the old site's 6.png is a black placeholder, not a photo — swap in a real one when available
 ];

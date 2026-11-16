@@ -5,55 +5,267 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MY THAI — my thai. my food. my way.</title>
 <meta name="description" content="Original Thai Food auf offener Flamme, frisch zubereitet. 6 Standorte im Rhein-Main-Gebiet.">
-<link rel="stylesheet" href="assets/style.css?v=7">
+<link rel="stylesheet" href="assets/style.css?v=8">
 <style>
-  .hero{
-    position:relative; min-height:100vh; min-height:100dvh; display:flex; align-items:flex-end;
-    background:var(--p-950); overflow:hidden;
+  /* =================== HERO =================== */
+  .hx{
+    position:relative; min-height:100vh; min-height:100dvh; overflow:hidden; isolation:isolate;
+    background:#f6a9cb; display:flex; align-items:center; padding:128px 0 90px;
   }
-  .hero-img{ position:absolute; inset:0; }
-  .hero-img img{ width:100%; height:100%; object-fit:cover; opacity:.55; }
-  .hero-img::after{
-    content:''; position:absolute; inset:0;
-    background:
-      linear-gradient(0deg, var(--p-950) 0%, rgba(28,6,17,.55) 45%, rgba(28,6,17,.25) 100%),
-      linear-gradient(90deg, rgba(28,6,17,.7) 0%, transparent 45%);
-  }
-  .hero-content{ position:relative; z-index:2; width:100%; padding-bottom:90px; }
-  @media (max-width:640px){ .hero-content{ padding-bottom:52px; } }
-  .hero-title{
-    color:var(--p-25); font-size:clamp(44px,9.5vw,120px); line-height:.96;
-    letter-spacing:-.01em; font-weight:400;
-  }
-  @media (max-width:480px){ .hero-title{ font-size:clamp(40px,12vw,52px); } }
-  .hero-title em{ color:var(--p-300); font-style:italic; }
-  .hero-sub{ color:var(--p-200); font-size:17px; max-width:440px; margin-top:22px; line-height:1.6; }
-  .hero-cta{ display:flex; gap:16px; margin-top:38px; flex-wrap:wrap; }
+  @media (max-width:640px){ .hx{ padding:104px 0 150px; } }
 
-  .style-section{ background:var(--p-100); }
+  /* low-res canvas scaled up + blurred = cheap, buttery colour field */
+  .hx-canvas{
+    position:absolute; inset:-6%; width:112%; height:112%; z-index:0;
+    filter:blur(34px) saturate(1.25);
+  }
+  .hx .grain{ z-index:1; opacity:.22; }
+  .hx-wash{
+    position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(90deg, rgba(255,236,246,.42) 0%, rgba(255,236,246,.12) 45%, transparent 70%);
+  }
+
+  .hx .bubble{ z-index:1; animation:bubbleBreathe 10s ease-in-out infinite; }
+  /* slow breathing: each bubble swells and shrinks while drifting a little */
+  @keyframes bubbleBreathe{
+    0%,100%{ transform:translateY(0) scale(.82); }
+    50%{ transform:translateY(-14px) scale(1.18); }
+  }
+  .hx .bubble.b1{ width:180px; height:180px; left:6%; top:16%; }
+  .hx .bubble.b2{ width:90px; height:90px; left:44%; top:12%; animation-duration:8s; animation-delay:-3s; }
+  .hx .bubble.b3{ width:130px; height:130px; left:38%; bottom:8%; animation-duration:13s; animation-delay:-6s; }
+  @media (max-width:900px){
+    .hx .bubble.b2{ display:none; }
+    .hx .bubble.b1{ width:110px; height:110px; left:auto; right:-34px; top:30%; }
+    .hx .bubble.b3{ left:-40px; bottom:auto; top:58%; }
+  }
+
+  .hx-grid{
+    position:relative; z-index:2; display:grid; grid-template-columns:1.05fr 1fr; gap:56px; align-items:center;
+  }
+  @media (max-width:900px){ .hx-grid{ grid-template-columns:1fr; gap:44px; } }
+
+  /* ---------- copy ---------- */
+  .hx-title{
+    font-size:clamp(46px, min(8vw, 13.5vh), 124px); line-height:.92; letter-spacing:-.02em; font-weight:400;
+    margin-top:18px;
+  }
+  @media (max-width:480px){ .hx-title{ font-size:clamp(46px,14vw,60px); } }
+  .hx-line{ display:block; overflow:hidden; padding-bottom:.07em; }
+  .hx-line > span{
+    display:inline-block; transform:translateY(105%);
+    transition:transform 1.1s cubic-bezier(.16,1,.3,1);
+    background:linear-gradient(100deg, var(--p-800) 0%, var(--p-600) 25%, var(--p-400) 45%, var(--p-700) 65%, var(--p-500) 85%, var(--p-800) 100%);
+    background-size:250% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:textFlow 7s linear infinite;
+  }
+  .hx-line:nth-child(2) > span{ transition-delay:.12s; animation-delay:-2.3s; }
+  .hx-line:nth-child(3) > span{
+    transition-delay:.24s; animation-delay:-4.6s; font-style:italic;
+    background-image:linear-gradient(100deg, var(--p-400) 0%, #e8127f 20%, var(--p-600) 40%, var(--p-400) 60%, #ff2f92 80%, var(--p-400) 100%);
+  }
+  .hx.is-in .hx-line > span{ transform:none; }
+
+  .hx-fade{ opacity:0; transform:translateY(16px); transition:opacity .9s ease .45s, transform .9s cubic-bezier(.16,1,.3,1) .45s; }
+  .hx.is-in .hx-fade{ opacity:1; transform:none; }
+  .hx-sub{ color:var(--p-800); font-size:17px; max-width:440px; margin-top:24px; line-height:1.6; }
+  .hx-cta{ display:flex; gap:14px; margin-top:34px; flex-wrap:wrap; }
+
+  /* ---------- photo stage (arch slideshow) ---------- */
+  .hp-wrap{
+    position:relative; justify-self:center; width:min(100%, 500px);
+    opacity:0; transform:translateY(40px) scale(.96);
+    transition:opacity 1s ease .3s, transform 1.2s cubic-bezier(.16,1,.3,1) .3s;
+  }
+  .hx.is-in .hp-wrap{ opacity:1; transform:none; }
+  .hp-stage{
+    position:relative; aspect-ratio:4/5; max-height:72vh; margin:0 auto;
+    border-radius:999px 999px 34px 34px; overflow:hidden; background:var(--p-200);
+    box-shadow:0 40px 80px -30px rgba(99,17,63,.55), 0 0 0 10px rgba(255,255,255,.35);
+  }
+  @media (max-width:900px){ .hp-wrap{ width:min(86%, 380px); } .hp-stage{ max-height:58vh; } }
+  .hp-slide{
+    position:absolute; inset:0; z-index:0;
+    clip-path:circle(0% at 50% 62%);
+    transition:clip-path 1.15s cubic-bezier(.65,0,.35,1);
+  }
+  .hp-slide.is-prev{ z-index:1; clip-path:circle(150% at 50% 62%); }
+  .hp-slide.is-current{ z-index:2; clip-path:circle(150% at 50% 62%); }
+  .hp-slide img{ width:100%; height:100%; object-fit:cover; display:block; transform:scale(1.14); }
+  .hp-slide.is-current img{ animation:hpKenBurns 6.5s linear forwards; }
+  @keyframes hpKenBurns{ to{ transform:scale(1); } }
+
+  .hp-bars{ position:absolute; z-index:3; left:50%; bottom:66px; transform:translateX(-50%); display:flex; gap:5px; width:62%; }
+  .hp-bar{
+    flex:1; height:5px; border-radius:5px; background:rgba(28,6,17,.38); overflow:hidden; border:none; padding:0; cursor:pointer;
+    box-shadow:0 0 0 1px rgba(255,255,255,.35);
+  }
+  .hp-bar span{ display:block; height:100%; width:0; background:var(--g-300); }
+  .hp-bar.done span{ width:100%; }
+  .hp-bar.run span{ animation:hpBar var(--d) linear forwards; }
+  @keyframes hpBar{ to{ width:100%; } }
+
+  .hp-caption{
+    position:absolute; z-index:3; left:50%; bottom:20px; transform:translateX(-50%); padding:9px 18px; border-radius:999px;
+    color:#fff; font-weight:700; font-size:13.5px; letter-spacing:.04em; white-space:nowrap;
+    background:rgba(255,255,255,.18); transition:opacity .35s ease;
+  }
+  .hp-caption span{ display:inline-block; transition:opacity .35s ease, transform .35s ease; }
+  .hp-caption::before{
+    content:''; display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:8px; vertical-align:1px;
+    background:var(--g-300); box-shadow:0 0 0 3px rgba(127,209,168,.3);
+  }
+  .hp-caption.swap span{ opacity:0; transform:translateY(6px); }
+  .hp-caption.hidden{ opacity:0; }
+
+  /* ---------- floating glass cards ---------- */
+  .gc{ position:absolute; z-index:4; transition:transform .6s cubic-bezier(.16,1,.3,1); }
+  .gc-inner{
+    border-radius:18px; padding:14px 18px; display:flex; align-items:center; gap:12px;
+    animation:bubbleFloat 7s ease-in-out infinite; white-space:nowrap;
+    background:rgba(255,255,255,.62); /* opaque enough to read over dark photos */
+  }
+  .gc-a{ top:7%; left:-16%; }
+  .gc-b{ top:27%; right:-12%; }
+  .gc-b .gc-inner{ animation-delay:-2.5s; animation-duration:8s; flex-direction:column; align-items:flex-start; gap:2px; }
+  .gc-c{ bottom:30%; left:-12%; }
+  .gc-c .gc-inner{ animation-delay:-4.8s; animation-duration:9s; }
+  .gc-icon{
+    width:38px; height:38px; border-radius:12px; display:grid; place-items:center; flex:0 0 auto;
+    background:linear-gradient(135deg, var(--g-500), var(--g-700)); color:#fff;
+    box-shadow:0 6px 14px -6px rgba(10,58,44,.6);
+  }
+  .gc-t{ font-weight:800; font-size:14px; color:var(--p-900); line-height:1.25; }
+  .gc-s{ font-size:12px; color:var(--p-700); line-height:1.3; }
+  .gc-big{ font-family:var(--display); font-size:34px; line-height:1; color:var(--g-700); }
+  @media (max-width:900px){
+    .gc-b{ display:none; }
+    .gc-a{ left:-6%; top:6%; }
+    .gc-c{ left:auto; right:-6%; bottom:40%; }
+    .gc-inner{ padding:10px 14px; }
+  }
+
+  /* ---------- basil leaves around the arch ---------- */
+  .hp-wrap .leaf.l1{ width:74px; top:-4%; right:6%; z-index:3; transform:rotate(28deg); }
+  .hp-wrap .leaf.l2{ width:52px; bottom:-3%; left:2%; z-index:5; transform:rotate(-38deg); }
+  .hp-wrap .leaf.l2 img{ animation-duration:7.5s; animation-delay:-2s; }
+  .hp-wrap .leaf.l3{ width:40px; top:48%; right:-6%; z-index:3; transform:rotate(70deg); }
+  .hp-wrap .leaf.l3 img{ animation-duration:5.2s; animation-delay:-3.5s; }
+  @media (max-width:900px){ .hp-wrap .leaf.l3{ display:none; } .hp-wrap .leaf.l1{ width:56px; } }
+
+  /* ---------- curved banner, off-screen in the bottom-right corner ---------- */
+  .hx-band{
+    --R:clamp(180px, 25vw, 390px);
+    position:absolute; z-index:5; pointer-events:none;
+    width:calc(var(--R) * 2); height:calc(var(--R) * 2);
+    right:calc(var(--R) * -1); bottom:calc(var(--R) * -1);
+    animation:hxBandSpin 48s linear infinite;
+    filter:drop-shadow(0 12px 28px rgba(99,17,63,.3));
+  }
+  .hx-band.inner{ animation-duration:70s; animation-direction:reverse; filter:none; }
+  .hx-band text{ font-family:var(--body); font-weight:800; letter-spacing:.02em; }
+  .hx-band.outer text{ font-size:40px; fill:var(--p-400); }
+  .hx-band.inner text{ font-size:21px; fill:var(--g-100); letter-spacing:.06em; }
+  .hx-band-in{ opacity:0; transition:opacity 1s ease .8s; }
+  .hx.is-in .hx-band-in{ opacity:1; }
+  @keyframes hxBandSpin{ to{ transform:rotate(360deg); } }
+
+  /* =================== RESTAURANT SCREEN =================== */
+  .hs{
+    position:relative; height:100vh; height:100dvh; min-height:560px; overflow:hidden;
+    display:grid; place-items:center;
+  }
+  .hs-stage{
+    position:absolute; inset:-30% -20%; display:flex; flex-direction:column; justify-content:center; gap:22px;
+    transform:rotate(-9deg);
+  }
+  .hs-row{ will-change:transform; }
+  .hs-track{ display:flex; gap:22px; width:max-content; animation:hsMarquee var(--dur,60s) linear infinite; }
+  .hs-row.rev .hs-track{ animation-direction:reverse; }
+  .hs-card{
+    flex:0 0 auto; width:340px; aspect-ratio:4/3; border-radius:22px; overflow:hidden;
+    background:var(--p-100); position:relative;
+    border:6px solid rgba(255,255,255,.75);
+    box-shadow:0 30px 60px -28px rgba(99,17,63,.55);
+    transition:transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s;
+  }
+  .hs-row:nth-child(2) .hs-card{ width:420px; }
+  .hs-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .hs-card:hover{ transform:scale(1.06) rotate(1deg); z-index:2; box-shadow:0 36px 70px -24px rgba(99,17,63,.65); }
+  .hs-stage:hover .hs-track{ animation-play-state:paused; }
+  @keyframes hsMarquee{ to{ transform:translateX(-50%); } }
+  @media (max-width:640px){
+    .hs-card{ width:220px; border-radius:14px; }
+    .hs-row:nth-child(2) .hs-card{ width:270px; }
+    .hs-stage, .hs-track{ gap:14px; }
+  }
+  .hs-veil{
+    position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(50% 48% at 50% 50%, rgba(255,232,243,.55) 0%, rgba(255,232,243,.15) 60%, rgba(255,232,243,0) 85%);
+  }
+  .hs-center{
+    position:relative; z-index:2; text-align:center; pointer-events:none;
+    padding:38px 46px 42px; border-radius:32px; margin:0 20px;
+    background:rgba(255,255,255,.42);
+  }
+  @media (max-width:640px){ .hs-center{ padding:28px 22px 32px; border-radius:24px; } }
+  .hs-center .eyebrow{ justify-content:center; }
+  .hs-title{
+    font-size:clamp(40px,7vw,96px); line-height:.95; margin-top:14px; font-weight:400;
+    background:linear-gradient(100deg, var(--p-800), var(--p-600) 25%, var(--p-400) 45%, var(--p-700) 65%, var(--p-500) 85%, var(--p-800));
+    background-size:250% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:textFlow 8s linear infinite;
+  }
+  .hs-title em{ font-style:italic; }
+  .hs-sub{ color:var(--p-800); margin-top:16px; font-size:16px; }
+  .hs-center .btn{ margin-top:26px; pointer-events:auto; }
+  .hs-center .leaf.l4{ width:66px; z-index:3; top:-26px; right:-22px; transform:rotate(36deg); }
+  .hs-center .leaf.l5{ width:44px; z-index:3; bottom:-18px; left:-14px; transform:rotate(-140deg); }
+  .hs-center .leaf.l5 img{ animation-delay:-3s; }
+
+  /* =================== MY STYLE =================== */
+  .style-section{ position:relative; overflow:hidden; background:linear-gradient(160deg, #fcd9ea 0%, #f7b6d4 100%); }
   .style-grid{ display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
+  .style-photo-wrap{ position:relative; }
   .style-photo{
     border-radius:var(--radius); overflow:hidden; aspect-ratio:4/5;
-    box-shadow:
-      0 50px 90px -25px rgba(44,10,27,.5),
-      0 20px 40px -15px rgba(189,0,91,.35);
+    border:8px solid rgba(255,255,255,.7);
+    box-shadow:0 50px 90px -30px rgba(99,17,63,.5), 0 20px 40px -18px rgba(189,0,91,.35);
   }
   .style-photo img{ width:100%; height:100%; object-fit:cover; }
+  .style-photo-wrap .leaf{ width:84px; top:-34px; right:-22px; z-index:2; transform:rotate(30deg); }
+  .style-chip{
+    position:absolute; left:-18px; bottom:28px; z-index:2; border-radius:16px; padding:12px 16px;
+    display:flex; align-items:center; gap:10px; background:rgba(255,255,255,.62);
+    animation:bubbleFloat 8s ease-in-out infinite;
+  }
   .style-copy h2{ font-size:clamp(34px,4.5vw,54px); line-height:1.03; margin-top:16px; }
-  .style-copy p{ color:var(--p-700); font-size:16px; line-height:1.7; margin-top:20px; max-width:420px; }
+  .style-copy p{ color:var(--p-800); font-size:16px; line-height:1.7; margin-top:20px; max-width:420px; }
   .style-cta{ margin-top:32px; }
-  @media (max-width:860px){ .style-grid{ grid-template-columns:1fr; gap:36px; } .style-photo{ aspect-ratio:16/10; } }
+  @media (max-width:860px){ .style-grid{ grid-template-columns:1fr; gap:36px; } .style-photo{ aspect-ratio:16/10; } .style-chip{ left:12px; bottom:14px; } }
 
-  .vibe-section{ background:var(--p-100); }
+  /* =================== GALLERY band =================== */
+  .gallery-section .grain{ z-index:0; }
+  .gallery-section .wrap{ position:relative; z-index:1; }
+
+  /* =================== MY VIBE (locations) =================== */
+  .vibe-section{ background:linear-gradient(180deg, #f7b6d4 0%, #fcd9ea 100%); }
   .vibe-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:44px; flex-wrap:wrap; }
   .vibe-head h2{ font-size:clamp(32px,4.5vw,48px); margin-top:14px; }
   .vibe-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-  .vibe-card{ position:relative; border-radius:var(--radius); overflow:hidden; aspect-ratio:1/1; }
+  .vibe-card{
+    position:relative; border-radius:var(--radius); overflow:hidden; aspect-ratio:1/1;
+    border:6px solid rgba(255,255,255,.7); box-shadow:0 30px 60px -30px rgba(99,17,63,.55);
+    transition:transform .45s var(--ease), box-shadow .45s;
+  }
+  .vibe-card:hover{ transform:translateY(-5px); box-shadow:0 38px 70px -30px rgba(99,17,63,.65); }
   .vibe-card img{ width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease); }
-  .vibe-card::after{ content:''; position:absolute; inset:0; background:linear-gradient(0deg, rgba(28,6,17,.82), transparent 55%); }
+  .vibe-card::after{ content:''; position:absolute; inset:0; background:linear-gradient(0deg, rgba(99,17,63,.78), transparent 55%); }
   .vibe-card:hover img{ transform:scale(1.06); }
-  .vibe-name{ position:absolute; left:18px; bottom:16px; z-index:2; color:var(--p-25); font-family:var(--display); font-size:19px; }
-  .vibe-name span{ display:block; color:var(--p-200); font-family:var(--body); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; margin-top:2px; }
+  .vibe-card .photo-missing{ width:100%; height:100%; }
+  .vibe-name{ position:absolute; left:18px; bottom:16px; z-index:2; color:#fff; font-family:var(--display); font-size:19px; }
+  .vibe-name span{ display:block; color:var(--p-50); font-family:var(--body); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; margin-top:2px; }
   @media (max-width:800px){ .vibe-grid{ grid-template-columns:repeat(2,1fr); } }
 
   /* on phones the 6 square location cards stack full-width and run very
@@ -67,7 +279,7 @@
     }
     .vibe-collapse::after{
       content:''; position:absolute; inset:auto 0 0 0; height:90px;
-      background:linear-gradient(0deg, var(--p-100), transparent);
+      background:linear-gradient(0deg, #fcd9ea, transparent);
       opacity:1; transition:opacity .3s ease; pointer-events:none;
     }
     .vibe-collapse.expanded{ max-height:3000px; }
@@ -75,18 +287,34 @@
     .vibe-toggle{
       display:flex; align-items:center; justify-content:center; gap:8px;
       width:100%; margin-top:18px; padding:13px; border-radius:999px;
-      background:none; border:1.5px solid var(--p-400); color:var(--p-400);
-      font-size:13px; font-weight:700; letter-spacing:.02em;
+      color:var(--p-800); font-size:13px; font-weight:700; letter-spacing:.02em;
     }
     .vibe-toggle svg{ transition:transform .35s var(--ease); }
     .vibe-toggle.open svg{ transform:rotate(180deg); }
   }
 
-  .cta-band{ background:var(--p-400); padding:80px 0; text-align:center; }
-  .cta-band h2{ color:var(--p-25); font-size:clamp(32px,5vw,52px); }
-  .cta-band p{ color:var(--p-50); margin-top:14px; font-size:16px; }
-  .cta-band .hero-cta{ justify-content:center; margin-top:32px; }
-  .cta-band .btn-outline{ border-color:var(--p-25); }
+  /* =================== CTA =================== */
+  .cta-band{ position:relative; overflow:hidden; padding:90px 0; text-align:center; }
+  .cta-band .wrap{ position:relative; z-index:1; }
+  .cta-band h2{
+    font-size:clamp(34px,5vw,56px); font-weight:400;
+    background:linear-gradient(100deg, var(--p-800), var(--p-600) 30%, var(--p-400) 50%, var(--p-700) 70%, var(--p-800));
+    background-size:250% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:textFlow 8s linear infinite;
+  }
+  .cta-band p{ color:var(--p-800); margin-top:14px; font-size:16px; }
+  .cta-band .hx-cta{ justify-content:center; margin-top:32px; }
+  .cta-band .leaf.l6{ width:90px; left:8%; top:18%; transform:rotate(-30deg); }
+  .cta-band .leaf.l7{ width:60px; right:10%; bottom:16%; transform:rotate(140deg); }
+  .cta-band .leaf.l7 img{ animation-delay:-2.5s; }
+  @media (max-width:640px){ .cta-band .leaf.l6{ width:56px; left:-10px; top:10px; } .cta-band .leaf.l7{ width:44px; right:-6px; } }
+
+  @media (prefers-reduced-motion: reduce){
+    .hx-line > span, .hs-title, .gc-inner, .hx-band, .hs-track, .hp-slide.is-current img, .cta-band h2, .style-chip, .hx .bubble{ animation:none; }
+    .hx-line > span{ transform:none; transition:none; }
+    .hx-fade, .hp-wrap, .hx-band-in{ opacity:1; transform:none; transition:none; }
+    .hp-slide{ transition:none; }
+  }
 </style>
 </head>
 <body>
@@ -126,18 +354,65 @@
   </div>
 </nav>
 
-<header class="hero">
-  <div class="hero-img">
-    <img src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/77edab88-0d97-4a53-bc5d-adf643060ac8/MyThai+K%C3%B6nigstein+23+9+2023+%28176%29+%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F.jpg" alt="MY THAI live cooking">
-  </div>
-  <div class="wrap hero-content">
-    <p class="eyebrow" style="color:var(--p-300)">6 standorte · rhein-main</p>
-    <h1 class="hero-title">my thai.<br>my food.<br><em>my way.</em></h1>
-    <p class="hero-sub">Original Thai Food auf offener Flamme, im Moment für dich zubereitet. Immer frisch, nie aus der Wärmelampe.</p>
-    <div class="hero-cta">
-      <a href="menu.html" class="btn btn-solid">speisekarte ansehen</a>
-      <a href="standorte.html" class="btn btn-outline">standort finden</a>
+<header class="hx" id="hx">
+  <canvas class="hx-canvas" id="hxCanvas" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="hx-wash" aria-hidden="true"></div>
+  <span class="bubble glass b1" aria-hidden="true"></span>
+  <span class="bubble glass b2" aria-hidden="true"></span>
+  <span class="bubble glass b3" aria-hidden="true"></span>
+
+  <div class="wrap hx-grid">
+    <div class="hx-copy">
+      <p class="eyebrow hx-fade">6 standorte · rhein-main</p>
+      <h1 class="hx-title">
+        <span class="hx-line"><span>my thai.</span></span>
+        <span class="hx-line"><span>my food.</span></span>
+        <span class="hx-line"><span>my way.</span></span>
+      </h1>
+      <p class="hx-sub hx-fade">Original Thai Food auf offener Flamme, im Moment für dich zubereitet. Immer frisch, nie aus der Wärmelampe.</p>
+      <div class="hx-cta hx-fade">
+        <a href="menu.html" class="btn btn-solid">speisekarte ansehen</a>
+        <a href="#hs" class="btn btn-glass glass" id="hxToPlaces">unsere restaurants</a>
+      </div>
     </div>
+
+    <div class="hp-wrap" id="hpWrap">
+      <div class="hp-stage" id="hpStage" aria-roledescription="Diashow" aria-label="Eindrücke aus unseren Restaurants">
+        <div class="hp-bars" id="hpBars"></div>
+        <div class="hp-caption glass" id="hpCaption"><span></span></div>
+      </div>
+
+      <span class="leaf l1" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
+      <span class="leaf l2" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
+      <span class="leaf l3" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
+
+      <div class="gc gc-a" data-depth="18"><div class="gc-inner glass">
+        <span class="gc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 3 4 4.5 4 9a4 4 0 0 1-8 0c0-2 1-3 1-3s.5 2 2 2c0-3-1-5 1-8Z"/><path d="M12 22a7 7 0 0 0 7-7c0-2-.6-3.6-1.4-4.8"/><path d="M6.4 10.2A8 8 0 0 0 5 15a7 7 0 0 0 7 7"/></svg></span>
+        <span><span class="gc-t">auf offener Flamme</span><br><span class="gc-s">im Moment für dich zubereitet</span></span>
+      </div></div>
+      <div class="gc gc-b" data-depth="-24"><div class="gc-inner glass">
+        <span class="gc-big">6</span><span class="gc-t">Standorte</span><span class="gc-s">im Rhein-Main-Gebiet</span>
+      </div></div>
+      <div class="gc gc-c" data-depth="12"><div class="gc-inner glass">
+        <span class="gc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg></span>
+        <span><span class="gc-t">seit über 26 Jahren</span><br><span class="gc-s">in eurer Nachbarschaft</span></span>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- curved banner: a big ring centred on the bottom-right corner, so only a quarter-arc shows -->
+  <div class="hx-band-in" aria-hidden="true">
+    <svg class="hx-band inner" viewBox="0 0 1000 1000">
+      <defs><path id="bandInner" d="M155,500 a345,345 0 1,1 690,0 a345,345 0 1,1 -690,0"/></defs>
+      <circle cx="500" cy="500" r="345" fill="none" stroke="#0e5e47" stroke-width="46"/>
+      <text dominant-baseline="central"><textPath href="#bandInner" textLength="2165" lengthAdjust="spacing">FRISCH GEWOKT · AUF OFFENER FLAMME · IMMER FRISCH · FRISCH GEWOKT · AUF OFFENER FLAMME · IMMER FRISCH ·</textPath></text>
+    </svg>
+    <svg class="hx-band outer" viewBox="0 0 1000 1000">
+      <defs><path id="bandOuter" d="M60,500 a440,440 0 1,1 880,0 a440,440 0 1,1 -880,0"/></defs>
+      <circle cx="500" cy="500" r="440" fill="none" stroke="#fff" stroke-width="104"/>
+      <text dominant-baseline="central"><textPath href="#bandOuter" textLength="2762" lengthAdjust="spacing">MY THAI · MY WAY · MY FOOD · MY MOOD · MY THAI · MY WAY · MY FOOD · MY MOOD ·</textPath></text>
+    </svg>
   </div>
 </header>
 
@@ -156,22 +431,43 @@
   </div>
 </div>
 
+<section class="hs pink-flow" id="hs">
+  <div class="hs-stage" id="hsStage" aria-hidden="true"></div>
+  <div class="hs-veil" aria-hidden="true"></div>
+  <div class="hs-center glass">
+    <span class="leaf l4" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
+    <span class="leaf l5" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
+    <p class="eyebrow">my places</p>
+    <h2 class="hs-title">6 Standorte.<br><em>Eine Flamme.</em></h2>
+    <p class="hs-sub">Von Königstein bis Frankfurt — jeder mit seiner eigenen Note.</p>
+    <a href="standorte.html" class="btn btn-solid">alle standorte</a>
+  </div>
+</section>
+
 <section class="style-section section reveal">
   <div class="wrap style-grid">
-    <div class="style-photo">
-      <img src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/60f0d951-bfa8-4c6c-a2bd-c2ae85a3ef4a/MyThai_Feb_2026-12.jpg" alt="Frisch gebraten auf der Flamme">
+    <div class="style-photo-wrap">
+      <div class="style-photo">
+        <img src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/60f0d951-bfa8-4c6c-a2bd-c2ae85a3ef4a/MyThai_Feb_2026-12.jpg" alt="Frisch gebraten auf der Flamme">
+      </div>
+      <span class="leaf" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
+      <div class="style-chip glass">
+        <span class="gc-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1 3 4 4.5 4 9a4 4 0 0 1-8 0c0-2 1-3 1-3s.5 2 2 2c0-3-1-5 1-8Z"/></svg></span>
+        <span class="gc-t">frisch gebraten</span>
+      </div>
     </div>
     <div class="style-copy">
       <p class="eyebrow">my style</p>
       <h2>fast n' fresh</h2>
       <p>Hier gibt's immer alles frisch gebraten, mit dem besten Gemüse. Das schmeckt man — ein modernes Live-Cooking-Konzept, original Thai Food auf offener Flamme, im Moment zubereitet.</p>
-      <div class="style-cta"><a href="menu.html" class="btn btn-solid" style="background:var(--p-400);color:var(--p-25)">zur speisekarte</a></div>
+      <div class="style-cta"><a href="menu.html" class="btn btn-solid">zur speisekarte</a></div>
     </div>
   </div>
 </section>
 
 <div class="scroll-line" id="scrollLine" aria-hidden="true"></div>
-<section class="gallery-section section reveal">
+<section class="gallery-section section reveal pink-flow">
+  <div class="grain" aria-hidden="true"></div>
   <div class="wrap">
     <div class="accordion-gallery" id="foodGallery" role="list" aria-label="MY THAI Impressionen">
       <a class="ag-panel" href="menu.html" role="listitem" aria-label="frisch gewokt">
@@ -220,7 +516,7 @@
         <p class="eyebrow">my vibe</p>
         <h2>Jeder Standort, seine eigene Note.</h2>
       </div>
-      <a href="standorte.html" class="btn btn-outline on-light">alle standorte</a>
+      <a href="standorte.html" class="btn btn-glass glass">alle standorte</a>
     </div>
     <div class="vibe-collapse" id="vibeCollapse">
       <div class="vibe-grid">
@@ -228,24 +524,27 @@
         <a class="vibe-card" href="standorte.html#kelkheim"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/5d98b5b0-791a-4c91-8b71-8951ba31e58b/2.png" alt="MY THAI Kelkheim"><span class="vibe-name">Kelkheim<span>Bahnstraße 37</span></span></a>
         <a class="vibe-card" href="standorte.html#hofheim"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/69fca743-5523-4039-b8f3-048d4b497f0d/k%C3%B6nigstein.png" alt="MY THAI Hofheim"><span class="vibe-name">Hofheim<span>Hauptstraße 42</span></span></a>
         <a class="vibe-card" href="standorte.html#nordwestzentrum"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/ccbf8033-3558-442d-8c7a-79f7daeff5de/4.png" alt="MY THAI Nordwestzentrum"><span class="vibe-name">Nordwestzentrum<span>Frankfurt am Main</span></span></a>
-        <a class="vibe-card" href="express.html"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/d82926f3-86ff-4549-9978-5a06b2a1f73c/5.png" alt="MY THAI Express Oberursel"><span class="vibe-name">Oberursel<span>MY THAI Express</span></span></a>
-        <a class="vibe-card" href="standorte.html#badsoden"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/62930cd1-32e9-4ba5-8cdc-f06cc019d251/6.png" alt="MY THAI Bad Soden"><span class="vibe-name">Bad Soden<span>Königsteinerstr. 91</span></span></a>
+        <a class="vibe-card" href="express.html"><div class="photo-missing" aria-hidden="true"><span>express</span></div><span class="vibe-name">Oberursel<span>MY THAI Express</span></span></a>
+        <a class="vibe-card" href="standorte.html#badsoden"><div class="photo-missing" aria-hidden="true"><span>bad soden</span></div><span class="vibe-name">Bad Soden<span>Königsteinerstr. 91</span></span></a>
       </div>
     </div>
-    <button class="vibe-toggle" id="vibeToggle" aria-expanded="false" aria-controls="vibeCollapse">
+    <button class="vibe-toggle glass" id="vibeToggle" aria-expanded="false" aria-controls="vibeCollapse">
       <span>alle standorte anzeigen</span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
     </button>
   </div>
 </section>
 
-<section class="cta-band">
+<section class="cta-band pink-flow">
+  <div class="grain" aria-hidden="true"></div>
+  <span class="leaf l6" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
+  <span class="leaf l7" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
   <div class="wrap">
     <h2>Hungrig geworden?</h2>
     <p>Schau dir die ganze Speisekarte an oder find deinen Standort in der Nähe.</p>
-    <div class="hero-cta">
-      <a href="menu.html" class="btn btn-outline">speisekarte</a>
-      <a href="standorte.html" class="btn btn-outline">standorte</a>
+    <div class="hx-cta">
+      <a href="menu.html" class="btn btn-solid">speisekarte</a>
+      <a href="standorte.html" class="btn btn-glass glass">standorte</a>
     </div>
   </div>
 </section>
@@ -294,5 +593,182 @@
 </footer>
 
 <script src="assets/main.js?v=6"></script>
+<script>
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hero = document.getElementById('hx');
+  const CDN = 'https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/';
+
+  /* ---------- bright flowing pink colour field ---------- */
+  const canvas = document.getElementById('hxCanvas');
+  const ctx = canvas.getContext('2d');
+  const SCALE = 0.14; // render tiny, CSS blurs it up — smooth and cheap
+  const blobs = [
+    { c:[255,79,163],  r:.55, sx:.13, sy:.17, px:0.0, py:1.2, ax:.40, ay:.32, cx:.25, cy:.30 },
+    { c:[232,18,127],  r:.48, sx:.11, sy:.09, px:2.1, py:0.4, ax:.36, ay:.38, cx:.72, cy:.35 },
+    { c:[255,143,197], r:.60, sx:.07, sy:.12, px:4.0, py:2.6, ax:.30, ay:.30, cx:.50, cy:.75 },
+    { c:[255,179,167], r:.40, sx:.17, sy:.14, px:1.3, py:3.9, ax:.42, ay:.28, cx:.35, cy:.60 },
+    { c:[240,150,255], r:.42, sx:.09, sy:.19, px:5.2, py:0.9, ax:.34, ay:.36, cx:.85, cy:.70 },
+    { c:[189,0,91],    r:.34, sx:.21, sy:.11, px:3.3, py:5.1, ax:.38, ay:.30, cx:.15, cy:.85 },
+    { c:[255,214,232], r:.38, sx:.15, sy:.08, px:0.7, py:2.2, ax:.30, ay:.30, cx:.60, cy:.15 },
+  ];
+  const pointer = { x:.7, y:.4, tx:.7, ty:.4 };
+  let W = 0, H = 0;
+
+  function resize(){
+    const r = hero.getBoundingClientRect();
+    W = canvas.width  = Math.max(80, Math.round(r.width * 1.12 * SCALE));
+    H = canvas.height = Math.max(60, Math.round(r.height * 1.12 * SCALE));
+  }
+  function frame(t){
+    const s = t / 1000;
+    ctx.fillStyle = '#f7aed0';
+    ctx.fillRect(0, 0, W, H);
+    const base = Math.max(W, H);
+    blobs.forEach((b, i) => {
+      const x = (b.cx + Math.sin(s * b.sx + b.px) * b.ax) * W;
+      const y = (b.cy + Math.cos(s * b.sy + b.py) * b.ay) * H;
+      const rad = b.r * base * (0.85 + 0.15 * Math.sin(s * 0.3 + i));
+      const g = ctx.createRadialGradient(x, y, 0, x, y, rad);
+      g.addColorStop(0, `rgba(${b.c},.9)`);
+      g.addColorStop(.6, `rgba(${b.c},.3)`);
+      g.addColorStop(1, `rgba(${b.c},0)`);
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    });
+    pointer.x += (pointer.tx - pointer.x) * 0.04;
+    pointer.y += (pointer.ty - pointer.y) * 0.04;
+    const px = pointer.x * W, py = pointer.y * H, pr = base * .3;
+    const pg = ctx.createRadialGradient(px, py, 0, px, py, pr);
+    pg.addColorStop(0, 'rgba(255,240,248,.55)');
+    pg.addColorStop(1, 'rgba(255,240,248,0)');
+    ctx.fillStyle = pg;
+    ctx.fillRect(0, 0, W, H);
+  }
+  let running = false, rafId = 0;
+  function loop(t){ frame(t); if (running) rafId = requestAnimationFrame(loop); }
+  function start(){ if (!running && !reduce){ running = true; rafId = requestAnimationFrame(loop); } }
+  function stop(){ running = false; cancelAnimationFrame(rafId); }
+  resize(); frame(4000);
+  window.addEventListener('resize', () => { resize(); if (!running) frame(4000); });
+  new IntersectionObserver((es) => es.forEach(e => e.isIntersecting ? start() : stop())).observe(hero);
+
+  /* ---------- pointer: colour glow + glass-card parallax ---------- */
+  const cards = [...document.querySelectorAll('.gc')];
+  hero.addEventListener('pointermove', (e) => {
+    const r = hero.getBoundingClientRect();
+    pointer.tx = (e.clientX - r.left) / r.width;
+    pointer.ty = (e.clientY - r.top) / r.height;
+    if (reduce) return;
+    const mx = pointer.tx - .5, my = pointer.ty - .5;
+    cards.forEach(c => {
+      const d = +c.dataset.depth;
+      c.style.transform = `translate(${mx * d}px, ${my * d}px)`;
+    });
+  });
+
+  /* ---------- arch slideshow ---------- */
+  const slides = [
+    { p:'77edab88-0d97-4a53-bc5d-adf643060ac8/MyThai+K%C3%B6nigstein+23+9+2023+%28176%29+%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F.jpg', label:'live cooking' },
+    { p:'313a4eca-ecfd-46e8-940c-2d02104888d4/1.png', label:'Königstein' },
+    { p:'cc129c66-d98a-4760-aeec-86a2fa501114/1+%2864%29.jpg', label:'frisch gewokt' },
+    { p:'5d98b5b0-791a-4c91-8b71-8951ba31e58b/2.png', label:'Kelkheim' },
+    { p:'60f0d951-bfa8-4c6c-a2bd-c2ae85a3ef4a/MyThai_Feb_2026-12.jpg', label:'my style' },
+    { p:'69fca743-5523-4039-b8f3-048d4b497f0d/k%C3%B6nigstein.png', label:'Hofheim' },
+    { p:'48269a39-10fa-47a3-bdc7-a31122b13c6a/1+%2854%29.jpg', label:'scharf nach Wunsch' },
+    { p:'ccbf8033-3558-442d-8c7a-79f7daeff5de/4.png', label:'Nordwestzentrum' },
+    { p:'f8b6168f-6781-494b-b685-133662e14625/_DSC4971.jpg', label:'hausgemacht' },
+  ];
+  const DUR = 4800;
+  const stageEl = document.getElementById('hpStage');
+  const barsEl = document.getElementById('hpBars');
+  const caption = document.getElementById('hpCaption');
+  stageEl.insertAdjacentHTML('afterbegin', slides.map((s, i) =>
+    `<div class="hp-slide"><img ${i > 1 ? 'loading="lazy" ' : ''}src="${CDN + s.p}?format=1000w" alt="${s.label}"></div>`).join(''));
+  barsEl.innerHTML = slides.map((s, i) => `<button class="hp-bar" aria-label="Bild ${i + 1}: ${s.label}"><span></span></button>`).join('');
+  barsEl.style.setProperty('--d', DUR + 'ms');
+  const slideEls = [...stageEl.querySelectorAll('.hp-slide')];
+  const barEls = [...barsEl.querySelectorAll('.hp-bar')];
+  let cur = -1, timer = 0;
+
+  function show(i){
+    i = (i + slides.length) % slides.length;
+    if (i === cur) return;
+    const prev = cur;
+    slideEls.forEach((el, k) => el.classList.toggle('is-prev', k === prev));
+    const next = slideEls[i];
+    next.classList.remove('is-current');
+    void next.offsetWidth; // restart the Ken Burns zoom
+    next.classList.add('is-current');
+    if (prev > -1) slideEls[prev].classList.remove('is-current');
+    // old slides below the "prev" one can collapse unseen
+    setTimeout(() => slideEls.forEach((el, k) => { if (k !== i && k !== prev) el.classList.remove('is-prev'); }), 1200);
+    barEls.forEach((b, k) => { b.classList.toggle('done', k < i); b.classList.remove('run'); });
+    if (!reduce){ void barEls[i].offsetWidth; barEls[i].classList.add('run'); }
+    // the location photos already have the town name printed in the image
+    const baked = slides[i].p.endsWith('.png');
+    caption.classList.add('swap');
+    caption.classList.toggle('hidden', baked);
+    setTimeout(() => { caption.firstElementChild.textContent = slides[i].label; caption.classList.remove('swap'); }, prev > -1 ? 320 : 0);
+    cur = i;
+    clearTimeout(timer);
+    if (!reduce) timer = setTimeout(() => show(cur + 1), DUR);
+  }
+  barEls.forEach((b, k) => b.addEventListener('click', () => show(k)));
+
+  /* ---------- reveal once the splash intro (or the page curtain) is out of the way ---------- */
+  const splash = document.getElementById('splash');
+  let revealed = false;
+  const reveal = () => { if (!revealed){ revealed = true; hero.classList.add('is-in'); show(0); } };
+  if (reduce || !splash || getComputedStyle(splash).display === 'none') reveal();
+  else {
+    new MutationObserver(() => {
+      if (splash.classList.contains('hide') || splash.style.display === 'none') reveal();
+    }).observe(splash, { attributes:true, attributeFilter:['class','style'] });
+    setTimeout(reveal, 2600);
+  }
+
+  /* ---------- "unsere restaurants" scrolls to the restaurant screen ---------- */
+  document.getElementById('hxToPlaces').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('hs').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  /* ---------- moving restaurant screen ---------- */
+  const img = p => CDN + p + '?format=750w';
+  const places = slides.filter(s => s.p.endsWith('.png')).map(s => s.p);
+  const moments = [
+    slides[0].p, slides[4].p,
+    'cbd9bafe-4ca8-4188-b939-7aeeeab35701/1+%2834%29.jpg',
+    slides[2].p, slides[6].p, slides[8].p,
+    '7de2b7d8-306b-496b-912c-d1b3e1f6a5c5/_DSC4867.JPEG',
+  ];
+  const rows = [
+    { items:[places[0], moments[0], places[1], moments[2], places[2]], dur:70, rev:false },
+    { items:[moments[1], places[3], moments[3], places[0], moments[4]], dur:85, rev:true },
+    { items:[places[1], moments[5], places[2], moments[6], places[3]], dur:60, rev:false },
+  ];
+  const hsStage = document.getElementById('hsStage');
+  hsStage.innerHTML = rows.map(r => {
+    const cardsHtml = r.items.map(p => `<div class="hs-card"><img loading="lazy" src="${img(p)}" alt=""></div>`).join('');
+    return `<div class="hs-row${r.rev ? ' rev' : ''}"><div class="hs-track" style="--dur:${r.dur}s">${cardsHtml}${cardsHtml}</div></div>`;
+  }).join('');
+  const screen = document.getElementById('hs');
+  const rowEls = [...hsStage.querySelectorAll('.hs-row')];
+  let ticking = false;
+  function onScroll(){
+    ticking = false;
+    const r = screen.getBoundingClientRect();
+    const p = (window.innerHeight - r.top) / (window.innerHeight + r.height);
+    rowEls.forEach((row, i) => {
+      row.style.transform = `translateX(${(i % 2 ? 1 : -1) * (p - .5) * 22}vw)`;
+    });
+  }
+  if (!reduce){
+    window.addEventListener('scroll', () => { if (!ticking){ ticking = true; requestAnimationFrame(onScroll); } }, { passive:true });
+    onScroll();
+  }
+})();
+</script>
 </body>
 </html>

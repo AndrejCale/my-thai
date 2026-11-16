@@ -5,24 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jobs — MY THAI</title>
 <meta name="description" content="Werde Teil des MY THAI Teams — 6 Standorte, ein Team.">
-<link rel="stylesheet" href="assets/style.css?v=7">
+<link rel="stylesheet" href="assets/style.css?v=8">
 <style>
-  .jobs-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:60px; align-items:start; }
-  .jobs-copy p{ color:var(--p-700); font-size:16px; line-height:1.7; margin-top:18px; max-width:440px; }
+  .jobs-section{ background:linear-gradient(180deg, #f7b6d4 0%, #fcd9ea 100%); position:relative; overflow:hidden; }
+  .jobs-section .leaf.j1{ width:90px; right:4%; bottom:6%; transform:rotate(150deg); }
+  .jobs-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:60px; align-items:start; position:relative; z-index:1; }
+  .jobs-copy p{ color:var(--p-800); font-size:16px; line-height:1.7; margin-top:18px; max-width:440px; }
   .role-list{ margin-top:30px; display:flex; flex-direction:column; gap:12px; }
   .role{
     display:flex; align-items:center; justify-content:space-between; gap:16px;
-    background:var(--paper); border:1px solid var(--p-100); border-radius:14px; padding:18px 20px;
+    background:rgba(255,255,255,.5); border-radius:16px; padding:18px 20px;
+    transition:transform .3s var(--ease);
   }
+  .role:hover{ transform:translateX(4px); }
   .role h4{ font-size:15.5px; }
-  .role span{ display:block; color:var(--p-500); font-size:13px; margin-top:3px; }
-  .role a{ flex:0 0 auto; color:var(--p-400); font-weight:700; font-size:13.5px; }
-  .apply-card{
-    background:var(--p-950); border-radius:22px; padding:40px 34px; position:sticky; top:100px;
+  .role span{ display:block; color:var(--p-700); font-size:13px; margin-top:3px; }
+  .role a{
+    flex:0 0 auto; font-weight:700; font-size:13px; color:#fff; background:var(--g-700);
+    padding:9px 16px; border-radius:999px; transition:background .25s;
   }
-  .apply-card p.eyebrow{ color:var(--p-300); } .apply-card p.eyebrow::before{ background:var(--p-300); }
-  .apply-card h3{ color:var(--p-25); font-size:26px; margin-top:14px; }
-  .apply-card p.copy{ color:var(--p-200); font-size:14.5px; margin-top:14px; line-height:1.6; }
+  .role a:hover{ background:var(--g-900); }
+  .apply-card{
+    position:sticky; top:120px; overflow:hidden; border-radius:26px; padding:40px 34px;
+    background:linear-gradient(150deg, #ff4fa3 0%, var(--p-400) 45%, var(--p-600) 100%);
+    box-shadow:0 34px 70px -30px rgba(99,17,63,.65);
+  }
+  .apply-card::after{
+    content:''; position:absolute; width:120px; aspect-ratio:3/5; right:-20px; bottom:-30px; pointer-events:none;
+    background:url(assets/leaf.svg) center/contain no-repeat; opacity:.55; transform:rotate(-30deg);
+  }
+  .apply-card > *{ position:relative; z-index:1; }
+  .apply-card p.eyebrow{ color:var(--g-100); } .apply-card p.eyebrow::before{ background:var(--g-100); }
+  .apply-card h3{ color:#fff; font-size:28px; margin-top:14px; }
+  .apply-card p.copy{ color:var(--p-25); font-size:14.5px; margin-top:14px; line-height:1.6; }
   .apply-card .btn{ margin-top:24px; width:100%; justify-content:center; }
   @media (max-width:860px){ .jobs-grid{ grid-template-columns:1fr; } .apply-card{ position:static; } }
 </style>
@@ -72,7 +87,8 @@
   </div>
 </header>
 
-<section class="section" style="background:var(--p-100)">
+<section class="section jobs-section">
+  <span class="leaf j1" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
   <div class="wrap jobs-grid">
     <div class="jobs-copy">
       <p class="eyebrow">warum my thai</p>
@@ -80,9 +96,9 @@
       <p>Seit über 26 Jahren kochen wir original Thai Food, frisch vor den Augen unserer Gäste. Werde Teil eines Teams, das zusammenhält.</p>
 
       <div class="role-list">
-        <div class="role"><div><h4>Koch / Köchin</h4><span>Alle Standorte</span></div><a href="mailto:info@my-thai.de?subject=Bewerbung%20Koch">bewerben →</a></div>
-        <div class="role"><div><h4>Service</h4><span>Alle Standorte</span></div><a href="mailto:info@my-thai.de?subject=Bewerbung%20Service">bewerben →</a></div>
-        <div class="role"><div><h4>Aushilfe (Minijob)</h4><span>Nach Standort</span></div><a href="mailto:info@my-thai.de?subject=Bewerbung%20Aushilfe">bewerben →</a></div>
+        <div class="role glass"><div><h4>Koch / Köchin</h4><span>Alle Standorte</span></div><a href="mailto:info@my-thai.de?subject=Bewerbung%20Koch">bewerben →</a></div>
+        <div class="role glass"><div><h4>Service</h4><span>Alle Standorte</span></div><a href="mailto:info@my-thai.de?subject=Bewerbung%20Service">bewerben →</a></div>
+        <div class="role glass"><div><h4>Aushilfe (Minijob)</h4><span>Nach Standort</span></div><a href="mailto:info@my-thai.de?subject=Bewerbung%20Aushilfe">bewerben →</a></div>
       </div>
     </div>
 

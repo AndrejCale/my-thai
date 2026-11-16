@@ -5,65 +5,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Standorte — MY THAI</title>
 <meta name="description" content="6 MY THAI Standorte im Rhein-Main-Gebiet — Öffnungszeiten, Adresse, Telefon.">
-<link rel="stylesheet" href="assets/style.css?v=7">
+<link rel="stylesheet" href="assets/style.css?v=8">
 <style>
-  .loc-section{ background:var(--p-100); padding:90px 0; }
+  .loc-section{ background:linear-gradient(180deg, #f7b6d4 0%, #fcd9ea 100%); padding:90px 0; }
   .loc-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
   .loc-card{
-    background:var(--paper); border:1px solid var(--p-100); border-top:3px solid var(--p-400); border-radius:var(--radius);
-    overflow:hidden; scroll-margin-top:110px;
+    border-radius:var(--radius); overflow:hidden; scroll-margin-top:110px;
+    background:rgba(255,255,255,.5);
+    -webkit-backdrop-filter:blur(14px) saturate(1.4); backdrop-filter:blur(14px) saturate(1.4);
+    border:1px solid rgba(255,255,255,.8);
+    box-shadow:0 26px 50px -30px rgba(99,17,63,.5);
     transition:transform .35s var(--ease), box-shadow .35s var(--ease);
   }
-  .loc-card:hover{ transform:translateY(-5px); box-shadow:0 20px 40px -20px rgba(60,10,30,.25); }
-  .loc-photo{ aspect-ratio:4/3; overflow:hidden; }
-  .loc-photo img{ width:100%; height:100%; object-fit:cover; }
-  .loc-body{ padding:22px; }
+  .loc-card:hover{ transform:translateY(-5px); box-shadow:0 34px 60px -28px rgba(99,17,63,.6); }
+  .loc-photo{ aspect-ratio:4/3; overflow:hidden; margin:8px 8px 0; border-radius:calc(var(--radius) - 6px); }
+  .loc-photo img, .loc-photo .photo-missing{ width:100%; height:100%; object-fit:cover; }
+  .loc-body{ padding:20px 22px 22px; }
   .loc-name{ font-size:20px; margin-bottom:10px; }
-  .loc-row{ display:flex; gap:10px; font-size:13.5px; color:var(--p-600); margin-top:7px; line-height:1.5; }
-  .loc-row svg{ flex:0 0 auto; color:var(--p-400); margin-top:2px; }
+  .loc-row{ display:flex; gap:10px; font-size:13.5px; color:var(--p-800); margin-top:7px; line-height:1.5; }
+  .loc-row svg{ flex:0 0 auto; color:var(--g-700); margin-top:2px; }
   .loc-actions{ display:flex; gap:10px; margin-top:18px; }
   .loc-actions a{
     flex:1; text-align:center; padding:10px 12px; border-radius:999px; font-size:12.5px; font-weight:700;
-    border:1.5px solid var(--p-200); color:var(--p-500);
+    border:1.5px solid rgba(255,255,255,.9); background:rgba(255,255,255,.5); color:var(--p-700);
+    transition:background .25s, color .25s;
   }
-  .loc-actions a.primary{ background:var(--p-400); border-color:var(--p-400); color:var(--p-25); }
-  .loc-actions a:hover{ background:var(--p-50); }
-  .loc-actions a.primary:hover{ background:var(--p-500); }
+  .loc-actions a.primary{ background:var(--g-700); border-color:var(--g-700); color:#fff; }
+  .loc-actions a:hover{ background:rgba(255,255,255,.8); }
+  .loc-actions a.primary:hover{ background:var(--g-900); }
   @media (max-width:960px){ .loc-grid{ grid-template-columns:repeat(2,1fr); } }
   @media (max-width:620px){ .loc-grid{ grid-template-columns:1fr; } }
 
-  .kontakt-section{ background:var(--p-950); padding:100px 0; position:relative; overflow:hidden; scroll-margin-top:100px; }
-  .kontakt-section::after{
-    content:''; position:absolute; inset:0;
-    background:radial-gradient(55% 65% at 90% 15%, rgba(189,0,91,.35), transparent 70%);
-    pointer-events:none;
-  }
+  .kontakt-section{ padding:100px 0; position:relative; overflow:hidden; scroll-margin-top:100px; }
+  .kontakt-section .leaf.k1{ width:110px; left:3%; bottom:8%; transform:rotate(-28deg); }
+  .kontakt-section .leaf.k2{ width:60px; right:5%; top:10%; transform:rotate(150deg); }
+  .kontakt-section .leaf.k2 img{ animation-delay:-3s; }
   .kontakt-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:60px; position:relative; z-index:1; }
-  .kontakt-copy .eyebrow{ color:var(--p-300); } .kontakt-copy .eyebrow::before{ background:var(--p-300); }
-  .kontakt-copy h2{ color:var(--p-25); font-size:clamp(30px,4.5vw,44px); margin-top:14px; line-height:1.05; }
-  .kontakt-copy p{ color:var(--p-200); margin-top:16px; font-size:15.5px; line-height:1.65; max-width:400px; }
-  .kontakt-direct{ margin-top:32px; display:flex; flex-direction:column; gap:14px; }
-  .kontakt-direct a{ display:flex; align-items:center; gap:12px; color:var(--p-100); font-size:14.5px; font-weight:600; }
-  .kontakt-direct a svg{ color:var(--p-400); flex:0 0 auto; }
-  .kontakt-direct a:hover{ color:var(--p-25); }
+  .kontakt-copy h2{
+    font-size:clamp(32px,4.8vw,50px); margin-top:14px; line-height:1.05; font-weight:400;
+    background:linear-gradient(100deg, var(--p-800), var(--p-600) 30%, var(--p-400) 50%, var(--p-700) 70%, var(--p-800));
+    background-size:250% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:textFlow 8s linear infinite;
+  }
+  .kontakt-copy p{ color:var(--p-800); margin-top:16px; font-size:15.5px; line-height:1.65; max-width:400px; }
+  .kontakt-direct{ margin-top:32px; display:flex; flex-direction:column; gap:12px; align-items:flex-start; }
+  .kontakt-direct a{
+    display:flex; align-items:center; gap:12px; color:var(--p-800); font-size:14.5px; font-weight:700;
+    padding:10px 16px 10px 10px; border-radius:999px; transition:background .25s;
+  }
+  .kontakt-direct a .kd-ico{
+    width:32px; height:32px; border-radius:50%; display:grid; place-items:center; flex:0 0 auto;
+    background:linear-gradient(135deg, var(--g-500), var(--g-700)); color:#fff;
+  }
+  .kontakt-direct a:hover{ background:rgba(255,255,255,.5); }
 
   .contact-form{
-    background:var(--paper); border-radius:22px; padding:38px; box-shadow:0 30px 60px -25px rgba(0,0,0,.5);
+    border-radius:26px; padding:38px; background:rgba(255,255,255,.5);
   }
   .cf-row{ margin-bottom:16px; }
   .cf-row-2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-  .contact-form label{ display:block; font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--p-500); margin-bottom:7px; }
+  .contact-form label{ display:block; font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--g-700); margin-bottom:7px; }
   .contact-form input, .contact-form select, .contact-form textarea{
-    width:100%; border:1.5px solid var(--p-100); border-radius:12px; padding:13px 15px;
-    font-family:var(--body); font-size:14.5px; color:var(--ink); background:var(--p-25);
+    width:100%; border:1.5px solid rgba(255,255,255,.9); border-radius:12px; padding:13px 15px;
+    font-family:var(--body); font-size:14.5px; color:var(--ink); background:rgba(255,255,255,.65);
     outline:none; transition:border-color .25s, background .25s;
   }
+  .contact-form input::placeholder, .contact-form textarea::placeholder{ color:var(--p-500); }
   .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus{
-    border-color:var(--p-400); background:var(--paper);
+    border-color:var(--g-500); background:#fff;
   }
   .contact-form textarea{ resize:vertical; min-height:110px; }
   .contact-form button{ width:100%; justify-content:center; margin-top:6px; border:none; font-size:15px; padding:16px 30px; }
-  .cf-note{ font-size:12px; color:var(--p-400); margin-top:14px; text-align:center; display:none; }
+  .cf-note{ font-size:12px; color:var(--g-700); margin-top:14px; text-align:center; display:none; }
+  @media (prefers-reduced-motion: reduce){ .kontakt-copy h2{ animation:none; } }
   .cf-note.show{ display:block; }
   @media (max-width:900px){ .kontakt-grid{ grid-template-columns:1fr; } .cf-row-2{ grid-template-columns:1fr; } .contact-form{ padding:28px 22px; } }
 </style>
@@ -119,25 +133,28 @@
   </div>
 </section>
 
-<section class="kontakt-section" id="kontakt">
+<section class="kontakt-section pink-flow" id="kontakt">
+  <div class="grain" aria-hidden="true"></div>
+  <span class="leaf k1" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
+  <span class="leaf k2" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
   <div class="wrap kontakt-grid">
     <div class="kontakt-copy">
       <p class="eyebrow">kontakt</p>
       <h2>Schreib uns.</h2>
       <p>Frage, Feedback oder Anliegen zu einem Standort — wir melden uns so schnell wie möglich zurück.</p>
       <div class="kontakt-direct">
-        <a href="mailto:info@my-thai.de">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 6 9 7 9-7"/></svg>
+        <a href="mailto:info@my-thai.de" class="glass">
+          <span class="kd-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 6 9 7 9-7"/></svg></span>
           info@my-thai.de
         </a>
-        <a href="https://www.instagram.com/mythai_de/" target="_blank" rel="noopener">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+        <a href="https://www.instagram.com/mythai_de/" target="_blank" rel="noopener" class="glass">
+          <span class="kd-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></span>
           @mythai_de
         </a>
       </div>
     </div>
 
-    <form class="contact-form" id="contactForm">
+    <form class="contact-form glass" id="contactForm">
       <div class="cf-row cf-row-2">
         <div>
           <label for="cfName">Name</label>
@@ -207,7 +224,7 @@
   </div>
 </footer>
 
-<script src="assets/locations-data.js"></script>
+<script src="assets/locations-data.js?v=2"></script>
 <script src="assets/main.js?v=6"></script>
 <script>
 (function(){
@@ -218,7 +235,9 @@
 
   document.getElementById('locGrid').innerHTML = LOCATIONS.map(l => `
     <div class="loc-card" id="${slug(l.name)}">
-      <div class="loc-photo"><img loading="lazy" src="${l.img}" alt="${l.full}"></div>
+      <div class="loc-photo">${l.img
+        ? `<img loading="lazy" src="${l.img}" alt="${l.full}">`
+        : `<div class="photo-missing" aria-hidden="true"><span>${l.name.toLowerCase()}</span></div>`}</div>
       <div class="loc-body">
         <h3 class="loc-name">${l.full}</h3>
         <div class="loc-row">${pin}<span>${l.address}<br>${l.city}</span></div>
