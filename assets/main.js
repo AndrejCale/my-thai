@@ -118,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const grow = count > 1 ? (expandRatio * (count - 1)) / (1 - expandRatio) : 1;
 
     const setActive = (i) => {
+      current = i;
       panels.forEach((p, idx) => {
         const isActive = idx === i;
         p.classList.toggle('is-active', isActive);
@@ -126,8 +127,24 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     };
 
+    /* hover: only a real pointer movement may switch the card. Cards that
+       float or slide under a resting cursor (the 3D drift, or the neighbours
+       shifting while one widens) must not steal it. A short dwell lets the
+       pointer settle, so the card you stop on is the one that opens. */
+    let lastX = null, lastY = null, hoverTimer = 0, current = -1;
+    gallery.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
+      if (e.clientX === lastX && e.clientY === lastY) return;
+      lastX = e.clientX; lastY = e.clientY;
+      const panel = e.target.closest('.ag-panel');
+      const i = panel ? panels.indexOf(panel) : -1;
+      clearTimeout(hoverTimer);
+      if (i < 0 || i === current) return;
+      hoverTimer = setTimeout(() => setActive(i), 70);
+    });
+    gallery.addEventListener('pointerleave', () => { lastX = lastY = null; });
+
     panels.forEach((panel, i) => {
-      panel.addEventListener('mouseenter', () => setActive(i));
       panel.addEventListener('focus', () => setActive(i));
       panel.addEventListener('click', (e) => {
         if (!panel.classList.contains('is-active')) {
@@ -189,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroFlipWord = document.getElementById('heroFlipWord');
   if (heroFlip && heroFlipWord) {
     const words = ['thai.', 'food.', 'way.'];
-    const bgColors = ['var(--p-400)', 'var(--p-500)', 'var(--p-600)'];
+    const bgColors = ['#fff', 'var(--p-25)', 'var(--p-50)'];
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let i = 0;
 

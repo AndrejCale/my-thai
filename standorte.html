@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Standorte — MY THAI</title>
 <meta name="description" content="6 MY THAI Standorte im Rhein-Main-Gebiet — Öffnungszeiten, Adresse, Telefon.">
-<link rel="stylesheet" href="assets/style.css?v=8">
+<link rel="stylesheet" href="assets/style.css?v=11">
 <style>
-  .loc-section{ background:linear-gradient(180deg, #f7b6d4 0%, #fcd9ea 100%); padding:90px 0; }
+  .loc-section{ background:linear-gradient(180deg, #ffffff 0%, var(--p-25) 100%); padding:90px 0; }
   .loc-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
   .loc-card{
     border-radius:var(--radius); overflow:hidden; scroll-margin-top:110px;
@@ -37,12 +37,10 @@
   @media (max-width:620px){ .loc-grid{ grid-template-columns:1fr; } }
 
   .kontakt-section{ padding:100px 0; position:relative; overflow:hidden; scroll-margin-top:100px; }
-  .kontakt-section .leaf.k1{ width:110px; left:3%; bottom:8%; transform:rotate(-28deg); }
-  .kontakt-section .leaf.k2{ width:60px; right:5%; top:10%; transform:rotate(150deg); }
-  .kontakt-section .leaf.k2 img{ animation-delay:-3s; }
   .kontakt-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:60px; position:relative; z-index:1; }
   .kontakt-copy h2{
     font-size:clamp(32px,4.8vw,50px); margin-top:14px; line-height:1.05; font-weight:400;
+    padding-bottom:.16em; margin-bottom:-.16em; /* keeps descenders (y, g, p) inside the gradient */
     background:linear-gradient(100deg, var(--p-800), var(--p-600) 30%, var(--p-400) 50%, var(--p-700) 70%, var(--p-800));
     background-size:250% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
     animation:textFlow 8s linear infinite;
@@ -84,7 +82,7 @@
 </head>
 <body>
 
-<div id="curtain"><div id="curtain-fill"><img src="assets/logo.svg" alt=""></div></div>
+<div id="curtain"><div id="curtain-fill"><img src="assets/logo.svg?v=2" alt=""></div></div>
 <script>
 (function(){
   var dir = sessionStorage.getItem('mt_nav_dir');
@@ -101,13 +99,13 @@
 <div id="splash">
   <div id="splash-orb"></div>
   <div id="splash-ring"></div>
-  <img id="splash-logo" src="assets/logo.svg" alt="MY THAI">
+  <img id="splash-logo" src="assets/logo.svg?v=2" alt="MY THAI">
 </div>
 
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><img src="assets/logo.svg" alt="MY THAI"></a>
+    <a href="index.html" class="nav-logo"><img src="assets/logo.svg?v=2" alt="MY THAI"></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="menu.html"><span class="pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v7M4 2v3a2 2 0 0 0 4 0V2M6 11v11"/><path d="M17 2c1.5 3 1.5 6-.5 8L15 11v11"/></svg></span><span class="pill-label">speisekarte</span></a></li>
       <li><a href="standorte.html" class="active"><span class="pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s7-7.58 7-12A7 7 0 0 0 5 10c0 4.42 7 12 7 12Z"/><circle cx="12" cy="10" r="2.4"/></svg></span><span class="pill-label">standorte</span></a></li>
@@ -135,8 +133,6 @@
 
 <section class="kontakt-section pink-flow" id="kontakt">
   <div class="grain" aria-hidden="true"></div>
-  <span class="leaf k1" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
-  <span class="leaf k2" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
   <div class="wrap kontakt-grid">
     <div class="kontakt-copy">
       <p class="eyebrow">kontakt</p>
@@ -185,7 +181,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <a href="index.html" class="footer-logo"><img src="assets/logo.svg" alt="MY THAI"></a>
+        <a href="index.html" class="footer-logo"><img src="assets/logo.svg?v=2" alt="MY THAI"></a>
         <p class="footer-tag">Original Thai Food auf offener Flamme — seit über 26 Jahren in eurer Nachbarschaft.</p>
         <div class="footer-social">
           <a href="https://www.instagram.com/mythai_de/" target="_blank" rel="noopener" aria-label="Instagram">
@@ -225,7 +221,7 @@
 </footer>
 
 <script src="assets/locations-data.js?v=2"></script>
-<script src="assets/main.js?v=6"></script>
+<script src="assets/main.js?v=8"></script>
 <script>
 (function(){
   const slug = s => s.toLowerCase().replace(/ü/g,'ue').replace(/ö/g,'oe').replace(/ä/g,'ae').replace(/ß/g,'ss').replace(/[^a-z0-9]+/g,'');

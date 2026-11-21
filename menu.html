@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Speisekarte — MY THAI</title>
 <meta name="description" content="Die komplette MY THAI Speisekarte — mit Live-Suche. Original Thai Food auf offener Flamme.">
-<link rel="stylesheet" href="assets/style.css?v=8">
+<link rel="stylesheet" href="assets/style.css?v=11">
 <style>
-  .menu-page{ background:linear-gradient(180deg, #f7b6d4 0%, #fcd9ea 40%, #f9c4dd 100%); }
-  .menu-hero-sub{ font-family:var(--display); font-style:italic; color:var(--p-700); font-size:19px; margin-top:16px; max-width:520px; }
+  .menu-page{ background:linear-gradient(180deg, #ffffff 0%, var(--p-25) 100%); }
+  .menu-hero-sub{ font-family:var(--display); font-style:italic; color:rgba(255,255,255,.9); font-size:19px; margin-top:16px; max-width:520px; }
 
   /* ---------- hero flip word: "my" static, rest cycles ---------- */
   .page-hero h1{ display:flex; align-items:center; flex-wrap:wrap; gap:.16em; }
   .flip-container{
     position:relative; display:inline-flex; align-items:center; justify-content:center;
-    background:var(--p-400); color:var(--p-25); border-radius:.2em;
+    background:#fff; color:var(--p-400); border-radius:.2em;
     padding:.08em .32em .1em; overflow:hidden; white-space:nowrap;
     box-shadow:0 .07em .22em rgba(28,6,17,.3);
     transition:width .28s var(--ease), background .4s ease;
@@ -32,10 +32,10 @@
 
   /* ---------- sticky toolbar: search + diet chips + category tabs ---------- */
   .menu-toolbar{
-    --tbg: rgba(250,205,226,.78);
+    --tbg: rgba(255,255,255,.9);
     position:sticky; top:104px; z-index:40;
     background:var(--tbg); -webkit-backdrop-filter:blur(18px) saturate(1.4); backdrop-filter:blur(18px) saturate(1.4);
-    padding:22px 0 14px; border-bottom:1px solid rgba(255,255,255,.6);
+    padding:22px 0 14px; border-bottom:1px solid rgba(162,26,90,.12);
     box-shadow:0 18px 40px -28px rgba(99,17,63,.5);
   }
   @media (max-width:640px){ .menu-toolbar{ top:80px; padding:16px 0 10px; } }
@@ -44,10 +44,10 @@
 
   .search-bar{
     display:flex; align-items:center; gap:12px; flex:1 1 300px; min-width:240px;
-    background:rgba(255,255,255,.6); border:1.5px solid rgba(255,255,255,.8); border-radius:999px;
+    background:#fff; border:1.5px solid rgba(162,26,90,.2); border-radius:999px;
     padding:13px 22px; transition:border-color .3s, background .3s;
   }
-  .search-bar:focus-within{ border-color:var(--g-500); background:rgba(255,255,255,.8); }
+  .search-bar:focus-within{ border-color:var(--g-500); background:#fff; }
   .search-bar svg{ flex:0 0 auto; color:var(--p-500); }
   .search-bar input{
     border:none; outline:none; background:none; width:100%;
@@ -59,7 +59,7 @@
   .chip{
     flex:0 0 auto; display:inline-flex; align-items:center; gap:6px;
     padding:9px 15px; border-radius:999px; font-size:12.5px; font-weight:700;
-    letter-spacing:.02em; color:var(--p-700); border:1.5px solid rgba(255,255,255,.8); background:rgba(255,255,255,.55);
+    letter-spacing:.02em; color:var(--p-700); border:1.5px solid rgba(162,26,90,.2); background:#fff;
     transition:background .25s, color .25s, border-color .25s;
   }
   .chip:hover{ border-color:var(--g-500); }
@@ -81,7 +81,7 @@
   .filter-btn{
     display:inline-flex; align-items:center; gap:8px;
     padding:13px 20px; border-radius:999px; font-size:13.5px; font-weight:700;
-    color:var(--p-700); border:1.5px solid rgba(255,255,255,.8); background:rgba(255,255,255,.55);
+    color:var(--p-700); border:1.5px solid rgba(162,26,90,.2); background:#fff;
     transition:background .25s, color .25s, border-color .25s;
   }
   .filter-btn:hover, .filter-btn.open{ border-color:var(--g-500); }
@@ -94,7 +94,7 @@
 
   .filter-panel{
     position:absolute; top:calc(100% + 10px); right:0; z-index:50;
-    width:270px; background:rgba(255,245,250,.92); border:1px solid rgba(255,255,255,.9); border-radius:16px;
+    width:270px; background:rgba(255,255,255,.97); border:1px solid rgba(162,26,90,.14); border-radius:16px;
     -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
     padding:14px; box-shadow:0 24px 55px -22px rgba(44,10,27,.35);
     opacity:0; transform:translateY(-8px) scale(.98); pointer-events:none; transform-origin:top right;
@@ -128,7 +128,7 @@
   .pills::-webkit-scrollbar{ display:none; }
   .pill{
     flex:0 0 auto; padding:9px 18px; border-radius:999px; font-size:13px; font-weight:700;
-    letter-spacing:.02em; color:var(--p-700); border:1.5px solid rgba(255,255,255,.8); background:rgba(255,255,255,.55);
+    letter-spacing:.02em; color:var(--p-700); border:1.5px solid rgba(162,26,90,.2); background:#fff;
     transition:background .25s, color .25s, border-color .25s;
   }
   .pill:hover{ border-color:var(--p-400); color:var(--p-600); }
@@ -148,7 +148,7 @@
   @keyframes nudgeRight{ 0%,100%{ transform:translateX(0); } 50%{ transform:translateX(4px); } }
   @keyframes nudgeLeft{ 0%,100%{ transform:translateX(0); } 50%{ transform:translateX(-4px); } }
 
-  .pills-track{ position:relative; height:3px; background:rgba(255,255,255,.6); border-radius:3px; margin-top:4px; }
+  .pills-track{ position:relative; height:3px; background:var(--p-50); border-radius:3px; margin-top:4px; }
   .pills-thumb{ position:absolute; top:0; left:0; height:100%; background:var(--g-500); border-radius:3px; }
   .pills-wrap.no-scroll .pills-track, .pills-wrap.no-scroll .pills-edge{ display:none; }
 
@@ -174,7 +174,7 @@
     position:relative;
     display:flex; flex-direction:column;
     /* rich berry rather than near-black: still the darker, floating card, but on-palette */
-    background:linear-gradient(160deg, #7a1550 0%, #5a0f3a 55%, #470b2e 100%);
+    background:linear-gradient(160deg, #A21A5A 0%, #7A1549 55%, #5A1036 100%);
     border:1px solid rgba(255,255,255,.14); border-radius:var(--radius);
     overflow:hidden; transition:border-color .3s, transform .3s, box-shadow .3s;
     box-shadow:0 22px 40px -20px rgba(99,17,63,.6), 0 8px 18px -10px rgba(99,17,63,.4);
@@ -200,9 +200,12 @@
   }
   .dish-media{
     aspect-ratio:4/5; display:flex; align-items:center; justify-content:center;
-    background:radial-gradient(120% 100% at 30% 0%, rgba(255,143,197,.35) 0%, rgba(255,255,255,0) 65%);
+    background:radial-gradient(120% 100% at 30% 0%, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 65%);
     font-size:52px; line-height:1;
   }
+  .dish-media.has-photo{ overflow:hidden; background:var(--p-800); }
+  .dish-media.has-photo img{ width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease); }
+  .dish-card:hover .dish-media.has-photo img{ transform:scale(1.06); }
   .dish-body{ padding:16px 18px 18px; display:flex; flex-direction:column; gap:5px; flex:1; }
   .dish-thai{ font-family:var(--display); font-style:italic; color:var(--p-200); font-size:12.5px; }
   .dish-name{ font-weight:700; color:#fff; font-size:15.5px; line-height:1.32; }
@@ -227,11 +230,136 @@
     .menu-grid{ grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:14px; }
     .dish-media{ font-size:40px; }
   }
+
+  /* ---------- dish detail: card flies open into a glass-framed berry panel ---------- */
+  .dish-card{ cursor:pointer; }
+  .dish-card:focus-visible{ outline:2px solid var(--g-500); outline-offset:3px; }
+  #dishModal{
+    position:fixed; inset:0; z-index:5000; display:flex; align-items:center; justify-content:center;
+    padding:28px 92px; overscroll-behavior:contain;
+  }
+  #dishModal[hidden]{ display:none; }
+  .dm-backdrop{
+    position:absolute; inset:0; cursor:zoom-out; opacity:0; transition:opacity .45s var(--ease);
+    background:radial-gradient(60% 55% at 50% 45%, rgba(162,26,90,.28), transparent 72%), rgba(23,5,14,.5);
+    -webkit-backdrop-filter:blur(16px) saturate(1.4); backdrop-filter:blur(16px) saturate(1.4);
+  }
+  #dishModal.open .dm-backdrop{ opacity:1; }
+  .dm-panel{
+    position:relative; z-index:1; width:min(980px,100%); height:min(84vh,620px);
+    display:grid; grid-template-columns:1.02fr 1fr; border-radius:28px; overflow:hidden; isolation:isolate;
+    background:linear-gradient(160deg, #A21A5A 0%, #7A1549 55%, #5A1036 100%);
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 60px 120px -40px rgba(58,6,34,.85), 0 0 100px -30px rgba(162,26,90,.5);
+    transform-origin:top left; will-change:transform;
+  }
+  /* the cards' travelling light ring, kept running slowly around the open panel */
+  .dm-panel::before{
+    content:''; position:absolute; inset:0; border-radius:inherit; z-index:6; padding:1.5px; pointer-events:none;
+    background:conic-gradient(from var(--card-angle), transparent 0%, var(--p-300) 8%, var(--g-300) 12%, var(--p-300) 16%, transparent 26%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
+    animation:card-ring-spin 7s linear infinite;
+  }
+  .dm-media{
+    position:relative; overflow:hidden; display:grid; place-items:center;
+    background:radial-gradient(120% 100% at 30% 0%, rgba(255,255,255,.22) 0%, rgba(255,255,255,0) 65%), var(--p-800);
+  }
+  .dm-media img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    animation:dmKen 16s ease-in-out infinite alternate;
+  }
+  @keyframes dmKen{ from{ transform:scale(1.03); } to{ transform:scale(1.13) translate(-1.5%,-1%); } }
+  .dm-media::after{
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(90deg, transparent 72%, rgba(71,11,46,.5)), linear-gradient(0deg, rgba(58,6,34,.35), transparent 30%);
+  }
+  .dm-emoji{ position:relative; z-index:1; font-size:120px; line-height:1; filter:drop-shadow(0 22px 30px rgba(40,4,24,.45)); animation:dmFloat 7s ease-in-out infinite; }
+  @keyframes dmFloat{ 0%,100%{ transform:translateY(0) scale(1); } 50%{ transform:translateY(-10px) scale(1.05); } }
+  .dm-bub{ position:absolute; border-radius:50%; pointer-events:none; border:1px solid rgba(255,255,255,.4);
+    background:radial-gradient(circle at 30% 25%, rgba(255,255,255,.45), rgba(255,255,255,.06) 60%); animation:dmBreathe 10s ease-in-out infinite; }
+  .dm-bub.b1{ width:46%; aspect-ratio:1; left:-10%; top:8%; }
+  .dm-bub.b2{ width:30%; aspect-ratio:1; right:-6%; bottom:10%; animation-delay:-5s; }
+  @keyframes dmBreathe{ 0%,100%{ transform:scale(.85); } 50%{ transform:scale(1.15); } }
+  .dm-num{
+    position:absolute; top:18px; left:18px; z-index:2; padding:7px 14px; border-radius:999px;
+    font-size:12px; font-weight:800; letter-spacing:.08em; color:#fff;
+    background:rgba(255,255,255,.2); border:1px solid rgba(255,255,255,.5);
+    -webkit-backdrop-filter:blur(10px) saturate(1.4); backdrop-filter:blur(10px) saturate(1.4);
+  }
+  .dm-body{ position:relative; z-index:1; display:flex; flex-direction:column; gap:12px; padding:46px 40px 28px; overflow-y:auto; overflow-x:hidden; color:#fff; }
+  .dm-cat{ display:flex; align-items:center; gap:10px; font-size:11px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--g-300); }
+  .dm-cat::before{ content:''; width:26px; height:1.5px; background:var(--g-300); }
+  .dm-thai{ font-family:var(--display); font-style:italic; color:var(--p-200); font-size:17px; }
+  .dm-name{ font-family:var(--display); font-weight:500; color:#fff; font-size:clamp(26px,3.1vw,38px); line-height:1.08; margin:0; }
+  .dm-desc{ color:var(--p-100); font-size:15px; line-height:1.65; opacity:.9; margin:0; }
+  .dm-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:2px; }
+  .dm-tags:empty{ display:none; }
+  .dm-tag{ display:inline-flex; align-items:center; gap:6px; padding:7px 13px; border-radius:999px; font-size:12px; font-weight:700;
+    background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22); color:var(--p-50); }
+  .dm-tag.veg{ background:var(--g-700); border-color:var(--g-300); color:var(--g-100); }
+  .dm-mark{ position:absolute; right:-8px; bottom:-40px; z-index:0; pointer-events:none; font-family:var(--display); font-style:italic;
+    font-size:210px; line-height:1; color:rgba(255,255,255,.06); }
+  .dm-foot{ margin-top:auto; padding-top:18px; border-top:1px solid rgba(255,255,255,.14); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .dm-foot .btn{ padding:12px 20px; font-size:13.5px; }
+  .dm-foot .btn-outline{ border-color:rgba(255,255,255,.5); background:transparent; cursor:pointer; font-family:inherit; }
+  .dm-foot .btn-outline:hover{ background:rgba(255,255,255,.14); }
+  .dm-count{ margin-left:auto; font-size:12px; font-weight:700; letter-spacing:.08em; color:var(--p-200); font-variant-numeric:tabular-nums; }
+  .dm-close{
+    position:absolute; top:14px; right:14px; z-index:7; width:42px; height:42px; border-radius:50%; cursor:pointer;
+    display:grid; place-items:center; color:#fff; border:1px solid rgba(255,255,255,.45); background:rgba(255,255,255,.14);
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); transition:transform .35s var(--ease), background .3s;
+  }
+  .dm-close:hover{ background:var(--p-500); transform:rotate(90deg); }
+  .dm-nav{
+    position:absolute; top:50%; z-index:2; width:54px; height:54px; margin-top:-27px; border-radius:50%; cursor:pointer;
+    display:grid; place-items:center; color:#fff; opacity:0;
+    background:rgba(255,255,255,.24); border:1px solid rgba(255,255,255,.6);
+    -webkit-backdrop-filter:blur(14px) saturate(1.5); backdrop-filter:blur(14px) saturate(1.5);
+    box-shadow:0 18px 40px -18px rgba(58,6,34,.7), inset 0 1px 0 rgba(255,255,255,.5);
+    transition:opacity .4s, transform .3s var(--ease), background .3s, border-color .3s;
+  }
+  #dishModal.open .dm-nav{ opacity:1; }
+  .dm-nav:hover{ background:var(--g-700); border-color:var(--g-300); transform:scale(1.07); }
+  .dm-prev{ left:max(18px, calc(50% - 562px)); }
+  .dm-next{ right:max(18px, calc(50% - 562px)); }
+  .dm-handle, .dm-foot-nav{ display:none; }
+  .dm-toast{ position:absolute; left:50%; bottom:22px; z-index:8; transform:translate(-50%,12px); opacity:0; pointer-events:none;
+    padding:9px 16px; border-radius:999px; background:var(--g-700); color:var(--g-100); font-size:12.5px; font-weight:700;
+    transition:opacity .3s, transform .3s var(--ease); }
+  .dm-toast.show{ opacity:1; transform:translate(-50%,0); }
+
+  /* phones: a bottom sheet that slides up, swipe down to close, swipe sideways to browse */
+  @media (max-width:700px){
+    #dishModal{ padding:0; align-items:flex-end; }
+    .dm-panel{ width:100%; height:auto; max-height:92vh; grid-template-columns:1fr; grid-template-rows:auto auto;
+      border-radius:26px 26px 0 0; overflow-y:auto; overscroll-behavior:contain; border-bottom:0; }
+    .dm-panel::before{ display:none; }
+    .dm-media{ height:min(44vh,360px); }
+    .dm-media::after{ background:linear-gradient(0deg, rgba(71,11,46,.55), transparent 35%); }
+    .dm-emoji{ font-size:96px; }
+    .dm-body{ padding:20px 20px calc(22px + env(safe-area-inset-bottom,0px)); overflow:visible; gap:10px; }
+    .dm-name{ font-size:26px; }
+    .dm-desc{ font-size:14.5px; }
+    .dm-mark{ display:none; }
+    .dm-handle{ display:block; position:absolute; top:9px; left:50%; z-index:7; width:44px; height:5px; margin-left:-22px; border-radius:3px; background:rgba(255,255,255,.75); }
+    .dm-close{ top:18px; width:38px; height:38px; }
+    .dm-nav{ display:none; }
+    .dm-foot .btn{ flex:1; justify-content:center; padding:12px 14px; }
+    .dm-foot-nav{ display:flex; align-items:center; justify-content:space-between; width:100%; margin-top:4px; }
+    .dm-foot-nav button{ width:42px; height:42px; border-radius:50%; display:grid; place-items:center; cursor:pointer; color:#fff;
+      background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3); }
+    .dm-foot > .dm-count{ display:none; }
+    .dm-foot-nav .dm-count{ margin:0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .dm-panel::before, .dm-media img, .dm-emoji, .dm-bub{ animation:none; }
+  }
 </style>
 </head>
 <body>
 
-<div id="curtain"><div id="curtain-fill"><img src="assets/logo.svg" alt=""></div></div>
+<div id="curtain"><div id="curtain-fill"><img src="assets/logo.svg?v=2" alt=""></div></div>
 <script>
 (function(){
   var dir = sessionStorage.getItem('mt_nav_dir');
@@ -248,13 +376,13 @@
 <div id="splash">
   <div id="splash-orb"></div>
   <div id="splash-ring"></div>
-  <img id="splash-logo" src="assets/logo.svg" alt="MY THAI">
+  <img id="splash-logo" src="assets/logo.svg?v=2" alt="MY THAI">
 </div>
 
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><img src="assets/logo.svg" alt="MY THAI"></a>
+    <a href="index.html" class="nav-logo"><img src="assets/logo.svg?v=2" alt="MY THAI"></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="menu.html" class="active"><span class="pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v7M4 2v3a2 2 0 0 0 4 0V2M6 11v11"/><path d="M17 2c1.5 3 1.5 6-.5 8L15 11v11"/></svg></span><span class="pill-label">speisekarte</span></a></li>
       <li><a href="standorte.html"><span class="pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s7-7.58 7-12A7 7 0 0 0 5 10c0 4.42 7 12 7 12Z"/><circle cx="12" cy="10" r="2.4"/></svg></span><span class="pill-label">standorte</span></a></li>
@@ -325,7 +453,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <a href="index.html" class="footer-logo"><img src="assets/logo.svg" alt="MY THAI"></a>
+        <a href="index.html" class="footer-logo"><img src="assets/logo.svg?v=2" alt="MY THAI"></a>
         <p class="footer-tag">Original Thai Food auf offener Flamme — seit über 26 Jahren in eurer Nachbarschaft.</p>
         <div class="footer-social">
           <a href="https://www.instagram.com/mythai_de/" target="_blank" rel="noopener" aria-label="Instagram">
@@ -364,8 +492,38 @@
   </div>
 </footer>
 
-<script src="assets/menu-data.js"></script>
-<script src="assets/main.js?v=6"></script>
+<div id="dishModal" role="dialog" aria-modal="true" aria-labelledby="dmName" hidden>
+  <div class="dm-backdrop"></div>
+  <article class="dm-panel">
+    <span class="dm-handle" aria-hidden="true"></span>
+    <button class="dm-close" type="button" aria-label="Schließen"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div class="dm-media"></div>
+    <span class="dm-mark" aria-hidden="true"></span>
+    <div class="dm-body">
+      <span class="dm-cat"></span>
+      <span class="dm-thai"></span>
+      <h2 class="dm-name" id="dmName"></h2>
+      <p class="dm-desc"></p>
+      <div class="dm-tags"></div>
+      <div class="dm-foot">
+        <a href="standorte.html" class="btn btn-solid">Standort finden</a>
+        <button type="button" class="btn btn-outline dm-share">Teilen</button>
+        <span class="dm-count"></span>
+        <div class="dm-foot-nav">
+          <button type="button" data-step="-1" aria-label="Vorheriges Gericht"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="dm-count"></span>
+          <button type="button" data-step="1" aria-label="Nächstes Gericht"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <span class="dm-toast" role="status" aria-live="polite"></span>
+  </article>
+  <button class="dm-nav dm-prev" type="button" data-step="-1" aria-label="Vorheriges Gericht"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+  <button class="dm-nav dm-next" type="button" data-step="1" aria-label="Nächstes Gericht"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+</div>
+
+<script src="assets/menu-data.js?v=15"></script>
+<script src="assets/main.js?v=8"></script>
 <script>
 (function(){
   const results = document.getElementById('results');
@@ -387,7 +545,7 @@
   const CAT_ICONS = {
     vorspeisen: '🥟', suppen: '🍲', salate: '🥗', reis: '🍚', nudeln: '🍜',
     vegetarisch: '🥦', huhn: '🍗', rind: '🥩', ente: '🦆', fisch: '🐟',
-    specials: '⭐', desserts: '🍮', extras: '➕'
+    bowls: '🥣', specials: '⭐', desserts: '🍮', extras: '➕'
   };
 
   /* cross-cutting facet filters, derived from real fields (veg/spicy) and
@@ -407,12 +565,13 @@
   CHIPS.forEach(c => { if (!c.group) c.group = c.key; });
   const CHIP_GROUPS = [...new Set(CHIPS.map(c => c.group))];
 
-  let activeCat = 'alle';
+  const activeCats = new Set();   // empty = "Alle"; several categories can be on at once
   let query = '';
+  let shown = [];   // dishes currently on screen, in DOM order — the popup browses these
   const activeChips = new Set();
 
-  pillsEl.innerHTML = '<button class="pill active" data-cat="alle">Alle</button>' +
-    MENU.map(c=>`<button class="pill" data-cat="${c.id}">${c.label}</button>`).join('');
+  pillsEl.innerHTML = '<button class="pill active" data-cat="alle" aria-pressed="true">Alle</button>' +
+    MENU.map(c=>`<button class="pill" data-cat="${c.id}" aria-pressed="false">${c.label}</button>`).join('');
 
   /* group chips visually so it's clear which selections narrow the results
      (across sections) vs. broaden them (multiple within "Protein" — a dish
@@ -457,8 +616,10 @@
     if (!items.length) return { html:'', count:0 };
 
     const cards = items.map(it => `
-      <div class="dish-card">
-        <div class="dish-media">${CAT_ICONS[cat.id] || '🍽️'}</div>
+      <div class="dish-card" data-i="${shown.push({ it, cat }) - 1}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="${it.name} – Details öffnen">
+        <div class="dish-media${it.img ? ' has-photo' : ''}">${it.img
+          ? `<img src="${it.img}" alt="${it.name}" loading="lazy">`
+          : (CAT_ICONS[cat.id] || '🍽️')}</div>
         <div class="dish-body">
           <div class="dish-thai">${it.thai}</div>
           <div class="dish-name">${it.name}</div>
@@ -485,9 +646,10 @@
   }
 
   function render(){
-    const cats = activeCat === 'alle' ? MENU : MENU.filter(c=>c.id===activeCat);
+    const cats = activeCats.size ? MENU.filter(c=>activeCats.has(c.id)) : MENU;
     let html = '';
     let visible = 0;
+    shown = [];
     cats.forEach(c => {
       const r = renderGroup(c);
       html += r.html;
@@ -497,16 +659,32 @@
     noResults.style.display = visible === 0 ? 'block' : 'none';
     catCount.textContent = (query || activeChips.size)
       ? `${visible} Ergebnis${visible===1?'':'se'}`
-      : `${totalCount} Gerichte in ${MENU.length} Kategorien`;
+      : activeCats.size
+        ? `${visible} Gerichte in ${cats.length} Kategorie${cats.length===1?'':'n'}`
+        : `${totalCount} Gerichte in ${MENU.length} Kategorien`;
   }
 
+  /* category pills are toggles: tap Vorspeisen + Suppen and both show.
+     Tapping an active one switches it off; "Alle" (or nothing left on) resets. */
+  function syncPills(){
+    pillsEl.querySelectorAll('.pill').forEach(p => {
+      const on = p.dataset.cat === 'alle' ? !activeCats.size : activeCats.has(p.dataset.cat);
+      p.classList.toggle('active', on);
+      p.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+  function toggleCat(id){
+    if (id === 'alle') activeCats.clear();
+    else if (activeCats.has(id)) activeCats.delete(id);
+    else activeCats.add(id);
+    // every category on is the same as "Alle"
+    if (activeCats.size === MENU.length) activeCats.clear();
+    syncPills();
+    render();
+  }
   pillsEl.addEventListener('click', (e)=>{
     const btn = e.target.closest('.pill');
-    if(!btn) return;
-    pillsEl.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
-    btn.classList.add('active');
-    activeCat = btn.dataset.cat;
-    render();
+    if(btn) toggleCat(btn.dataset.cat);
   });
 
   function updateFilterButton(){
@@ -581,12 +759,216 @@
   render();
   updatePillsScrollUI();
 
-  // deep links like menu.html#vegetarisch open that category's tab
-  const hashCat = decodeURIComponent(location.hash.slice(1));
-  const hashPill = hashCat && pillsEl.querySelector(`.pill[data-cat="${CSS.escape(hashCat)}"]`);
-  if (hashPill) {
-    hashPill.click();
-    hashPill.scrollIntoView({ block:'nearest', inline:'center' });
+  // deep links like menu.html#vegetarisch (or #vorspeisen,suppen) switch those categories on
+  const hashCats = decodeURIComponent(location.hash.slice(1)).split(/[,+]/)
+    .filter(id => id && MENU.some(c => c.id === id));
+  if (hashCats.length) {
+    hashCats.forEach(id => activeCats.add(id));
+    syncPills();
+    render();
+    pillsEl.querySelector(`.pill[data-cat="${CSS.escape(hashCats[0])}"]`).scrollIntoView({ block:'nearest', inline:'center' });
+  }
+
+  /* ================= dish detail popup =================
+     desktop: the card flies (FLIP) into a centred panel over a blurred pink backdrop
+     phones:  a bottom sheet slides up — swipe down closes, swipe sideways browses */
+  const dm = document.getElementById('dishModal');
+  const dmPanel = dm.querySelector('.dm-panel');
+  const q = s => dm.querySelector(s);
+  const dmMedia = q('.dm-media'), dmBody = q('.dm-body'), dmToast = q('.dm-toast');
+  const EASE = 'cubic-bezier(.16,1,.3,1)';
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sheetMQ = matchMedia('(max-width:700px)');
+  let dmI = -1, dmCard = null, dmBusy = false, dmViaKey = false, dmFlip = false, hashBefore = '';
+
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
+  const cardAt = i => results.querySelector(`.dish-card[data-i="${i}"]`);
+
+  function fillDish(i){
+    const { it, cat } = shown[i];
+    dmMedia.innerHTML = (it.img
+        ? `<img src="${esc(it.img)}" alt="${esc(it.name)}">`
+        : `<span class="dm-bub b1"></span><span class="dm-bub b2"></span><span class="dm-emoji" aria-hidden="true">${CAT_ICONS[cat.id] || '🍽️'}</span>`)
+      + (it.num ? `<span class="dm-num">Nr. ${esc(it.num)}</span>` : '');
+    q('.dm-cat').textContent = cat.label;
+    q('.dm-thai').textContent = it.thai;
+    q('.dm-name').textContent = it.name;
+    q('.dm-desc').textContent = it.desc;
+    q('.dm-mark').textContent = it.num || '';
+    const tags = [];
+    if (it.spicy) tags.push(`<span class="dm-tag">${'🌶️'.repeat(it.spicy)} Scharf</span>`);
+    if (it.veg) tags.push(`<span class="dm-tag veg">🌿 Vegetarisch</span>`);
+    q('.dm-tags').innerHTML = tags.join('');
+    dm.querySelectorAll('.dm-count').forEach(el => el.textContent = `${i + 1} / ${shown.length}`);
+    dmBody.scrollTop = 0; dmPanel.scrollTop = 0;
+  }
+
+  function setDishHash(){
+    const num = shown[dmI]?.it.num;
+    history.replaceState(null, '', location.pathname + location.search + (num ? '#nr-' + encodeURIComponent(num) : hashBefore));
+  }
+
+  function lockPage(on){
+    const sb = innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.overflow = on ? 'hidden' : '';
+    document.body.style.paddingRight = on && sb > 0 ? sb + 'px' : '';
+  }
+
+  // FLIP: start the centred panel exactly on top of the card, then let it grow into place
+  function flipFrom(card, reverse){
+    const a = card.getBoundingClientRect(), b = dmPanel.getBoundingClientRect();
+    const t = `translate(${a.left - b.left}px, ${a.top - b.top}px) scale(${a.width / b.width}, ${a.height / b.height})`;
+    const kf = reverse
+      ? [{ transform:'none', opacity:1 }, { transform:t, opacity:.5 }]
+      : [{ transform:t, opacity:.5 }, { transform:'none', opacity:1 }];
+    return dmPanel.animate(kf, { duration: reverse ? 420 : 620, easing: EASE, fill:'both' }).finished;
+  }
+  function slideSheet(open, fromY = 0){
+    const kf = open
+      ? [{ transform:'translateY(100%)' }, { transform:'none' }]
+      : [{ transform:`translateY(${fromY}px)` }, { transform:'translateY(105%)' }];
+    return dmPanel.animate(kf, { duration: open ? 560 : 320, easing: open ? EASE : 'cubic-bezier(.5,0,.9,.4)', fill:'both' }).finished;
+  }
+
+  async function openDish(card){
+    if (dmBusy || !card) return;
+    dmBusy = true;
+    dmCard = card; dmI = +card.dataset.i;
+    if (!/^#nr-/.test(location.hash)) hashBefore = location.hash;
+    fillDish(dmI);
+    dmFlip = !sheetMQ.matches && !reduceMotion;
+    dm.hidden = false; lockPage(true);
+    if (dmFlip) card.style.visibility = 'hidden';
+    setDishHash();
+    requestAnimationFrame(() => dm.classList.add('open'));
+    if (!reduceMotion) {
+      [dmMedia, dmBody].forEach(el => el.animate([{ opacity:0 }, { opacity:1 }],
+        { duration:420, delay: dmFlip ? 260 : 140, easing:'ease', fill:'backwards' }));
+      await (dmFlip ? flipFrom(card, false) : slideSheet(true)).catch(() => {});
+    }
+    dmPanel.getAnimations().forEach(a => a.cancel());
+    q('.dm-close').focus({ preventScroll:true });
+    dmBusy = false;
+  }
+
+  async function closeDish(fromY = 0){
+    if (dmBusy || dm.hidden) return;
+    dmBusy = true;
+    dm.classList.remove('open');
+    const card = dmCard;
+    if (!reduceMotion) {
+      const r = card && card.isConnected ? card.getBoundingClientRect() : null;
+      const onScreen = r && r.bottom > 0 && r.top < innerHeight;
+      if (sheetMQ.matches) await slideSheet(false, fromY).catch(() => {});
+      else if (dmFlip && onScreen) await flipFrom(card, true).catch(() => {});
+      else await dmPanel.animate([{ opacity:1, transform:'none' }, { opacity:0, transform:'scale(.94)' }],
+        { duration:260, easing:'ease', fill:'both' }).finished.catch(() => {});
+    }
+    if (card) card.style.visibility = '';
+    dm.hidden = true; lockPage(false);
+    dmPanel.getAnimations().forEach(a => a.cancel());
+    dmPanel.style.transform = '';
+    history.replaceState(null, '', location.pathname + location.search + hashBefore);
+    if (dmViaKey && card) card.focus({ preventScroll:true });
+    dmBusy = false;
+  }
+
+  function stepDish(dir){
+    if (dmBusy || dm.hidden || shown.length < 2) return;
+    const n = (dmI + dir + shown.length) % shown.length;
+    if (dmCard) dmCard.style.visibility = '';
+    dmI = n; dmCard = cardAt(n);
+    // keep the page underneath in sync, so closing flies back to the right card
+    if (dmCard) { dmCard.scrollIntoView({ block:'center' }); if (dmFlip) dmCard.style.visibility = 'hidden'; }
+    setDishHash();
+    if (reduceMotion) { fillDish(n); return; }
+    dmBusy = true;
+    const parts = [dmMedia, dmBody];
+    Promise.all(parts.map(el => el.animate(
+      [{ opacity:1, transform:'none' }, { opacity:0, transform:`translateX(${-dir * 22}px)` }],
+      { duration:170, easing:'ease-in', fill:'forwards' }).finished))
+    .then(() => {
+      fillDish(n);
+      parts.forEach(el => {
+        el.getAnimations().forEach(a => a.cancel());
+        el.animate([{ opacity:0, transform:`translateX(${dir * 22}px)` }, { opacity:1, transform:'none' }], { duration:340, easing:EASE });
+      });
+    }).finally(() => { dmBusy = false; });
+  }
+
+  async function shareDish(){
+    const { it } = shown[dmI];
+    const url = location.href;
+    const title = `${it.name} — MY THAI`;
+    try {
+      if (navigator.share) { await navigator.share({ title, text: it.thai, url }); return; }
+      await navigator.clipboard.writeText(url);
+      toast('Link kopiert');
+    } catch (e) { if (e && e.name !== 'AbortError') toast('Link: ' + url); }
+  }
+  let toastT;
+  function toast(msg){
+    dmToast.textContent = msg; dmToast.classList.add('show');
+    clearTimeout(toastT); toastT = setTimeout(() => dmToast.classList.remove('show'), 1800);
+  }
+
+  results.addEventListener('click', e => {
+    const c = e.target.closest('.dish-card');
+    if (c) { dmViaKey = e.detail === 0; openDish(c); }
+  });
+  results.addEventListener('keydown', e => {
+    const c = e.target.closest('.dish-card');
+    if (c && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); dmViaKey = true; openDish(c); }
+  });
+  q('.dm-backdrop').addEventListener('click', () => closeDish());
+  q('.dm-close').addEventListener('click', () => closeDish());
+  q('.dm-share').addEventListener('click', shareDish);
+  dm.querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => stepDish(+b.dataset.step)));
+  addEventListener('keydown', e => {
+    if (dm.hidden) return;
+    if (e.key === 'Escape') { e.stopPropagation(); closeDish(); }
+    else if (e.key === 'ArrowRight') stepDish(1);
+    else if (e.key === 'ArrowLeft') stepDish(-1);
+    else if (e.key === 'Tab') {          // keep keyboard focus inside the popup
+      const f = [...dm.querySelectorAll('button, a[href]')].filter(el => el.offsetParent !== null);
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  // touch: sideways swipe browses; on phones a downward drag from the top closes the sheet
+  let tx = null, ty = 0, dragY = 0, dragging = false;
+  dmPanel.addEventListener('touchstart', e => {
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY; dragY = 0; dragging = false;
+  }, { passive:true });
+  dmPanel.addEventListener('touchmove', e => {
+    if (tx === null || !sheetMQ.matches) return;
+    const dx = e.touches[0].clientX - tx, dy = e.touches[0].clientY - ty;
+    if (!dragging && dy > 8 && Math.abs(dy) > Math.abs(dx) && dmPanel.scrollTop <= 0) dragging = true;
+    if (dragging) { dragY = Math.max(0, dy); dmPanel.style.transform = `translateY(${dragY}px)`; if (e.cancelable) e.preventDefault(); }
+  }, { passive:false });
+  dmPanel.addEventListener('touchend', e => {
+    if (tx === null) return;
+    const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    tx = null;
+    if (dragging) {
+      dragging = false;
+      if (dragY > 110) { closeDish(dragY); return; }
+      dmPanel.animate([{ transform:`translateY(${dragY}px)` }, { transform:'none' }], { duration:300, easing:EASE });
+      dmPanel.style.transform = '';
+      return;
+    }
+    if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.3) stepDish(dx < 0 ? 1 : -1);
+  });
+
+  // deep link straight to a dish: menu.html#nr-34
+  const dishHash = location.hash.match(/^#nr-(.+)$/);
+  if (dishHash) {
+    const num = decodeURIComponent(dishHash[1]);
+    const idx = shown.findIndex(s => s.it.num === num);
+    const card = idx > -1 && cardAt(idx);
+    if (card) { card.scrollIntoView({ block:'center' }); setTimeout(() => openDish(card), 60); }
   }
 })();
 </script>

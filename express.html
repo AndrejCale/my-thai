@@ -4,73 +4,270 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MY THAI Express Oberursel</title>
-<meta name="description" content="MY THAI Express in Oberursel — schnell, frisch, am Bahnhof.">
-<link rel="stylesheet" href="assets/style.css?v=8">
+<meta name="description" content="MY THAI Express Oberursel — online bestellen, bezahlen und abholen. Jetzt auch auf Wolt.">
+<link rel="stylesheet" href="assets/style.css?v=11">
 <style>
-  .exp-hero{ position:relative; overflow:hidden; isolation:isolate; padding:150px 0 80px; }
-  @media (max-width:640px){ .exp-hero{ padding:118px 0 56px; } }
-  .exp-hero::before{
-    content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
-    background:linear-gradient(90deg, rgba(255,236,246,.5) 0%, rgba(255,236,246,.15) 50%, transparent 75%);
+  :root{
+    --wolt:#009DE0; --wolt-deep:#0072A8; --wolt-ink:#00334D;
+    --amigo:#69CE8C; --amigo-deep:#2F9A58; --amigo-ink:#181F1F;
   }
-  .exp-grid{ display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:50px; position:relative; z-index:1; }
-  .exp-copy h1{
-    font-size:clamp(46px,6.5vw,78px); line-height:1; margin-top:16px; font-weight:400;
-    background:linear-gradient(100deg, var(--p-800), var(--p-600) 25%, var(--p-400) 45%, var(--p-700) 65%, var(--p-500) 85%, var(--p-800));
-    background-size:250% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
-    animation:textFlow 8s linear infinite;
-  }
-  .exp-copy p{ color:var(--p-800); font-size:16px; max-width:420px; margin-top:18px; line-height:1.6; }
-  .exp-cta{ margin-top:30px; display:flex; gap:14px; flex-wrap:wrap; }
-  .exp-photo-wrap{ position:relative; justify-self:center; width:min(100%, 440px); }
-  .exp-photo{
-    border-radius:999px 999px 30px 30px; overflow:hidden; aspect-ratio:4/5; max-height:64vh; margin:0 auto;
-    box-shadow:0 40px 80px -30px rgba(99,17,63,.55), 0 0 0 10px rgba(255,255,255,.35);
-  }
-  .exp-photo img{ width:100%; height:100%; object-fit:cover; }
-  .exp-photo-wrap .leaf{ width:70px; top:-2%; right:4%; z-index:2; transform:rotate(28deg); }
-  .exp-badge{
-    position:absolute; left:-18px; bottom:16%; z-index:2; border-radius:18px; padding:12px 16px;
-    display:flex; align-items:center; gap:10px; background:rgba(255,255,255,.62);
-    animation:bubbleFloat 7s ease-in-out infinite;
-  }
-  .exp-badge-ico{
-    width:36px; height:36px; border-radius:12px; display:grid; place-items:center;
-    background:linear-gradient(135deg, var(--g-500), var(--g-700)); color:#fff;
-  }
-  .exp-badge b{ display:block; font-size:14px; color:var(--p-900); }
-  .exp-badge small{ font-size:12px; color:var(--p-700); }
-  @media (max-width:820px){ .exp-grid{ grid-template-columns:1fr; } .exp-photo-wrap{ width:min(84%, 360px); } .exp-badge{ left:-6%; } }
 
-  .feat-section{ background:linear-gradient(180deg, #f7b6d4 0%, #fcd9ea 100%); }
-  .feat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-  .feat{ border-radius:22px; padding:28px; background:rgba(255,255,255,.5); transition:transform .35s var(--ease); }
-  .feat:hover{ transform:translateY(-5px); }
-  .feat-ico{
-    width:46px; height:46px; border-radius:14px; display:grid; place-items:center;
-    background:linear-gradient(135deg, var(--g-500), var(--g-700)); color:#fff;
-    box-shadow:0 8px 18px -8px rgba(10,58,44,.6);
+  /* =================== HERO — magenta, round express badge, Wolt seeping in from the corner =================== */
+  .xp-hero{
+    --p:0;                                   /* scroll progress through the hero, set by JS (0 → 1) */
+    position:relative; overflow:hidden; isolation:isolate; color:#fff; text-align:center;
+    background:var(--purple-flow); background-size:300% 300%; animation:pinkFlow 16s ease-in-out infinite alternate;
+    padding:130px 0 190px;
   }
-  .feat h3{ font-size:19px; margin-top:16px; }
-  .feat p{ font-size:14px; color:var(--p-800); margin-top:8px; line-height:1.55; }
-  @media (max-width:760px){ .feat-grid{ grid-template-columns:1fr; } }
+  @media (max-width:640px){ .xp-hero{ padding:108px 0 150px; } }
+  .xp-hero .wrap{ position:relative; z-index:2; max-width:820px; }
+
+  /* the corner: a Wolt-blue pool in the bottom-right that swells as you scroll */
+  .xp-corner{
+    position:absolute; z-index:0; pointer-events:none; border-radius:50%;
+    width:min(90vw, 900px); aspect-ratio:1; right:calc(min(90vw, 900px) * -.5); bottom:calc(min(90vw, 900px) * -.5);
+    background:radial-gradient(circle at 50% 50%, var(--wolt) 0%, var(--wolt) 34%, rgba(0,157,224,.55) 52%, rgba(0,157,224,0) 70%);
+    transform:scale(calc(.55 + var(--p) * 1.25)); transform-origin:50% 50%;
+    transition:transform .2s linear;
+  }
+  .xp-sticker{
+    position:absolute; z-index:3; right:clamp(16px, 5vw, 70px); bottom:clamp(120px, 16vw, 190px);
+    width:clamp(104px, 12vw, 138px); aspect-ratio:1; border-radius:50%;
+    display:grid; place-items:center; text-decoration:none;
+    background:var(--wolt); color:#fff; box-shadow:0 22px 40px -18px rgba(0,51,77,.7), 0 0 0 5px rgba(255,255,255,.9);
+    transition:transform .4s var(--ease);
+  }
+  .xp-sticker:hover{ transform:scale(1.06) rotate(-4deg); }
+  .xp-sticker svg{ position:absolute; inset:0; width:100%; height:100%; animation:xpSpin 22s linear infinite; }
+  .xp-sticker text{ font-family:var(--body); font-weight:800; font-size:11.5px; letter-spacing:.16em; fill:#fff; text-transform:uppercase; }
+  .xp-sticker b{ position:relative; font-family:var(--body); font-weight:800; font-size:clamp(20px, 2.4vw, 26px); letter-spacing:-.03em; }
+  @keyframes xpSpin{ to{ transform:rotate(360deg); } }
+  @media (max-width:640px){ .xp-sticker{ bottom:26px; right:16px; } }
+
+  /* the official round express logo (white artwork) sitting on a deeper magenta disc
+     that floats above the page on soft layered shadows */
+  .xp-badge{
+    position:relative; width:clamp(220px, 28vw, 300px); aspect-ratio:1; margin:0 auto; border-radius:50%;
+    background:radial-gradient(circle at 50% 40%, var(--p-400) 0%, var(--p-500) 100%);
+    box-shadow:0 2px 6px rgba(23,5,14,.18), 0 30px 50px -18px rgba(23,5,14,.55), 0 60px 80px -40px rgba(23,5,14,.45);
+  }
+  .xp-badge img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; display:block; }
+
+  .xp-hero .eyebrow{ color:#fff; margin-top:44px; justify-content:center; }
+  .xp-hero .eyebrow::before{ background:#fff; }
+  .xp-hero h1{ color:#fff; font-size:clamp(46px, 7vw, 84px); line-height:1; margin-top:16px; font-weight:500; letter-spacing:-.01em; }
+  .xp-lead{ font-size:clamp(16px, 1.6vw, 18.5px); line-height:1.65; margin:22px auto 0; max-width:560px; color:var(--p-25); }
+  .xp-steps{ list-style:none; padding:0; margin:30px auto 0; display:flex; flex-wrap:wrap; justify-content:center; gap:14px 34px; }
+  .xp-steps li{ display:flex; align-items:center; gap:12px; font-weight:700; font-size:16.5px; }
+  .xp-steps li span{
+    width:36px; height:36px; border-radius:50%; background:#fff; color:var(--p-400);
+    display:grid; place-items:center; font-family:var(--display); font-weight:600; font-size:17px;
+  }
+  .xp-cta{ margin-top:36px; display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .xp-cta .btn-white{ padding:18px 44px; font-size:16px; }
+  .xp-cta .via{ font-size:13px; color:var(--p-50); display:inline-flex; align-items:center; gap:8px; }
+  .xp-cta .via b{ font-style:italic; font-weight:800; color:#fff; }
+  .xp-cta .alt{ font-size:14px; font-weight:700; color:#fff; border-bottom:1.5px solid rgba(255,255,255,.5); padding-bottom:2px; }
+  .xp-cta .alt:hover{ border-color:#fff; }
+
+  /* the wave: magenta melts through violet into Wolt blue */
+  .xp-wave{ position:absolute; left:0; right:0; bottom:-1px; height:clamp(90px, 12vw, 170px); z-index:1; pointer-events:none; overflow:hidden; }
+  .xp-wave svg{ position:absolute; bottom:0; left:0; width:200%; height:100%; }
+  .xp-wave .w1{ animation:xpWave 18s linear infinite; opacity:.55; }
+  .xp-wave .w2{ animation:xpWave 12s linear infinite reverse; opacity:.75; }
+  .xp-wave .w3{ animation:xpWave 9s linear infinite; }
+  @keyframes xpWave{ to{ transform:translateX(-50%); } }
+
+  /* =================== WOLT =================== */
+  .xp-wolt{ position:relative; overflow:hidden; isolation:isolate; background:var(--wolt); color:#fff; padding:80px 0 150px; }
+  .xp-wolt::before{
+    content:''; position:absolute; inset:0; z-index:-1;
+    background:radial-gradient(60% 70% at 85% 10%, rgba(255,255,255,.18), transparent 60%),
+               radial-gradient(50% 60% at 5% 90%, rgba(0,51,77,.28), transparent 65%);
+  }
+  .xp-wolt-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:60px; align-items:center; }
+  .wolt-logo{
+    display:inline-block; font-family:var(--body); font-weight:800; letter-spacing:-.05em; line-height:.9;
+    font-size:clamp(84px, 13vw, 170px); color:#fff;
+  }
+  .xp-wolt .eyebrow{ color:#fff; }
+  .xp-wolt .eyebrow::before{ background:#fff; }
+  .xp-wolt h2{ color:#fff; font-size:clamp(32px, 4.4vw, 52px); line-height:1.05; margin-top:18px; }
+  .xp-wolt p{ color:rgba(255,255,255,.9); font-size:16.5px; line-height:1.65; margin-top:16px; max-width:470px; }
+  .btn-wolt{ background:#fff; color:var(--wolt-deep); margin-top:28px; box-shadow:0 16px 32px -14px rgba(0,51,77,.6); }
+  .btn-wolt:hover{ background:var(--wolt-ink); color:#fff; transform:translateY(-2px); }
+  .xp-wolt-art{ position:relative; justify-self:center; width:min(100%, 420px); aspect-ratio:1; }
+  .xp-wolt-art .ring{
+    position:absolute; inset:0; border-radius:50%; background:rgba(255,255,255,.12);
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.25);
+  }
+  .xp-wolt-art .ring.r2{ inset:14%; background:rgba(255,255,255,.14); }
+  .xp-wolt-art .plate{
+    position:absolute; inset:24%; border-radius:50%; overflow:hidden;
+    box-shadow:0 0 0 8px #fff, 0 40px 60px -24px rgba(0,51,77,.7);
+  }
+  .xp-wolt-art .plate img{ width:100%; height:100%; object-fit:cover; }
+  .xp-chip{
+    position:absolute; display:flex; align-items:center; gap:10px; padding:11px 16px 11px 12px; border-radius:16px;
+    background:#fff; color:var(--wolt-ink); font-weight:700; font-size:13.5px; white-space:nowrap;
+    box-shadow:0 2px 4px rgba(0,51,77,.12), 0 22px 34px -16px rgba(0,51,77,.55);
+  }
+  .xp-chip i{ width:32px; height:32px; border-radius:10px; display:grid; place-items:center; background:var(--wolt); color:#fff; font-style:normal; }
+  .xp-chip.c1{ left:-4%; top:16%; }
+  .xp-chip.c2{ right:-6%; bottom:14%; }
+  @media (max-width:860px){
+    .xp-wolt{ padding:56px 0 130px; text-align:center; }
+    .xp-wolt-grid{ grid-template-columns:1fr; gap:40px; }
+    .xp-wolt .eyebrow{ justify-content:center; }
+    .xp-wolt p{ margin-left:auto; margin-right:auto; }
+    .xp-wolt-art{ width:min(86%, 340px); }
+    .xp-chip.c1{ left:-8%; } .xp-chip.c2{ right:-8%; }
+  }
+
+  /* Wolt blue rolls back into white with a second wave */
+  .xp-wave-out{ position:absolute; left:0; right:0; bottom:-1px; height:clamp(70px, 9vw, 120px); pointer-events:none; overflow:hidden; }
+  .xp-wave-out svg{ position:absolute; bottom:0; left:0; width:200%; height:100%; }
+  .xp-wave-out .w1{ animation:xpWave 16s linear infinite reverse; opacity:.5; }
+  .xp-wave-out .w2{ animation:xpWave 11s linear infinite; }
+
+  /* =================== FOOD AMIGOS — online order & pickup =================== */
+  .xp-amigos{ position:relative; isolation:isolate; background:#fff; padding:90px 0 100px; }
+  .xp-amigos-grid{ display:grid; grid-template-columns:1fr 1.05fr; gap:60px; align-items:center; }
+  .fa-logo{
+    display:inline-flex; flex-direction:column; line-height:.92; padding:10px 18px 12px; border-radius:10px;
+    background:var(--amigo); color:#fff; font-family:var(--body); font-weight:800; font-style:italic;
+    font-size:clamp(28px, 3.4vw, 40px); letter-spacing:-.02em; transform:skewX(-8deg);
+    box-shadow:0 18px 34px -18px rgba(47,154,88,.8);
+  }
+  .fa-logo span:last-child{ padding-left:.5em; }
+  .xp-amigos .eyebrow{ color:var(--amigo-deep); margin-top:26px; }
+  .xp-amigos .eyebrow::before{ background:var(--amigo-deep); }
+  .xp-amigos h2{ font-size:clamp(32px, 4.2vw, 50px); line-height:1.05; margin-top:14px; }
+  .xp-amigos p{ color:var(--p-800); font-size:16px; line-height:1.65; margin-top:16px; max-width:470px; }
+  .btn-amigo{ background:var(--amigo); color:var(--amigo-ink); margin-top:28px; box-shadow:0 16px 30px -14px rgba(47,154,88,.75); }
+  .btn-amigo:hover{ background:var(--amigo-deep); color:#fff; transform:translateY(-2px); }
+  .fa-card{
+    position:relative; border-radius:28px; padding:34px 30px; background:var(--amigo-ink); color:#fff;
+    box-shadow:0 2px 6px rgba(24,31,31,.12), 0 40px 70px -34px rgba(24,31,31,.7);
+  }
+  .fa-card::after{
+    content:''; position:absolute; right:-14px; top:-14px; width:84px; height:84px; border-radius:50%;
+    background:var(--amigo); z-index:-1;
+  }
+  .fa-card h3{ color:#fff; font-size:22px; }
+  .fa-steps{ list-style:none; margin:22px 0 0; padding:0; display:flex; flex-direction:column; gap:12px; }
+  .fa-steps li{
+    display:flex; align-items:center; gap:16px; padding:16px 18px; border-radius:16px;
+    background:rgba(255,255,255,.06); box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .fa-steps b{
+    flex:0 0 auto; width:40px; height:40px; border-radius:50%; display:grid; place-items:center;
+    background:var(--amigo); color:var(--amigo-ink); font-family:var(--display); font-size:18px;
+  }
+  .fa-steps strong{ display:block; font-size:15.5px; }
+  .fa-steps small{ display:block; color:rgba(255,255,255,.65); font-size:13px; margin-top:2px; }
+  .fa-card .fa-foot{ margin-top:20px; font-size:12.5px; color:rgba(255,255,255,.55); display:flex; align-items:center; gap:8px; }
+  .fa-card .fa-foot b{ color:var(--amigo); font-style:italic; }
+  @media (max-width:860px){
+    .xp-amigos{ padding:64px 0 72px; }
+    .xp-amigos-grid{ grid-template-columns:1fr; gap:44px; }
+  }
 
   .info-band{ position:relative; overflow:hidden; background:linear-gradient(135deg, var(--g-700), var(--g-900)); }
-  .info-band::after{
-    content:''; position:absolute; width:140px; aspect-ratio:3/5; right:4%; top:-30px; pointer-events:none;
-    background:url(assets/leaf.svg) center/contain no-repeat; opacity:.3; transform:rotate(30deg);
-  }
   .info-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:30px; text-align:center; padding-top:60px; padding-bottom:60px; position:relative; z-index:1; }
   .info-grid h4{ color:var(--g-300); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase; font-family:var(--body); font-weight:700; }
   .info-grid p{ color:#fff; font-family:var(--display); font-size:22px; margin-top:10px; }
   .info-grid a{ color:#fff; }
   @media (max-width:700px){ .info-grid{ grid-template-columns:1fr; gap:26px; } }
-  @media (prefers-reduced-motion: reduce){ .exp-copy h1, .exp-badge{ animation:none; } }
+
+  @media (prefers-reduced-motion: reduce){
+    .xp-hero, .xp-sticker svg, .xp-wave .w1, .xp-wave .w2, .xp-wave .w3, .xp-wave-out .w1, .xp-wave-out .w2{ animation:none; }
+    .xp-corner{ transition:none; }
+  }
+
+  /* =================== "only Oberursel & Königstein" popup + sticky note =================== */
+  .xp-modal{
+    position:fixed; inset:0; z-index:300; display:grid; place-items:center; padding:20px;
+    background:rgba(38,8,24,.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    opacity:0; visibility:hidden; transition:opacity .35s ease, visibility 0s linear .35s;
+  }
+  .xp-modal.is-open{ opacity:1; visibility:visible; transition:opacity .35s ease; }
+  .xp-modal-card{
+    position:relative; width:min(100%, 440px); border-radius:28px; overflow:hidden; text-align:center;
+    background:#fff; color:var(--ink);
+    box-shadow:0 2px 6px rgba(23,5,14,.2), 0 40px 80px -30px rgba(23,5,14,.7);
+    transform:translateY(24px) scale(.96); transition:transform .45s cubic-bezier(.16,1,.3,1);
+  }
+  .xp-modal.is-open .xp-modal-card{ transform:none; }
+  .xp-modal-top{ background:var(--purple-flow); background-size:300% 300%; padding:30px 24px 26px; }
+  .xp-modal-top img{ width:92px; height:auto; display:block; margin:0 auto; filter:drop-shadow(0 10px 18px rgba(23,5,14,.45)); }
+  .xp-modal-top .eyebrow{ color:#fff; justify-content:center; margin-top:16px; }
+  .xp-modal-top .eyebrow::before{ background:#fff; }
+  .xp-modal-top h2{ color:#fff; font-size:clamp(26px, 6vw, 32px); line-height:1.1; margin-top:10px; }
+  .xp-modal-body{ padding:22px 24px 26px; }
+  .xp-modal-body p{ font-size:15px; line-height:1.6; color:var(--p-800); }
+  .xp-places{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px; text-align:left; }
+  .xp-places a{
+    display:block; padding:14px 14px 13px; border-radius:16px; background:var(--p-25);
+    box-shadow:inset 0 0 0 1.5px var(--p-100); transition:box-shadow .25s, transform .25s var(--ease);
+  }
+  .xp-places a:hover{ box-shadow:inset 0 0 0 1.5px var(--p-400); transform:translateY(-2px); }
+  .xp-places b{ display:flex; align-items:center; gap:6px; font-family:var(--display); font-size:17px; font-weight:600; color:var(--p-400); }
+  .xp-places small{ display:block; font-size:12.5px; color:var(--p-700); margin-top:4px; line-height:1.4; }
+  .xp-modal-body .btn{ margin-top:20px; width:100%; justify-content:center; }
+  .xp-modal-x{
+    position:absolute; top:12px; right:12px; width:38px; height:38px; border-radius:50%; border:none;
+    display:grid; place-items:center; background:rgba(255,255,255,.18); color:#fff; transition:background .25s;
+  }
+  .xp-modal-x:hover{ background:rgba(255,255,255,.32); }
+  @media (max-width:420px){ .xp-places{ grid-template-columns:1fr; } }
+
+  .xp-note{
+    position:fixed; z-index:90; left:50%; bottom:max(16px, env(safe-area-inset-bottom));
+    display:flex; align-items:center; gap:10px; max-width:calc(100vw - 24px);
+    padding:8px 8px 8px 14px; border-radius:999px; border:none; cursor:pointer; text-align:left;
+    background:var(--p-400); color:#fff; font:600 13.5px/1.25 var(--body); white-space:nowrap;
+    box-shadow:0 0 0 3px rgba(255,255,255,.9), 0 18px 34px -14px rgba(38,8,24,.7);
+    transform:translate(-50%, 140%); opacity:0; transition:transform .5s cubic-bezier(.16,1,.3,1), opacity .3s ease;
+  }
+  .xp-note.is-on{ transform:translate(-50%, 0); opacity:1; }
+  .xp-note:hover{ background:var(--p-500); }
+  .xp-note b{ font-weight:800; }
+  .xp-note .pin{ flex:0 0 auto; display:grid; place-items:center; }
+  .xp-note .i{
+    flex:0 0 auto; width:26px; height:26px; border-radius:50%; display:grid; place-items:center;
+    background:rgba(255,255,255,.2); font:800 13px/1 var(--display);
+  }
+  @media (max-width:420px){ .xp-note{ font-size:12.5px; padding:7px 7px 7px 12px; gap:8px; } }
+  @media (prefers-reduced-motion: reduce){ .xp-modal, .xp-modal-card, .xp-note{ transition:none; } }
+
+  /* big "only in Oberursel & Königstein" banner in the hero */
+  .xp-only{
+    display:inline-flex; align-items:center; gap:16px; margin:26px auto 0; padding:14px 26px 14px 14px;
+    border-radius:999px; background:#fff; color:var(--p-400); text-align:left;
+    box-shadow:0 2px 6px rgba(23,5,14,.16), 0 24px 44px -18px rgba(23,5,14,.6), 0 0 0 6px rgba(255,255,255,.18);
+  }
+  .xp-only-pin{
+    flex:0 0 auto; width:52px; height:52px; border-radius:50%; display:grid; place-items:center;
+    background:var(--p-400); color:#fff;
+  }
+  .xp-only-txt{ font-family:var(--display); font-weight:600; font-size:clamp(21px, 2.6vw, 30px); line-height:1.1; color:var(--p-800); }
+  .xp-only-txt small{
+    display:block; font-family:var(--body); font-weight:800; font-size:11.5px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--p-400); margin-bottom:4px;
+  }
+  .xp-only-txt a{ color:var(--p-400); border-bottom:2px solid var(--p-100); transition:border-color .25s; }
+  .xp-only-txt a:hover{ border-color:var(--p-400); }
+  @media (max-width:480px){
+    .xp-only{ gap:12px; padding:12px 20px 12px 12px; border-radius:24px; }
+    .xp-only-pin{ width:42px; height:42px; }
+    .xp-only-2{ display:block; }
+  }
 </style>
 </head>
 <body>
 
-<div id="curtain"><div id="curtain-fill"><img src="assets/logo.svg" alt=""></div></div>
+<div id="curtain"><div id="curtain-fill"><img src="assets/logo.svg?v=2" alt=""></div></div>
 <script>
 (function(){
   var dir = sessionStorage.getItem('mt_nav_dir');
@@ -87,13 +284,13 @@
 <div id="splash">
   <div id="splash-orb"></div>
   <div id="splash-ring"></div>
-  <img id="splash-logo" src="assets/logo.svg" alt="MY THAI">
+  <img id="splash-logo" src="assets/logo.svg?v=2" alt="MY THAI">
 </div>
 
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><img src="assets/logo.svg" alt="MY THAI"></a>
+    <a href="index.html" class="nav-logo"><img src="assets/logo.svg?v=2" alt="MY THAI"></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="menu.html"><span class="pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v7M4 2v3a2 2 0 0 0 4 0V2M6 11v11"/><path d="M17 2c1.5 3 1.5 6-.5 8L15 11v11"/></svg></span><span class="pill-label">speisekarte</span></a></li>
       <li><a href="standorte.html"><span class="pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s7-7.58 7-12A7 7 0 0 0 5 10c0 4.42 7 12 7 12Z"/><circle cx="12" cy="10" r="2.4"/></svg></span><span class="pill-label">standorte</span></a></li>
@@ -105,50 +302,94 @@
   </div>
 </nav>
 
-<header class="exp-hero pink-flow">
-  <div class="grain" aria-hidden="true"></div>
-  <div class="wrap exp-grid">
-    <div class="exp-copy">
-      <p class="eyebrow">neu · am bahnhof oberursel</p>
-      <h1>my thai<br>express.</h1>
-      <p>Original Thai Food, in Minuten fertig. Zum Mitnehmen oder schnell zwischendurch — direkt am Bahnhof Oberursel.</p>
-      <div class="exp-cta">
-        <a href="tel:+496171971866" class="btn btn-solid">06171 97 18 66</a>
-        <a href="menu.html" class="btn btn-glass glass">speisekarte</a>
-      </div>
+<header class="xp-hero" id="xpHero">
+  <div class="xp-corner" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="xp-badge">
+      <img src="assets/express-logo.png?v=1" alt="my thai express" width="720" height="714">
     </div>
-    <div class="exp-photo-wrap">
-      <div class="exp-photo">
-        <img src="https://images.squarespace-cdn.com/content/v1/694ebb8378ca1f0f06950dd6/cc129c66-d98a-4760-aeec-86a2fa501114/1+%2864%29.jpg?format=1000w" alt="Frisch gewoktes Thai-Gericht">
-      </div>
-      <span class="leaf" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
-      <div class="exp-badge glass">
-        <span class="exp-badge-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span>
-        <span><b>in Minuten fertig</b><small>zum Mitnehmen</small></span>
-      </div>
+
+    <p class="eyebrow">neu in oberursel</p>
+    <h1>My Thai<br>Express</h1>
+    <div class="xp-only" role="note">
+      <span class="xp-only-pin" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s7-7.58 7-12A7 7 0 0 0 5 10c0 4.42 7 12 7 12Z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
+      <span class="xp-only-txt"><small>wichtig</small>Nur in <a href="standorte.html#oberursel">Oberursel</a> <span class="xp-only-2">&amp; <a href="standorte.html#koenigstein">Königstein</a></span></span>
     </div>
+    <p class="xp-lead">Euer Essen für Oberursel ganz einfach online bestellen und direkt bezahlen – danach holt ihr es nur noch im Restaurant ab. Kein Warten, kein Aufwand.</p>
+
+    <ol class="xp-steps">
+      <li><span>1</span>Online bestellen</li>
+      <li><span>2</span>Online bezahlen</li>
+      <li><span>3</span>Im Laden abholen</li>
+    </ol>
+
+    <div class="xp-cta">
+      <!-- TODO: Food Amigos shop link -->
+      <a href="#bestellen" class="btn btn-white">Jetzt online bestellen</a>
+      <span class="via">über <b>Food Amigos</b></span>
+      <a href="#wolt" class="alt">oder liefern lassen mit Wolt ↓</a>
+    </div>
+  </div>
+
+  <a class="xp-sticker" href="#wolt" aria-label="Jetzt auch auf Wolt">
+    <svg viewBox="0 0 140 140" aria-hidden="true">
+      <defs><path id="xpStick" d="M70,70 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"/></defs>
+      <text><textPath href="#xpStick" textLength="320" lengthAdjust="spacing">jetzt auch auf · jetzt auch auf ·</textPath></text>
+    </svg>
+    <b>Wolt</b>
+  </a>
+
+  <div class="xp-wave" aria-hidden="true">
+    <svg class="w1" viewBox="0 0 2880 170" preserveAspectRatio="none"><path fill="#6A3A9E" d="M0,70 C240,10 480,10 720,70 C960,130 1200,130 1440,70 C1680,10 1920,10 2160,70 C2400,130 2640,130 2880,70 L2880,170 L0,170 Z"/></svg>
+    <svg class="w2" viewBox="0 0 2880 170" preserveAspectRatio="none"><path fill="#2F6FC4" d="M0,100 C240,50 480,40 720,95 C960,150 1200,150 1440,100 C1680,50 1920,40 2160,95 C2400,150 2640,150 2880,100 L2880,170 L0,170 Z"/></svg>
+    <svg class="w3" viewBox="0 0 2880 170" preserveAspectRatio="none"><path fill="#009DE0" d="M0,125 C240,90 480,85 720,120 C960,155 1200,160 1440,125 C1680,90 1920,85 2160,120 C2400,155 2640,160 2880,125 L2880,170 L0,170 Z"/></svg>
   </div>
 </header>
 
-<section class="section feat-section">
-  <div class="wrap">
-    <p class="eyebrow" style="text-align:center;display:flex;justify-content:center">der express-gedanke</p>
-    <div class="feat-grid" style="margin-top:36px">
-      <div class="feat glass">
-        <span class="feat-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 3 14h8l-1 8 10-12h-8l1-8Z"/></svg></span>
-        <h3>Schnell</h3>
-        <p>Frisch gebraten, in wenigen Minuten fertig — perfekt für die Mittagspause am Bahnhof.</p>
-      </div>
-      <div class="feat glass">
-        <span class="feat-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2c-4 3-6 6-6 10a6 6 0 0 0 12 0c0-4-2-7-6-10Z"/></svg></span>
-        <h3>Original Thai</h3>
-        <p>Gleiche Küche, gleiche Rezepte wie in allen MY THAI Restaurants — nur schneller serviert.</p>
-      </div>
-      <div class="feat glass">
-        <span class="feat-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg></span>
-        <h3>Am Bahnhof</h3>
-        <p>Feldbergstr. 1, direkt am Bahnhof Oberursel — auf dem Weg zur Arbeit oder nach Hause.</p>
-      </div>
+<section class="xp-wolt" id="wolt">
+  <div class="wrap xp-wolt-grid">
+    <div>
+      <!-- TODO: swap for the official Wolt logo file -->
+      <span class="wolt-logo" aria-label="Wolt">Wolt</span>
+      <p class="eyebrow" style="margin-top:22px">jetzt auch auf wolt</p>
+      <h2>Lieber liefern<br>lassen?</h2>
+      <p>MY THAI Express gibt's auch auf Wolt. Wir kochen frisch auf offener Flamme – Wolt bringt's zu euch nach Hause oder ins Büro.</p>
+      <!-- TODO: Wolt restaurant link -->
+      <a href="#" class="btn btn-wolt">auf Wolt bestellen →</a>
+    </div>
+    <div class="xp-wolt-art" aria-hidden="true">
+      <span class="ring"></span><span class="ring r2"></span>
+      <span class="plate"><img src="assets/photos/hell-13.jpg" alt=""></span>
+      <span class="xp-chip c1"><i><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M9 17h6l-2-7h-3M13 10h4l1 4M5 10h4"/></svg></i>Lieferung mit Wolt</span>
+      <span class="xp-chip c2"><i><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2c-4 3-6 6-6 10a6 6 0 0 0 12 0c0-4-2-7-6-10Z"/></svg></i>frisch aus dem Wok</span>
+    </div>
+  </div>
+  <div class="xp-wave-out" aria-hidden="true">
+    <svg class="w1" viewBox="0 0 2880 120" preserveAspectRatio="none"><path fill="#BFE7F7" d="M0,55 C240,10 480,10 720,55 C960,100 1200,100 1440,55 C1680,10 1920,10 2160,55 C2400,100 2640,100 2880,55 L2880,120 L0,120 Z"/></svg>
+    <svg class="w2" viewBox="0 0 2880 120" preserveAspectRatio="none"><path fill="#ffffff" d="M0,80 C240,45 480,40 720,78 C960,115 1200,118 1440,80 C1680,45 1920,40 2160,78 C2400,115 2640,118 2880,80 L2880,120 L0,120 Z"/></svg>
+  </div>
+</section>
+
+<section class="xp-amigos" id="bestellen">
+  <div class="wrap xp-amigos-grid">
+    <div>
+      <!-- TODO: swap for the official Food Amigos logo file -->
+      <span class="fa-logo" aria-label="Food Amigos"><span>Food</span><span>Amigos</span></span>
+      <p class="eyebrow">online bestellen &amp; abholen</p>
+      <h2>Bestellen, bezahlen,<br>abholen.</h2>
+      <p>Unser Online-Shop läuft über Food Amigos: Gerichte aussuchen, direkt online bezahlen und im Restaurant in Oberursel abholen – ohne Warteschlange.</p>
+      <!-- TODO: Food Amigos shop link -->
+      <a href="#" class="btn btn-amigo">zum online-shop →</a>
+    </div>
+    <div class="fa-card">
+      <h3>So einfach geht's</h3>
+      <ol class="fa-steps">
+        <li><b>1</b><span><strong>Online bestellen</strong><small>Gerichte aus der Speisekarte wählen</small></span></li>
+        <li><b>2</b><span><strong>Online bezahlen</strong><small>direkt im Shop, ganz ohne Bargeld</small></span></li>
+        <li><b>3</b><span><strong>Im Laden abholen</strong><small>Feldbergstr. 1, Oberursel</small></span></li>
+      </ol>
+      <p class="fa-foot">Online-Shop powered by <b>Food Amigos</b></p>
     </div>
   </div>
 </section>
@@ -165,7 +406,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <a href="index.html" class="footer-logo"><img src="assets/logo.svg" alt="MY THAI"></a>
+        <a href="index.html" class="footer-logo"><img src="assets/logo.svg?v=2" alt="MY THAI"></a>
         <p class="footer-tag">Original Thai Food auf offener Flamme — seit über 26 Jahren in eurer Nachbarschaft.</p>
         <div class="footer-social">
           <a href="https://www.instagram.com/mythai_de/" target="_blank" rel="noopener" aria-label="Instagram">
@@ -204,6 +445,100 @@
   </div>
 </footer>
 
-<script src="assets/main.js?v=6"></script>
+<!-- popup: MY THAI Express only runs in Oberursel & Königstein -->
+<div class="xp-modal" id="xpModal" role="dialog" aria-modal="true" aria-labelledby="xpModalTitle" aria-describedby="xpModalText" hidden>
+  <div class="xp-modal-card">
+    <button class="xp-modal-x" type="button" aria-label="Schließen" data-close>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="xp-modal-top">
+      <img src="assets/express-logo.png?v=1" alt="my thai express">
+      <p class="eyebrow">wichtig</p>
+      <h2 id="xpModalTitle">Nur in Oberursel<br>&amp; Königstein</h2>
+    </div>
+    <div class="xp-modal-body">
+      <p id="xpModalText">MY THAI Express – online bestellen, bezahlen und abholen – gibt es <strong>nur</strong> an diesen zwei Standorten:</p>
+      <div class="xp-places">
+        <a href="standorte.html#oberursel"><b><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s7-7.58 7-12A7 7 0 0 0 5 10c0 4.42 7 12 7 12Z"/><circle cx="12" cy="10" r="2.4"/></svg>Oberursel</b><small>Feldbergstr. 1 (am Bahnhof)</small></a>
+        <a href="standorte.html#koenigstein"><b><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s7-7.58 7-12A7 7 0 0 0 5 10c0 4.42 7 12 7 12Z"/><circle cx="12" cy="10" r="2.4"/></svg>Königstein</b><small>Falkensteinerstr. 2</small></a>
+      </div>
+      <button class="btn btn-solid" type="button" data-close>verstanden</button>
+    </div>
+  </div>
+</div>
+
+<!-- after closing: a small sticky reminder, tap it to see the popup again -->
+<button class="xp-note" id="xpNote" type="button" aria-haspopup="dialog" aria-controls="xpModal" hidden>
+  <span class="pin"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s7-7.58 7-12A7 7 0 0 0 5 10c0 4.42 7 12 7 12Z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
+  <span>Express nur in <b>Oberursel &amp; Königstein</b></span>
+  <span class="i" aria-hidden="true">i</span>
+</button>
+
+<script src="assets/main.js?v=8"></script>
+<script>
+/* the Wolt corner swells while you scroll down through the hero */
+(function(){
+  const hero = document.getElementById('xpHero');
+  if (!hero || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let raf = 0;
+  const tick = () => {
+    raf = 0;
+    const p = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / (hero.offsetHeight * .7)));
+    hero.style.setProperty('--p', p.toFixed(3));
+  };
+  window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(tick); }, { passive:true });
+  tick();
+})();
+</script>
+<script>
+/* popup on every visit (once the splash is gone); closing it leaves the sticky note */
+(function(){
+  const modal = document.getElementById('xpModal');
+  const note = document.getElementById('xpNote');
+  if (!modal || !note) return;
+  const root = document.documentElement;
+  let lastFocus = null;
+  function open(){
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    requestAnimationFrame(() => modal.classList.add('is-open'));
+    note.classList.remove('is-on');
+    root.style.overflow = 'hidden';
+    setTimeout(() => modal.querySelector('.btn').focus({ preventScroll:true }), 60);
+  }
+  function close(){
+    modal.classList.remove('is-open');
+    root.style.overflow = '';
+    setTimeout(() => { modal.hidden = true; }, 360);
+    note.hidden = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => note.classList.add('is-on')));
+    (lastFocus && lastFocus !== document.body ? lastFocus : note).focus({ preventScroll:true });
+  }
+  modal.addEventListener('click', (e) => { if (e.target === modal || e.target.closest('[data-close]')) close(); });
+  document.addEventListener('keydown', (e) => {
+    if (modal.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'Tab'){            // keep keyboard focus inside the popup
+      const f = [...modal.querySelectorAll('button, a')];
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+  });
+  note.addEventListener('click', open);
+
+  // wait for the intro splash / page curtain to finish
+  const splash = document.getElementById('splash');
+  let done = false;
+  const go = () => { if (!done){ done = true; setTimeout(open, 350); } };
+  if (!splash || getComputedStyle(splash).display === 'none') go();
+  else {
+    new MutationObserver(() => {
+      if (!document.body.contains(splash) || splash.classList.contains('hide') || splash.style.display === 'none') go();
+    }).observe(document.body, { subtree:true, childList:true, attributes:true, attributeFilter:['class','style'] });
+    setTimeout(go, 2600);
+  }
+})();
+</script>
 </body>
 </html>

@@ -5,10 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jobs — MY THAI</title>
 <meta name="description" content="Werde Teil des MY THAI Teams — 6 Standorte, ein Team.">
-<link rel="stylesheet" href="assets/style.css?v=8">
+<link rel="stylesheet" href="assets/style.css?v=11">
 <style>
-  .jobs-section{ background:linear-gradient(180deg, #f7b6d4 0%, #fcd9ea 100%); position:relative; overflow:hidden; }
-  .jobs-section .leaf.j1{ width:90px; right:4%; bottom:6%; transform:rotate(150deg); }
+  .jobs-section{ background:linear-gradient(180deg, #ffffff 0%, var(--p-25) 100%); position:relative; overflow:hidden; }
   .jobs-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:60px; align-items:start; position:relative; z-index:1; }
   .jobs-copy p{ color:var(--p-800); font-size:16px; line-height:1.7; margin-top:18px; max-width:440px; }
   .role-list{ margin-top:30px; display:flex; flex-direction:column; gap:12px; }
@@ -27,12 +26,8 @@
   .role a:hover{ background:var(--g-900); }
   .apply-card{
     position:sticky; top:120px; overflow:hidden; border-radius:26px; padding:40px 34px;
-    background:linear-gradient(150deg, #ff4fa3 0%, var(--p-400) 45%, var(--p-600) 100%);
+    background:linear-gradient(150deg, var(--p-300) 0%, var(--p-400) 45%, var(--p-600) 100%);
     box-shadow:0 34px 70px -30px rgba(99,17,63,.65);
-  }
-  .apply-card::after{
-    content:''; position:absolute; width:120px; aspect-ratio:3/5; right:-20px; bottom:-30px; pointer-events:none;
-    background:url(assets/leaf.svg) center/contain no-repeat; opacity:.55; transform:rotate(-30deg);
   }
   .apply-card > *{ position:relative; z-index:1; }
   .apply-card p.eyebrow{ color:var(--g-100); } .apply-card p.eyebrow::before{ background:var(--g-100); }
@@ -44,7 +39,7 @@
 </head>
 <body>
 
-<div id="curtain"><div id="curtain-fill"><img src="assets/logo.svg" alt=""></div></div>
+<div id="curtain"><div id="curtain-fill"><img src="assets/logo.svg?v=2" alt=""></div></div>
 <script>
 (function(){
   var dir = sessionStorage.getItem('mt_nav_dir');
@@ -61,13 +56,13 @@
 <div id="splash">
   <div id="splash-orb"></div>
   <div id="splash-ring"></div>
-  <img id="splash-logo" src="assets/logo.svg" alt="MY THAI">
+  <img id="splash-logo" src="assets/logo.svg?v=2" alt="MY THAI">
 </div>
 
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><img src="assets/logo.svg" alt="MY THAI"></a>
+    <a href="index.html" class="nav-logo"><img src="assets/logo.svg?v=2" alt="MY THAI"></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="menu.html"><span class="pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v7M4 2v3a2 2 0 0 0 4 0V2M6 11v11"/><path d="M17 2c1.5 3 1.5 6-.5 8L15 11v11"/></svg></span><span class="pill-label">speisekarte</span></a></li>
       <li><a href="standorte.html"><span class="pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s7-7.58 7-12A7 7 0 0 0 5 10c0 4.42 7 12 7 12Z"/><circle cx="12" cy="10" r="2.4"/></svg></span><span class="pill-label">standorte</span></a></li>
@@ -88,7 +83,6 @@
 </header>
 
 <section class="section jobs-section">
-  <span class="leaf j1" aria-hidden="true"><img src="assets/leaf.svg" alt=""></span>
   <div class="wrap jobs-grid">
     <div class="jobs-copy">
       <p class="eyebrow">warum my thai</p>
@@ -115,7 +109,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <a href="index.html" class="footer-logo"><img src="assets/logo.svg" alt="MY THAI"></a>
+        <a href="index.html" class="footer-logo"><img src="assets/logo.svg?v=2" alt="MY THAI"></a>
         <p class="footer-tag">Original Thai Food auf offener Flamme — seit über 26 Jahren in eurer Nachbarschaft.</p>
         <div class="footer-social">
           <a href="https://www.instagram.com/mythai_de/" target="_blank" rel="noopener" aria-label="Instagram">
@@ -154,6 +148,6 @@
   </div>
 </footer>
 
-<script src="assets/main.js?v=6"></script>
+<script src="assets/main.js?v=8"></script>
 </body>
 </html>
